@@ -398,10 +398,5 @@ compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch 
 autoload bashcompinit && bashcompinit
 include_all ~/.zsh/bash_completion
 
-# include functions and aliases
-include_all ~/.shfunctions/
-include ~/.zaliases
-include ~/.zaliases.local
-
 # local settings
 include ~/.zshrc.local

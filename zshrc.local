@@ -1,5 +1,20 @@
 # plugins
-include_all ~/.zsh/plugins/
+include_all ~/.zsh/plugins
+
+# check if there's no init script
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    # plugins
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+    zgen load Tarrasch/zsh-bd
+    zgen load rupa/z
+    zgen load dottr/dottr
+
+    # save all to init script
+    zgen save
+fi
 
 # use dottr
 fry completion
@@ -21,3 +36,8 @@ bind2maps emacs viins vicmd -- -s '^[r' history-incremental-pattern-search-backw
 # ctrl-up and ctrl-down for substring search
 bind2maps emacs viins vicmd -- -s '^[[1;5A' history-substring-search-up
 bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down
+
+# include functions and aliases
+include_all ~/.shfunctions/
+include ~/.zaliases
+include ~/.zaliases.local
