@@ -1,0 +1,157 @@
+" init
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+
+" multiple cursors like sublime
+Plugin 'terryma/vim-multiple-cursors.git'
+
+" replacement for f/t and 2-char sneak
+Plugin 'justinmk/vim-sneak'
+
+" edit pgp file
+Plugin 'jamessan/vim-gnupg.git'
+
+" undotree
+Plugin 'mbbill/undotree'
+
+" as-you-type completion system
+" compile:
+"   cd ~/.vim/bundle/youcompleteme/
+"   ./install.sh --clang-completer
+Plugin 'valloric/youcompleteme'
+
+" show syntax/style errors
+Plugin 'scrooloose/syntastic'
+
+" snippets ftw!
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+" autoformat code with gq
+Plugin 'Chiel92/vim-autoformat'
+
+" tool for (un-)commenting lines, detects current language
+Plugin 'tpope/vim-commentary'
+
+" automatically insert 'end' after 'begin' whenhitting enter
+Plugin 'tpope/vim-endwise'
+
+" motion to the next uppercase letter or _
+Plugin 'camelcasemotion'
+
+" switch between source and header file (.c / .h)
+Plugin 'vim-scripts/a.vim.git'
+
+" git helper commands and branch info in status line
+Plugin 'tpope/vim-fugitive.git'
+
+" visualize git changes in vim
+Plugin 'airblade/vim-gitgutter'
+
+" automatic tag generation for edited files (slow, but very handy)
+Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
+
+" shows ctags from all open buffers in a separate window
+Plugin 'majutsushi/tagbar'
+
+" Latex
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+
+" javascript
+"Plugin 'marijnh/tern_for_vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'burnettk/vim-angular'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'matthewsimo/angular-vim-snippets'
+
+" scala
+Plugin 'spiroid/vim-ultisnip-scala'
+Plugin 'derekwyatt/vim-scala'
+
+" ruby
+Plugin 'vim-ruby/vim-ruby'
+
+" rails integration
+Plugin 'tpope/vim-rails'
+
+" bundle integration: edit Gemfile (:Bopen), syntax highlighting in Gemfile
+" (vundle and bundle both use the command :bundle, vundle wins...)
+" 'path' and 'tags' are automatically altered to include all gems from
+" your bundle. (Generate those tags with gem-ctags!)
+Plugin 'tpope/vim-bundler'
+
+" pry integration: ,bp breakpoint and ,ph paste pry history
+Plugin 'pry'
+
+" rdoc integration: K word under cursor and ,r/,R/,K lookup with autocomplete
+Plugin 'danchoi/ri.vim'
+
+" i3 config syntax
+Plugin 'PotatoesMaster/i3-vim-syntax'
+
+" vim projectroot
+Plugin 'airblade/vim-rooter'
+
+" text objects
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-indent' " ai, ii
+Plugin 'rhysd/vim-textobj-anyblock' " ab, ib
+Plugin 'thinca/vim-textobj-between' " af<char>, if<char>
+Plugin 'coderifous/textobj-word-column.vim' " ac, ic
+Plugin 'vim-scripts/argtextobj.vim' " aa, ia
+Plugin 'kana/vim-textobj-entire' " ae, ie
+
+" language pack
+Plugin 'sheerun/vim-polyglot'
+
+" shell commands in vim
+Plugin 'tpope/vim-eunuch'
+
+" increment/decrement dates with c-x/c-a
+Plugin 'tpope/vim-speeddating'
+
+" change/add (master) surroundings
+Plugin 'tpope/vim-surround.git'
+
+" drag visuals
+Plugin 'zirrostig/vim-schlepp'
+
+" align text
+Plugin 'godlygeek/tabular'
+
+" file browser
+Plugin 'scrooloose/nerdtree'
+
+" start screen
+Plugin 'mhinz/vim-startify'
+
+" status bar
+Plugin 'bling/vim-airline'
+
+" spelling error in quickfix window
+Plugin 'vim-scripts/SpellCheck'
+Plugin 'ingo-library'
+
+" on-the-fly correction of misspelled words: start manually with 'call AutoCorrect()'
+Plugin 'panozzaj/vim-autocorrect'
+
+" close all but the current buffer with :Bonly
+Plugin 'vim-scripts/BufOnly.vim'
+
+" cmdline complete: autocomplete search patterns with c-p/c-n
+Plugin 'CmdlineComplete'
+
+" fuzzy finder
+Plugin 'kien/ctrlp.vim'
+
+" repeat plugin motions with .
+Plugin 'tpope/vim-repeat'
+
+" indexed search (show index and total number of matches)
+Plugin 'henrik/vim-indexed-search'
+
+" finished
+call vundle#end()

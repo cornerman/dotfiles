@@ -1,0 +1,20 @@
+# gapless audio play
+gapless-audio
+
+# skip displaying some frames to maintain A/V sync on slow systems
+framedrop=yes
+
+# disable screensaver
+stop-screensaver="yes"
+
+# try to use high quality opengl output, with standard opengl, classic xv, and wayland as fallbacks
+# note: opengl has numerous quality/performance trade-off options.
+# as per the mpv(1), "opengl-hq" is just an alias for
+# "opengl:lscale=lanczos2:dither-depth=auto:fbo-format=rgb16"
+vo=opengl-hq,opengl,xv,wayland
+
+# correct pitch when speed is faster or slower than 1.0
+af=scaletempo
+
+# use pulse for audio output, choose alsa, or oss4 as fallback
+ao=pulse,alsa,oss

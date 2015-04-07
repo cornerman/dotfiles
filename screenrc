@@ -1,0 +1,20 @@
+vbell off
+bell_msg '^G'
+
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E38;5;%dm'
+defbce "on"
+startup_message off
+msgwait 1
+
+termcapinfo xterm ti@:te@
+
+autodetach on
+
+startup_message off
+
+defscrollback 99999
+
+caption always "%{wk}%H | %?%-Lw%?%{wb}[%n*%f %t]%?(%u)%?%{wk}%?%+Lw%? %{wk}"
+
+activity              "activity in %n (%t) [%w:%s]~"

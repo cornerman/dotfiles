@@ -1,0 +1,10 @@
+# size adjustment on startup
+set adjust-open width
+
+# keybindings
+map e adjust_window best-fit
+map w adjust_window width
+map d toggle_page_mode 2
+map a navigate previous
+map s navigate next
+

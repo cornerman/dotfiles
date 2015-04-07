@@ -1,0 +1,9 @@
+! remap capslock to escape
+clear lock
+keycode 66 = Escape
+
+! use '<>|' as alt-gr
+keycode 94 = ISO_Level3_Shift
+
+! disable menu key
+keysym Menu = Hyper_L

@@ -1,0 +1,23 @@
+# plugins
+include_all ~/.zsh/plugins/
+
+# use dottr
+fry completion
+fry alias-usage-analysis
+fry cd-git-root
+fry cd-tmp
+fry git-select-commit
+fry interactive-mv
+fry mkdir-cd
+fry ncserve
+fry search-select-edit
+fry smart-cd
+fry vim-open-files-at-lines
+# fry print-expanded-alias
+
+# fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
+bind2maps emacs viins vicmd -- -s '^[r' history-incremental-pattern-search-backward
+
+# ctrl-up and ctrl-down for substring search
+bind2maps emacs viins vicmd -- -s '^[[1;5A' history-substring-search-up
+bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down

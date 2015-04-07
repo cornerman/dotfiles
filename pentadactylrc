@@ -1,0 +1,50 @@
+loadplugins '\.(js|penta)$'
+group user
+
+" settings
+map <space> <Leader>
+set editor='urxvt -e vim'
+set insertmode
+set showtabline=never
+set go=bCrs
+set! browser.tabs.closeWindowWithLastTab=false
+
+" style
+hi -append -link FontFixed Hint
+hi -append -link FontFixed CompItem
+hi -append -link FontFixed CompTitle
+
+" show statusline in fullscreen mode
+au Fullscreen * -javascript ex.set('guioptions+=s')
+
+" default search engine
+set defsearch=startpage
+
+" keybindings
+map -modes=n,v , <C-6>
+map -modes=n,v <Leader>c :emenu<Space>
+map -modes=n,v <Leader>t -ex :tabonly
+map -modes=n,v <Leader>d -ex :downloads
+
+map -modes=n,v <Leader>b -ex :set guioptions!=s
+map -modes=n,v <Leader>n -ex :set showtabline!=always,never
+map -modes=n,v <Leader>m -ex :set guioptions!=m guioptions!=T showtabline!=always,never
+
+map -modes=n,v E :set<Space>nss!=
+map -modes=n,v e :set<Space>noscript-tempsites!=
+
+map -modes=i,n,v <C-c> <Pass>
+map -modes=i,n,v <C-v> <Pass>
+map -modes=i,n,v <C-a> <Pass>
+map -modes=i,n,v <C-x> <Pass>
+map -modes=i,n,v <C-p> <Pass>
+
+map -builtin -modes=n,v k 8k
+map -builtin -modes=n,v j 8j
+map -builtin -modes=n,v H 8h
+map -builtin -modes=n,v L 8l
+
+map -count -modes=n,v h -ex <count>:back
+map -count -modes=n,v l -ex <count>:forward
+map -count -modes=n,v a -ex <count>:tabprevious
+map -count -modes=n,v s -ex <count>:tabnext

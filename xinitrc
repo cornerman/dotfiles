@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# load xdefaults
+xdefaults=~/.Xdefaults
+[ -f $xdefaults ] && xrdb $xdefaults
+
+# set mouse cursor
+xsetroot -cursor_name left_ptr
+
+#Disable screensaver
+xset -dpms
+xset s noblank
+xset s off
+
+# Disable bell
+xset b off
+
+# Set keyboard layout
+setxkbmap -layout us_de -variant basic
+
+# load xmodmap settings
+usermodmap=~/.xmodmaprc
+[ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
+
+#this will keep the clipboard in sync with the primary buffer
+autocutsel -selection CLIPBOARD -fork
+#this will keep the primary in sync with the clipboard buffer
+autocutsel -selection PRIMARY -fork
+
+# create i3 config
+i3config=~/.i3/create_i3_config
+[ -f $i3config ] && $i3config
+
+# start i3
+exec dbus-launch i3 > /dev/null 2>&1
+
+# Enable core dumps in case something goes wrong
+ulimit -c unlimited
+
+# debug i3
+exec i3 -V -d all >~/.i3/i3log-$(date +'%F-%k-%M-%S') 2>&1

@@ -1,0 +1,59 @@
+song_columns_list_format = "(8)[yellow]{l} (25)[white]{a} (25)[cyan]{b} (6)[yellow]{n} (60)[white]{t|f}"
+
+colors_enabled = "yes"
+empty_tag_color = "yellow"
+header_window_color = "white"
+volume_color = "white"
+state_line_color = "cyan"
+state_flags_color = "white"
+main_window_color = "white"
+main_window_highlight_color = "white"
+progressbar_color = "cyan"
+statusbar_color = "cyan"
+alternative_ui_separator_color = "cyan"
+active_column_color = "cyan"
+visualizer_color = "cyan"
+active_window_border = "cyan"
+
+playlist_display_mode = "columns"
+playlist_editor_display_mode = "columns"
+search_engine_display_mode = "columns"
+browser_display_mode = "columns"
+media_library_disable_two_column_mode = "yes"
+
+user_interface = "alternative"
+enable_window_title = "yes"
+statusbar_visibility = "yes"
+titles_visibility = "yes"
+header_visibility = "yes"
+fancy_scrolling = "no"
+display_bitrate = "yes"
+empty_tag_marker = ""
+
+autocenter_mode = "yes"
+centered_cursor = "yes"
+
+screen_switcher_mode = "previous"
+
+startup_screen = "2"
+
+locked_screen_width_part = "40"
+ask_for_locked_screen_width_part = "no";
+
+playlist_separate_albums = "yes"
+playlist_show_remaining_time = "yes"
+playlist_shorten_total_times = "yes"
+jump_to_now_playling_song_at_start = "yes"
+
+ignore_leading_the = "yes"
+media_library_display_date = "no"
+
+default_find_mode = "wrapped"
+
+external_editor = "vim"
+use_console_editor = "yes"
+
+#data_fetching_delay = "no"
+
+# I had to set this to avoid a bug which slows down viewing artist's list (polling/notifications)
+# mpd_communication_mode = "polling"

@@ -1,0 +1,283 @@
+" check spelling
+nmap <F2> :sign unplace *<CR>:setlocal spell! spelllang=en_us<CR>
+nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
+nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
+
+" easytree
+nmap <F5> :NERDTreeToggle<CR>
+
+" undotree
+nmap <F6> :UndotreeToggle<CR>
+
+" taglist
+nmap <F7> :TagbarToggle<cr>
+
+" toggle quickfix window / Shift+F8 for location list
+nmap <F8> :Qtoggle<CR>
+nmap <leader><F8> :Ltoggle<CR>
+
+" autoformat
+nmap <F9> :WsFix<CR>:Autoformat<CR>
+
+" git gutter toggle
+nmap <F10> :GitGutterToggle<CR>
+
+" syntax errors and gitgutter
+nmap <F11> :sign unplace *<CR>:SyntasticToggleMode<CR>:let g:ycm_show_diagnostics_ui = 1 - g:ycm_show_diagnostics_ui<CR>
+
+" toggle youcompleteme
+nmap <F12> :let g:ycm_auto_trigger = 1 - g:ycm_auto_trigger<CR>:echo 'ycm: ' . g:ycm_auto_trigger<CR>
+
+" close all buffers except current
+nmap <leader>Q :BufOnly<CR>
+
+" focus undotree when toggled
+let g:undotree_SetFocusWhenToggle = 1
+
+" switch to project root
+let g:rooter_manual_only = 1
+nmap <silent> <leader><space> :Rooter<CR>
+
+" camelcase word jumping
+map <leader>w <Plug>CamelCaseMotion_w
+map <leader>b <Plug>CamelCaseMotion_b
+map <leader>e <Plug>CamelCaseMotion_e
+
+" vim-sneak
+let g:sneak#use_ic_scs = 1
+let g:sneak#target_labels = "dfghjkl;qwertyuozxvbnm/ADFGHJKL:QWERTYUIOZXCVBNM?"
+let g:sneak#streak = 1
+let g:sneak#s_next = 1
+hi SneakPluginTarget guifg=white guibg=darkgreen ctermfg=white ctermbg=darkgreen
+hi SneakStreakTarget guifg=white guibg=darkblue ctermfg=white ctermbg=darkblue
+hi SneakStreakMask guifg=white guibg=darkgreen ctermfg=white ctermbg=darkgreen
+
+" 2-char sneak
+nmap <leader>f <Plug>Sneak_s
+nmap <leader>F <Plug>Sneak_S
+xmap <leader>f <Plug>Sneak_s
+xmap <leader>F <Plug>Sneak_S
+omap <leader>f <Plug>Sneak_s
+omap <leader>F <Plug>Sneak_S
+" replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+" replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+
+" autocorrect command
+command! AutoCorrect call AutoCorrect()
+
+" drag visuals
+let g:Schlepp#allowSquishingLines = 1
+let g:Schlepp#allowSquishingBlocks = 1
+let g:Schlepp#reindent = 1
+vmap <M-h>  <Plug>SchleppLeft
+vmap <M-l>  <Plug>SchleppRight
+vmap <M-j>  <Plug>SchleppDown
+vmap <M-k>  <Plug>SchleppUp
+nmap <M-j>  <S-v><Plug>SchleppDown
+nmap <M-k>  <S-v><Plug>SchleppUp
+vmap <M-d>  <Plug>SchleppDup
+
+" airline statusline
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='understated'
+
+" disable backslash keybinding of indexed search
+let g:indexed_search_show_index_mappings=0
+
+" Trigger configuration for UtilSnips
+let g:UltiSnipsExpandTrigger="<c-f>"
+let g:UltiSnipsListSnippets="<c-d>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+inoremap <c-b> <NOP>
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="normal"
+
+" syntastic always populate location list + don't check on wq
+let g:syntastic_check_on_open = 0
+let g:syntastic_enable_signs  = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 0
+
+" syntastic use mri + rubocop for ruby code checking
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
+" styntastic java stuff
+let g:syntastic_java_checkers = ['javac', 'checkstyle']
+let g:syntastic_java_checkstyle_classpath = '/usr/share/java/checkstyle-5.7.jar'
+let g:syntastic_java_checkstyle_conf = '/usr/share/checkstyle/sun_checks.xml'
+
+" format java code
+let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+
+" autoformat ruby
+let g:formatprg_ruby = "rbeautify"
+let g:formatprg_args_ruby = "-"
+
+" autoformat javascript
+let g:formatprg_javascript = "js-beautify"
+let g:formatprg_args_javascript = "-"
+
+" rails policy navigation
+command! -complete=file -nargs=1 Epolicy call s:EditPolicy(<f-args>)
+function! s:EditPolicy(name)
+    let name = a:name
+    let len = strlen(name)
+    let bang = stridx(name, "!", len - 1)
+    if bang > 0
+        let name = strpart(name, 0, len - 1)
+    endif
+
+    let fullname = "policies/" . name . "_policy.rb"
+    let file = findfile(fullname, ".;")
+    if file == ""
+        if bang > 0
+            execute "Rails generate pundit:policy " . name
+            let file = findfile(fullname, ".;")
+        else
+            echo 'no such file'
+            return
+        endif
+    endif
+
+    execute "edit " . file
+endfunction
+
+" omnicomplete ruby
+let g:rubycomplete_use_bundler = 1
+let g:rubycomplete_load_gemfile = 1
+
+" tex indents
+let g:tex_indent_items=0
+let g:LatexBox_custom_indent = '/usr/share/vim/vim74/indent/tex.vim'
+
+" latexbox only show quickfix on error (don't autofocus)
+let g:LatexBox_quickfix=4
+
+" gitgutter settings
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
+let g:gitgutter_sign_removed_first_line = '^^'
+let g:gitgutter_sign_modified_removed = '-~'
+nmap <Leader>gs <Plug>GitGutterStageHunk
+nmap <Leader>gr <Plug>GitGutterRevertHunk
+nmap <Leader>gv <Plug>GitGutterPreviewHunk
+nmap <leader>gn <Plug>GitGutterNextHunk
+nmap <leader>gp <Plug>GitGutterPrevHunk
+
+" youcompleteme: auto show completion menu as-you-type
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_confirm_extra_conf = 1
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_seed_identifiers_with_syntax = 0
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<s-tab>', '<F15>']
+let g:ycm_key_invoke_completion = '<C-Space>'
+
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.'],
+            \   'objc' : ['->', '.'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::'],
+            \   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \   'tex'  : ['\ref{', '\cite{'],
+            \ }
+"\   'vim' : [':', '.', '#'],
+
+" easytag, automatic ctags, separate files for filetypes
+let g:easytags_cmd = "/usr/bin/ctags-exuberant"
+let g:easytags_dynamic_files = 1
+let g:easytags_by_filetype = "~/.vim/vimtags/"
+let g:easytags_ignored_filetypes = ''
+let g:easytags_updatetime_min = 30000
+let g:easytags_languages = {
+            \   'zsh': {
+            \     'cmd': g:easytags_cmd,
+            \       'args': ['--fields=+l', '--c-kinds=+p', '--c++-kinds=+p'],
+            \       'fileoutput_opt': '-f',
+            \       'stdout_opt': '-f-',
+            \       'recurse_flag': '-R'
+            \   }
+            \}
+
+" use latex ctags for tagbar
+let g:tagbar_autofocus = 1
+let g:tagbar_type_tex = {
+            \ 'ctagstype' : 'tex',
+            \ 'kinds'     : [
+            \ 'l:labels',
+            \ 's:sections',
+            \ 't:subsections',
+            \ 'u:subsubsections',
+            \ ],
+            \ 'sro'        : '::',
+            \ 'kind2scope' : {
+            \ 'l' : 'label',
+            \ 's' : 'section',
+            \ 't' : 'subsection',
+            \ 'u' : 'subsubsection',
+            \ },
+            \ 'scope2kind' : {
+            \ 'label'          : 'l',
+            \ 'section'        : 's',
+            \ 'subsection'     : 't',
+            \ 'subsubsection'  : 'u',
+            \ }
+            \ }
+
+" ctrlp extensions
+let g:ctrlp_user_command = "ag %s -l --nocolor -g ''"
+nmap <leader>p :CtrlP<CR>
+nmap <leader>[ :CtrlPBuffer<CR>
+nmap <leader>] :CtrlPTag<CR>
+
+" default omnifunc
+set omnifunc=syntaxcomplete#Complete
+
+" filetype defs
+augroup vimrc
+    autocmd!
+augroup END
+
+autocmd vimrc Filetype ruby setlocal omnifunc=rubycomplete#Complete
+autocmd vimrc Filetype ruby syn match Error "binding.pry"
+autocmd vimrc FileType ruby nmap <leader><F9> :!rubocop -a % > /dev/null 2>&1<CR><CR>
+autocmd vimrc FileType ruby setlocal tabstop=2
+autocmd vimrc FileType ruby setlocal shiftwidth=2
+
+autocmd vimrc FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd vimrc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd vimrc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
+autocmd vimrc FileType tex setlocal spell spelllang=en_us

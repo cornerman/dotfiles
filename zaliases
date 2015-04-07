@@ -1,0 +1,55 @@
+alias agu='sudo apt-get update'
+alias agg='sudo apt-get upgrade'
+alias agd='sudo apt-get dist-upgrade'
+alias agi='sudo apt-get install'
+alias agp='sudo apt-get purge'
+alias agr='sudo apt-get remove'
+alias aga='sudo apt-get --purge autoremove'
+alias acs='apt-cache search'
+alias acp='apt-cache policy'
+alias aci='apt-cache show'
+
+alias archive='tar -pczvf'
+
+alias grep='grep --color=auto'
+
+alias g=git
+
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias md='mkdir -p'
+alias l='ls -lF --color=auto'
+alias ls='ls -b -CF --color=auto'
+alias la='ls -la --color=auto'
+alias lh='ls -hAl --color=auto'
+alias ll='ls -l --color=auto'
+
+alias mcp='noglob zmv -C -W'
+alias mln='noglob zmv -L -W'
+alias mmv='noglob zmv -W'
+
+alias ff='find . -name'
+alias f='find . -iname'
+
+alias present_shell='urxvt -fn xft:monospace:pixelsize=30 -fade 0&'
+
+alias spaste='curl -F "sprunge=<-" http://sprunge.us'
+
+alias t=tree
+
+alias watch='watch -d -c'
+
+alias cdg=cd-git-root
+alias cdt=cd-tmp
+alias onstage=git-onstage
+alias sc=git-select-commit
+alias imv=interactive-mv
+alias mkcd=mkdir-cd
+alias vag=search-select-edit
+alias cd=smart-cd
+
+alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
+alias -s {pdf,ps,dvi}='evince'
+alias -s {jpg,jpeg,png}='eog'
+alias -s {tex,c,java,txt,scala}='vim'
+alias -s {html}='x-www-browser'

@@ -1,0 +1,84 @@
+! plugins
+URxvt.perl-ext-common:      default,matcher,url-select,resize-font,keyboard-select
+URxvt.keysym.M-plus:        perl:resize-font:bigger
+URxvt.keysym.M-minus:       perl:resize-font:smaller
+URxvt.keysym.M-equal:       perl:resize-font:reset
+URxvt.keysym.M-question:    perl:resize-font:show
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+!enabling clickable links:
+URxvt.matcher.button:      1
+
+! URxvt scrolling options and cursor style:
+URxvt.saveLines: 2000
+URxvt.scrollstyle:plain
+URxvt.scrollBar: false
+URxvt.cursorBlink: true
+URxvt.secondaryScroll: true
+URxvt.cursorUnderline: false
+
+URxvt.utf8: 1
+URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=14:antialias=true
+
+! first disable Keycap Picture insert mode
+URxvt.iso14755:         false
+URxvt.iso14755_52:      false
+
+URxvt.urgentOnBell:     true
+URxvt.print-pipe:       false
+
+! do not scroll with output
+URxvt.scrollTtyOutput: false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt.scrollWithBuffer: true
+! scroll back to the bottom on keypress
+URxvt.scrollTtyKeypress: true
+
+! remap keys to correspond to xterm sequences (hopefully)
+URxvt.keysym.Control-Up:                 \033[1;5A
+URxvt.keysym.Control-Down:               \033[1;5B
+URxvt.keysym.Control-Left:               \033[1;5D
+URxvt.keysym.Control-Right:              \033[1;5C
+URxvt.keysym.M-Down:                     \033[1;3B
+URxvt.keysym.M-Up:                       \033[1;3A
+URxvt.keysym.M-Left:                     \033[1;3D
+URxvt.keysym.M-Right:                    \033[1;3C
+URxvt.keysym.C-Tab:                      \033{
+URxvt.keysym.Shift-ISO_Left_Tab:         \033}
+URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[Z
+
+! normal and bold colors should be equal
+URxvt*intensityStyles: false
+! cursor
+URxvt*cursorColor: #86a2b0
+URxvt*colorUL: #86a2b0
+! foreground/backround
+URxvt*background: #3F3F3F
+URxvt*foreground: #DCDCCC
+! black
+URxvt*color0  : #2E3436
+URxvt*color8  : #555753
+! red
+URxvt*color1  : #CC0000
+URxvt*color9  : #EF2929
+! green
+URxvt*color2  : #4E9A06
+URxvt*color10 : #8AE234
+! yellow
+URxvt*color3  : #C4A000
+URxvt*color11 : #FCE94F
+! blue
+URxvt*color4  : #3465A4
+URxvt*color12 : #729FCF
+! magenta
+URxvt*color5  : #75507B
+URxvt*color13 : #AD7FA8
+! cyan
+URxvt*color6  : #06989A
+URxvt*color14 : #34E2E2
+! white
+URxvt*color7  : #D3D7CF
+URxvt*color15 : #EEEEEC
+

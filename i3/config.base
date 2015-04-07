@@ -1,0 +1,433 @@
+####i3 config common
+
+####variables
+
+# modifier key
+set $mod    Mod4
+set $barmod Mod4
+
+# terminal definition
+set $term urxvt
+
+# abbreviation for exec with no-startup-id
+set $exec exec
+set $nexec exec --no-startup-id
+set $exec_always exec_always
+set $nexec_always exec_always --no-startup-id
+
+# workspace name variables
+set $ws0 0
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10:♫♫
+set $ws11 11:mail
+set $ws12 12:s
+
+# font
+set $font       xft:Monospace 9
+set $barfont    xft:Monospace 8
+
+# background colors
+set $bgclr_focused      #3465a4
+set $bgclr_active       #49796b
+set $bgclr_unfocused    #303030
+set $bgclr_urgent       #CC0000
+
+# foreground colors
+set $fgclr              #dcdccc
+
+# border colors
+set $brclr              #202020
+
+# indicator color
+set $clr_indicator      #dcdccc
+
+# client background color
+set $bgclr_client       #000000
+
+# background bar color
+set $bgclr_bar          #303030
+
+# foreground bar color
+set $fgclr_bar          #dadaaa
+
+# separator bar color
+set $spclr_bar          #202020
+
+####settings
+
+# ipc socket
+ipc-socket ~/.i3/ipc.sock
+
+# font for window titles
+font $font
+
+# background color for window not filling the whole area
+client.background       $bgclr_client
+
+# color definition      border    background          text      indicator
+client.focused          $brclr    $bgclr_focused      $fgclr    $clr_indicator
+client.focused_inactive $brclr    $bgclr_active       $fgclr    $clr_indicator
+client.unfocused        $brclr    $bgclr_unfocused    $fgclr    $clr_indicator
+client.urgent           $brclr    $bgclr_urgent       $fgclr    $clr_indicator
+
+# default tiling orientation
+default_orientation horizontal
+
+# default workspace layout
+workspace_layout tabbed
+
+# border style for new windows/floats
+new_window pixel 2
+new_float pixel 2
+
+# hide outer winder border
+hide_edge_borders none
+
+# leave fullscreen mode when popup window opens
+popup_during_fullscreen smart
+
+# automatically switch between previous and current ws when moving to ws
+workspace_auto_back_and_forth no
+
+# delay removal of urgency hint when focusing urgent window
+force_display_urgency_hint 1000 ms
+
+# set focus depending on mouse movement
+focus_follows_mouse no
+
+# modifier for moving and resizing floating windows with the mouse
+floating_modifier $mod
+
+# set floating size constraints
+floating_minimum_size 10 x 10
+floating_maximum_size 1280 x 1024
+
+####assignments
+
+# workspace to output assignment
+workspace $ws0 output $screen1
+workspace $ws1 output $screen1
+workspace $ws2 output $screen1
+workspace $ws3 output $screen1
+workspace $ws4 output $screen1
+workspace $ws5 output $screen1
+workspace $ws6 output $screen2
+workspace $ws7 output $screen2
+workspace $ws8 output $screen2
+workspace $ws9 output $screen2
+workspace $ws10 output $screen2
+workspace $ws11 output $screen2
+workspace $ws12 output $screen2
+
+# program to workspace assignment
+assign [class="(?i)icedove"] $ws11
+assign [class="(?i)gmpc"] $ws10
+assign [instance="(?i)ncmpcpp"] $ws10
+
+# definition of floating windows
+for_window [title="(?i)Password Required"] floating enable
+for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="Starting MPLAB X IDE"] floating enable
+for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
+for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
+
+####keybindings
+
+# start a terminal
+bindsym $mod+Return $exec $term
+bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
+
+# program starters
+bindsym $mod+o $exec pcmanfm
+bindsym $mod+Shift+o $exec pcmanfm $(xcwd)
+bindsym $mod+u $exec focus_or_run.rb -w qutebrowser -c qutebrowser
+bindsym $mod+i $exec qutebrowser
+bindsym $mod+p $nexec $term -name 'htop' -e 'htop'
+bindsym $mod+colon $nexec radio playlist radio
+bindsym $mod+Shift+colon $nexec radio playlist music
+bindsym $mod+apostrophe $nexec radio query artist
+bindsym $mod+Shift+apostrophe $nexec radio query album
+bindsym $mod+t $nexec sink 0 && notify -a pulse "moved sink to 0"
+bindsym $mod+Shift+t $nexec sink 1 && notify -a pulse "moved sink to 1"
+
+# paste from clipboard
+bindsym $mod+y $nexec xsel | xvkbd -xsendevent -file -
+
+# iterate over all windows
+bindsym $mod+g $nexec i3-easyfocus -a
+bindsym $mod+Shift+g $nexec i3-easyfocus -c
+bindsym $mod+Ctrl+g $nexec i3-easyfocus
+
+# start dmenu (a program launcher)
+bindsym $mod+d $nexec dmenu_run -p run
+
+# application switcher
+bindsym $mod+v $nexec quickswitch.py --dmenu 'dmenu -p focus -l 8'
+bindsym $mod+Shift+v $nexec quickswitch.py --move --dmenu 'dmenu -p move -l 8'
+
+# make screenshot (print)
+bindcode 107 $nexec screenshot root
+bindcode Shift+107 $nexec screenshot active
+
+# alter volume (volkeys)
+bindcode 121 $nexec vol_ctrl toggle
+bindcode 122 $nexec vol_ctrl minus
+bindcode 123 $nexec vol_ctrl plus
+
+# communicate with mpdA
+bindcode $mod+122 $nexec mpc volume '-2'
+bindcode $mod+123 $nexec mpc volume '+2'
+bindcode $mod+121 $nexec mpc prev
+bindcode $mod+180 $nexec mpc next
+bindcode 180 $nexec mpc toggle
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# kill focused window
+bindsym $mod+Shift+Q kill
+
+# Read identifier and mark the current window with this identifier
+bindsym $mod+m $nexec win_mark mark
+bindsym $mod+Shift+m $nexec win_mark unmark
+
+# go to the window with the specified mark
+bindsym $mod+n $nexec win_mark goto
+
+# split in horizontal orientation
+bindsym $mod+x split v; mark lastsplit
+
+# split in vertical orientation
+bindsym $mod+z split h; mark lastsplit
+
+# mark lastsplit
+bindsym $mod+c mark lastsplit
+
+# move to last split
+bindsym $mod+Shift+ # enter fullscreen mode for the focused containe
+bindsym $mod+f fullscreen
+
+# global Fullscreen ($mod+Shift+f)
+bindsym $mod+Shift+F fullscreen global
+
+# change container layout (stacked, tabbed, default)
+bindsym $mod+q layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+s focus child
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+backslash move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+backslash scratchpad show
+
+# goto last urgent window
+bindsym $mod+comma [urgent=latest] focus
+
+# focus the previous window
+bindsym $mod+period $nexec window_back_forth_msg.rb
+
+# switch between the current and the previously focused one
+bindsym $mod+slash workspace back_and_forth
+bindsym $mod+Shift+slash move workspace back_and_forth
+
+# toggle focus between visual splits
+bindcode $mod+66 $nexec next_split.rb
+bindcode $mod+94 $nexec next_split.rb -v
+
+# switch to unfocused output
+bindsym $mod+Tab focus output right
+bindsym $mod+Shift+Tab move to output right
+bindsym $mod+Ctrl+Tab move workspace to output right
+
+# focus next/prev workspace on output
+bindsym $mod+bracketright workspace next_on_output
+bindsym $mod+bracketleft workspace prev_on_output
+
+# move con to next/prev workspace on output
+bindsym $mod+Shift+bracketright move workspace next_on_output
+bindsym $mod+Shift+bracketleft move workspace prev_on_output
+
+# get fresh worspace
+bindsym $mod+BackSpace $nexec fresh_workspace.rb
+bindsym $mod+Shift+BackSpace $nexec fresh_workspace.rb -r
+
+# switch to workspace
+bindsym $mod+grave workspace number $ws0
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+bindsym $mod+minus workspace number $ws11
+bindsym $mod+equal workspace number $ws12
+
+# move to righ ws to column
+bindsym $mod+Ctrl+grave $nexec split_ws.rb -s $ws0
+bindsym $mod+Ctrl+1 $nexec split_ws.rb -s $ws1
+bindsym $mod+Ctrl+2 $nexec split_ws.rb -s $ws2
+bindsym $mod+Ctrl+3 $nexec split_ws.rb -s $ws3
+bindsym $mod+Ctrl+4 $nexec split_ws.rb -s $ws4
+bindsym $mod+Ctrl+5 $nexec split_ws.rb -s $ws5
+bindsym $mod+Ctrl+6 $nexec split_ws.rb -s $ws6
+bindsym $mod+Ctrl+7 $nexec split_ws.rb -s $ws7
+bindsym $mod+Ctrl+8 $nexec split_ws.rb -s $ws8
+bindsym $mod+Ctrl+9 $nexec split_ws.rb -s $ws9
+bindsym $mod+Ctrl+0 $nexec split_ws.rb -s $ws10
+bindsym $mod+Ctrl+minus $nexec split_ws.rb -s $ws11
+bindsym $mod+Ctrl+equal $nexec split_ws.rb -s $ws12
+
+bindsym $mod+Escape $nexec split_ws.rb -r
+bindsym $mod+Ctrl+Escape $nexec split_ws.rb -a
+
+# move focused container to workspace
+bindsym $mod+Shift+grave move workspace number $ws0
+bindsym $mod+Shift+1 move workspace number $ws1
+bindsym $mod+Shift+2 move workspace number $ws2
+bindsym $mod+Shift+3 move workspace number $ws3
+bindsym $mod+Shift+4 move workspace number $ws4
+bindsym $mod+Shift+5 move workspace number $ws5
+bindsym $mod+Shift+6 move workspace number $ws6
+bindsym $mod+Shift+7 move workspace number $ws7
+bindsym $mod+Shift+8 move workspace number $ws8
+bindsym $mod+Shift+9 move workspace number $ws9
+bindsym $mod+Shift+0 move workspace number $ws10
+bindsym $mod+Shift+minus move workspace number $ws11
+bindsym $mod+Shift+equal move workspace number $ws12
+
+# bar control
+bindsym $mod+b bar hidden_state toggle
+bindsym $mod+Shift+b bar mode toggle
+
+####modes
+
+# resize window (you can also use the mouse for that)
+set $resize "resize"
+mode $resize {
+    # These bindings trigger as soon as you enter the resize mode
+    # They resize the border in the direction you pressed, e.g.
+    # when pressing left, the window is resized so that it has
+    # more space on its left
+    bindsym h               resize grow left 10 px or 10 ppt
+    bindsym Shift+h         resize shrink   left 10 px or 10 ppt
+
+    bindsym j               resize grow down 10 px or 10 ppt
+    bindsym Shift+j         resize shrink   down 10 px or 10 ppt
+
+    bindsym k               resize grow up 10 px or 10 ppt
+    bindsym Shift+k         resize shrink   up 10 px or 10 ppt
+
+    bindsym l               resize grow right 10 px or 10 ppt
+    bindsym Shift+l         resize shrink   right 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left            resize grow left 10 px or 10 ppt
+    bindsym Shift+Left      resize shrink   left 10 px or 10 ppt
+
+    bindsym Down            resize grow down 10 px or 10 ppt
+    bindsym Shift+Down      resize shrink   down 10 px or 10 ppt
+
+    bindsym Up              resize grow up 10 px or 10 ppt
+    bindsym Shift+Up        resize shrink   up 10 px or 10 ppt
+
+    bindsym Right           resize grow right 10 px or 10 ppt
+    bindsym Shift+Right     resize shrink   right 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode $resize
+
+# pass-through, no key except escape is handled by i3
+set $pass_through "pass-through"
+mode $pass_through {
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+r mode $pass_through
+
+# i3 session control mode
+set $session_ctrl "(e)xit, (r)estart, (l)oad"
+mode $session_ctrl {
+    bindsym e $nexec acknowledge "exit" && i3-msg exit; mode "default"
+    bindsym r mode "default"; $nexec ~/.i3/create_i3_config; restart
+    bindsym l mode "default"; $nexec ~/.i3/create_i3_config; reload
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+w mode $session_ctrl
+
+# shutdown/reboot/hibernate system mode
+set $system_ctrl "(r)eboot, (p)oweroff, (h)ibernate, (s)uspend, (l)ock"
+mode $system_ctrl {
+    bindsym r mode "default"; $nexec gksudo reboot
+    bindsym p mode "default"; $nexec gksudo poweroff
+    bindsym h mode "default"; $nexec gksudo pm-hibernate
+    bindsym s mode "default"; $nexec gksudo pm-suspend
+    bindsym l mode "default"; $nexec slock
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+e mode $system_ctrl
+
+####exec
+
+$nexec nitrogen --restore
+$nexec unclutter -idle 3 -jitter 5 -noevents -root
+$nexec dunst
+$nexec_always window_back_forth.rb
+$nexec_always urgent_indicator.rb
+$nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::icedove" -s "$ws12::$term"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+i3_folder="$HOME/.i3"
+
+append_config() {
+    [ -f $1 ] && (cat $1 && echo) >> $i3_folder/config
+}
+
+echo -n > $i3_folder/config
+append_config $i3_folder/config.base
+append_config $i3_folder/config.local
+append_config $i3_folder/config.def
+sync
