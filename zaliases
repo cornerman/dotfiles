@@ -47,6 +47,7 @@ alias imv=interactive-mv
 alias mkcd=mkdir-cd
 alias vag=search-select-edit
 alias cd=smart-cd
+alias silence=wait-for-silence
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
 alias -s {pdf,ps,dvi}='evince'
