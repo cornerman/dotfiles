@@ -30,6 +30,7 @@ fry search-select-edit
 fry smart-cd
 fry vim-open-files-at-lines
 fry wait-for-silence
+fry extract-archive
 # fry print-expanded-alias
 
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
