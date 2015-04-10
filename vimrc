@@ -26,6 +26,9 @@ set background=dark
 " hides buffers instead of closing them
 set hidden
 
+" do not reset position when switching buffers
+set nostartofline
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
