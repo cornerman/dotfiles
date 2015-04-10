@@ -46,9 +46,15 @@ alias sc=git-select-commit
 alias imv=interactive-mv
 alias mkcd=mkdir-cd
 alias vag=search-select-edit
-alias cd=smart-cd
 alias silence=wait-for-silence
 alias extract=extract-archive
+alias gda='git-dirty-files-command git add'
+alias gdv='git-dirty-files-command vim'
+alias nquery=neo4j-query
+alias nclear=neo4j-clear
+alias nall=neo4j-all
+
+alias on?='ping 8.8.8.8'
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
 alias -s {pdf,ps,dvi}='evince'
