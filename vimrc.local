@@ -254,6 +254,9 @@ let g:tagbar_type_tex = {
             \ }
             \ }
 
+" use ag for the grep command
+set grepprg=ag\ --nogroup\ --nocolor
+
 " ctrlp extensions
 let g:ctrlp_user_command = "ag %s -l --nocolor -g ''"
 nmap <leader>p :CtrlP<CR>
