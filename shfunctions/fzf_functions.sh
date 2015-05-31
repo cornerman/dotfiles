@@ -1,8 +1,11 @@
 # fe - edit
 fe() {
   local file
+  curr_dir=$(pwd)
+  cd-git-root
   file=$(fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
+  cd "$curr_dir"
 }
 
 # fd - cd to selected directory

@@ -6,13 +6,13 @@ URxvt.keysym.M-equal:       perl:resize-font:reset
 URxvt.keysym.M-question:    perl:resize-font:show
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.keysym.M-s:           perl:keyboard-select:search
+URxvt.keysym.M-f:           perl:keyboard-select:search
 
 !enabling clickable links:
 URxvt.matcher.button:      1
 
 ! URxvt scrolling options and cursor style:
-URxvt.saveLines: 2000
+URxvt.saveLines: 200000
 URxvt.scrollstyle:plain
 URxvt.scrollBar: false
 URxvt.cursorBlink: true

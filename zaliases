@@ -54,6 +54,8 @@ alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
 
+alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
+
 alias on?='ping 8.8.8.8'
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'

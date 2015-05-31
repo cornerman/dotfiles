@@ -27,6 +27,8 @@ autocutsel -selection CLIPBOARD -fork
 #this will keep the primary in sync with the clipboard buffer
 autocutsel -selection PRIMARY -fork
 
+redshift &
+
 # create i3 config
 i3config=~/.i3/create_i3_config
 [ -f $i3config ] && $i3config
