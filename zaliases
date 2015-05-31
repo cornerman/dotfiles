@@ -39,6 +39,9 @@ alias t=tree
 
 alias watch='watch -d -c'
 
+alias swust='cd ~/projects/wust/; sbt ~run'
+alias bwust='x-www-browser localhost:9000 > /dev/null 2>&1 &'
+
 alias cdg=cd-git-root
 alias cdt=cd-tmp
 alias onstage=git-onstage
@@ -53,6 +56,7 @@ alias gdv='git-dirty-files-command vim'
 alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
+alias sbt='cdg; sbt'
 
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
 
