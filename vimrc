@@ -415,6 +415,10 @@ nnoremap <C-k>     <C-w>k
 nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
 
+" keep selection when indenting
+vnoremap < <gv
+vnoremap > >gv
+
 " Y yanks till end of line
 nnoremap Y y$
 

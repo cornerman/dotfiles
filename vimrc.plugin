@@ -7,9 +7,6 @@ Plugin 'gmarik/Vundle.vim'
 " multiple cursors like sublime
 Plugin 'terryma/vim-multiple-cursors.git'
 
-" replacement for f/t and 2-char sneak
-Plugin 'justinmk/vim-sneak'
-
 " edit pgp file
 Plugin 'jamessan/vim-gnupg.git'
 
@@ -63,6 +60,7 @@ Plugin 'LaTeX-Box-Team/LaTeX-Box'
 " javascript
 "Plugin 'marijnh/tern_for_vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs'
 Plugin 'burnettk/vim-angular'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'matthewsimo/angular-vim-snippets'
@@ -94,6 +92,9 @@ Plugin 'PotatoesMaster/i3-vim-syntax'
 
 " vim projectroot
 Plugin 'airblade/vim-rooter'
+
+" expand region
+Plugin 'terryma/vim-expand-region'
 
 " text objects
 Plugin 'kana/vim-textobj-user'

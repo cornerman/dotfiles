@@ -43,37 +43,6 @@ map <leader>w <Plug>CamelCaseMotion_w
 map <leader>b <Plug>CamelCaseMotion_b
 map <leader>e <Plug>CamelCaseMotion_e
 
-" vim-sneak
-let g:sneak#use_ic_scs = 1
-let g:sneak#target_labels = "dfghjkl;qwertyuozxvbnm/ADFGHJKL:QWERTYUIOZXCVBNM?"
-let g:sneak#streak = 1
-let g:sneak#s_next = 1
-hi SneakPluginTarget guifg=white guibg=darkgreen ctermfg=white ctermbg=darkgreen
-hi SneakStreakTarget guifg=white guibg=darkblue ctermfg=white ctermbg=darkblue
-hi SneakStreakMask guifg=white guibg=darkgreen ctermfg=white ctermbg=darkgreen
-
-" 2-char sneak
-nmap <leader>f <Plug>Sneak_s
-nmap <leader>F <Plug>Sneak_S
-xmap <leader>f <Plug>Sneak_s
-xmap <leader>F <Plug>Sneak_S
-omap <leader>f <Plug>Sneak_s
-omap <leader>F <Plug>Sneak_S
-" replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-" replace 't' with 1-char Sneak
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
-
 " autocorrect command
 command! AutoCorrect call AutoCorrect()
 
@@ -88,6 +57,7 @@ vmap <M-k>  <Plug>SchleppUp
 nmap <M-j>  <S-v><Plug>SchleppDown
 nmap <M-k>  <S-v><Plug>SchleppUp
 vmap <M-d>  <Plug>SchleppDup
+nmap <M-d>  <S-v><Plug>SchleppDup
 
 " airline statusline
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -121,6 +91,9 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_java_checkers = ['javac', 'checkstyle']
 let g:syntastic_java_checkstyle_classpath = '/usr/share/java/checkstyle-5.7.jar'
 let g:syntastic_java_checkstyle_conf = '/usr/share/checkstyle/sun_checks.xml'
+
+" syntastic javascript
+let g:syntastic_jslint_checkers=['jshint']
 
 " format java code
 let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'
@@ -217,6 +190,7 @@ let g:ycm_semantic_triggers =  {
 let g:easytags_cmd = "/usr/bin/ctags-exuberant"
 let g:easytags_dynamic_files = 1
 let g:easytags_by_filetype = "~/.vim/vimtags/"
+let g:easytags_async = 1
 let g:easytags_ignored_filetypes = ''
 let g:easytags_updatetime_min = 30000
 let g:easytags_languages = {
@@ -265,6 +239,10 @@ nmap <leader>] :CtrlPTag<CR>
 
 " default omnifunc
 set omnifunc=syntaxcomplete#Complete
+
+" expand region
+map + <Plug>(expand_region_expand)
+map - <Plug>(expand_region_shrink)
 
 " filetype defs
 augroup vimrc
