@@ -19,14 +19,14 @@ playlist_display_mode = "columns"
 playlist_editor_display_mode = "columns"
 search_engine_display_mode = "columns"
 browser_display_mode = "columns"
-media_library_disable_two_column_mode = "yes"
+#media_library_disable_two_column_mode = "yes"
 
 user_interface = "alternative"
 enable_window_title = "yes"
 statusbar_visibility = "yes"
 titles_visibility = "yes"
 header_visibility = "yes"
-fancy_scrolling = "no"
+#fancy_scrolling = "no"
 display_bitrate = "yes"
 empty_tag_marker = ""
 
@@ -35,7 +35,7 @@ centered_cursor = "yes"
 
 screen_switcher_mode = "previous"
 
-startup_screen = "2"
+#startup_screen = "2"
 
 locked_screen_width_part = "40"
 ask_for_locked_screen_width_part = "no";
@@ -43,10 +43,10 @@ ask_for_locked_screen_width_part = "no";
 playlist_separate_albums = "yes"
 playlist_show_remaining_time = "yes"
 playlist_shorten_total_times = "yes"
-jump_to_now_playling_song_at_start = "yes"
+#jump_to_now_playling_song_at_start = "yes"
 
 ignore_leading_the = "yes"
-media_library_display_date = "no"
+#media_library_display_date = "no"
 
 default_find_mode = "wrapped"
 
