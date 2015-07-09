@@ -433,7 +433,7 @@ nnoremap <leader>d <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 nnoremap \ @q
 
 " i do not know why, but this is defined and blocks c-d in vimpager o_0
-!silent unmap <C-D>
+silent! unmap <C-D>
 
 " local settings
 if !empty(glob("~/.vimrc.local"))
