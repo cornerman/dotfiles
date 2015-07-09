@@ -22,10 +22,6 @@ Plugin 'valloric/youcompleteme'
 " show syntax/style errors
 Plugin 'scrooloose/syntastic'
 
-" snippets ftw!
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
 " autoformat code with gq
 Plugin 'Chiel92/vim-autoformat'
 
@@ -66,7 +62,6 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'matthewsimo/angular-vim-snippets'
 
 " scala
-Plugin 'spiroid/vim-ultisnip-scala'
 Plugin 'derekwyatt/vim-scala'
 
 " ruby
@@ -92,9 +87,6 @@ Plugin 'PotatoesMaster/i3-vim-syntax'
 
 " vim projectroot
 Plugin 'airblade/vim-rooter'
-
-" expand region
-Plugin 'terryma/vim-expand-region'
 
 " text objects
 Plugin 'kana/vim-textobj-user'
@@ -122,9 +114,6 @@ Plugin 'zirrostig/vim-schlepp'
 
 " align text
 Plugin 'godlygeek/tabular'
-
-" file browser
-Plugin 'scrooloose/nerdtree'
 
 " start screen
 Plugin 'mhinz/vim-startify'
