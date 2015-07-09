@@ -20,6 +20,9 @@ syntax on
 let mapleader=" "
 let maplocalleader = " "
 
+" no auto line break
+set tw=0
+
 " background
 set background=dark
 
@@ -86,7 +89,7 @@ set scrolloff=5
 set sidescrolloff=5
 
 " change directory to the current buffer when opening files.
-"set autochdir
+" set autochdir
 autocmd BufEnter * silent! lcd %:p:h
 
 " statusline show last line
@@ -392,7 +395,7 @@ nnoremap <leader>s :bnext<CR>
 nnoremap <leader>q :bdelete<CR>
 nnoremap <leader>h gT
 nnoremap <leader>l gt
-nnoremap ,         <C-^>
+nnoremap <leader>. <C-^>
 
 " switch to numbered buffer
 nnoremap <Leader>1 :1b<CR>
