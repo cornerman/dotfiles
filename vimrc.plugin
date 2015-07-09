@@ -154,5 +154,8 @@ Plugin 'tpope/vim-repeat'
 " indexed search (show index and total number of matches)
 Plugin 'henrik/vim-indexed-search'
 
+" toggle more than just numbers with gs
+Plugin 'AndrewRadev/switch.vim'
+
 " finished
 call vundle#end()

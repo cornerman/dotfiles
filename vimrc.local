@@ -237,6 +237,46 @@ nmap <leader>p :CtrlP<CR>
 nmap <leader>[ :CtrlPBuffer<CR>
 nmap <leader>] :CtrlPTag<CR>
 
+" switch.vim
+let g:switch_custom_definitions =
+    \ [
+    \   ['on', 'off'],
+    \   ['==', '!='],
+    \   ['_', '-'],
+    \   [' < ', ' > '],
+    \   ['<=', '>='],
+    \   [' + ', ' - '],
+    \   ['-=', '+='],
+    \   ['and', 'or'],
+    \   ['if', 'unless'],
+    \   ['YES', 'NO'],
+    \   ['yes', 'no'],
+    \   ['first', 'last'],
+    \   ['else', 'else if'],
+    \   ['max', 'min'],
+    \   ['px', '%', 'em'],
+    \   ['left', 'right'],
+    \   ['top', 'bottom'],
+    \   ['margin', 'padding'],
+    \   ['height', 'width'],
+    \   ['absolute', 'relative'],
+    \   ['horizontal', 'vertical'],
+    \   ['show', 'hide'],
+    \   ['visible', 'hidden'],
+    \   ['add', 'remove'],
+    \   ['up', 'down'],
+    \   ['before', 'after'],
+    \   ['slow', 'fast'],
+    \   ['small', 'large'],
+    \   ['even', 'odd'],
+    \   ['inside', 'outside'],
+    \   {'"\([^"]*\)"': '''\1''', '''\([^'']*\)''': '"\1"'},
+    \   {
+    \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
+    \     '\<\(\l\+\)\(_\l\+\)\+\>': "\\=substitute(submatch(0), '_\\(\\l\\)', '\\u\\1', 'g')",
+    \   }
+    \ ]
+
 " default omnifunc
 set omnifunc=syntaxcomplete#Complete
 
