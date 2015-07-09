@@ -163,7 +163,9 @@ bindsym $mod+t $nexec sink 0 && notify -a pulse "moved sink to 0"
 bindsym $mod+Shift+t $nexec sink 1 && notify -a pulse "moved sink to 1"
 
 # paste from clipboard
-bindsym $mod+y $nexec xsel | xvkbd -xsendevent -file -
+#bindsym $mod+y $nexec xsel | xvkbd -xsendevent -file -
+bindsym --release $mod+y $nexec xdotool key Shift+Insert
+bindsym $mod+Shift+y $nexec exec xcmenuctrl
 
 # iterate over all windows
 bindsym $mod+g $nexec i3-easyfocus -a
@@ -433,6 +435,7 @@ bindsym $mod+Shift+e mode $system_ctrl
 $nexec nitrogen --restore
 $nexec unclutter -idle 3 -jitter 5 -noevents -root
 $nexec dunst
+$nexec xcmenu
 $nexec_always window_back_forth.rb
 $nexec_always urgent_indicator.rb
 $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::icedove" -s "$ws12::$term"
