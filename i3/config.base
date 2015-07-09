@@ -110,6 +110,9 @@ floating_modifier $mod
 floating_minimum_size 10 x 10
 floating_maximum_size 1280 x 1024
 
+# show marks in title
+show_marks yes
+
 ####assignments
 
 # workspace to output assignment
@@ -231,7 +234,8 @@ bindsym $mod+x split v; mark lastsplit
 bindsym $mod+z split h; mark lastsplit
 
 # xkill a window
-bindsym $mod+c $nexec i3-easyfocus -w | xargs xkill -id
+bindsym $mod+c $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [con_id = {}] kill"
+bindsym $mod+Shift+c $nexec "i3-easyfocus -a -w | xargs xkill -id"
 
 # move to last split
 bindsym $mod+f fullscreen
