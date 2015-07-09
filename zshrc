@@ -110,7 +110,9 @@ stty -ixon
 
 # set some important variables
 export EDITOR=vim
-export PAGER="less -R"
+export PAGER=/usr/local/bin/vimpager
+alias less=$PAGER
+alias zless=$PAGER
 export BROWSER=x-www-browser
 export HIST_PATH=~/
 export TEMP_PATH=~/
