@@ -147,8 +147,10 @@ bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
 # program starters
 bindsym $mod+o $exec pcmanfm
 bindsym $mod+Shift+o $exec pcmanfm $(xcwd)
-bindsym $mod+u $exec focus_or_run.rb -w qutebrowser -c qutebrowser
+bindsym $mod+u $exec chromium
+bindsym $mod+Shift+u $exec focus_or_run.rb -w Chromium -c chromium
 bindsym $mod+i $exec qutebrowser
+bindsym $mod+Shift+i $exec focus_or_run.rb -w qutebrowser -c qutebrowser
 bindsym $mod+p $nexec $term -name 'htop' -e 'htop'
 bindsym $mod+colon $nexec radio playlist radio
 bindsym $mod+Shift+colon $nexec radio playlist music
@@ -181,7 +183,7 @@ bindcode 121 $nexec vol_ctrl toggle
 bindcode 122 $nexec vol_ctrl minus
 bindcode 123 $nexec vol_ctrl plus
 
-# communicate with mpdA
+# communicate with mpd
 bindcode $mod+122 $nexec mpc volume '-2'
 bindcode $mod+123 $nexec mpc volume '+2'
 bindcode $mod+121 $nexec mpc prev
@@ -228,11 +230,10 @@ bindsym $mod+x split v; mark lastsplit
 # split in vertical orientation
 bindsym $mod+z split h; mark lastsplit
 
-# mark lastsplit
-bindsym $mod+c mark lastsplit
+# xkill a window
+bindsym $mod+c $nexec i3-easyfocus -w | xargs xkill -id
 
 # move to last split
-bindsym $mod+Shift+ # enter fullscreen mode for the focused containe
 bindsym $mod+f fullscreen
 
 # global Fullscreen ($mod+Shift+f)
@@ -341,8 +342,8 @@ bindsym $mod+Shift+minus move workspace number $ws11
 bindsym $mod+Shift+equal move workspace number $ws12
 
 # bar control
-bindsym $mod+b bar hidden_state toggle
-bindsym $mod+Shift+b bar mode toggle
+bindsym $mod+b bar mode toggle
+bindsym $mod+Shift+b bar hidden_state toggle
 
 ####modes
 
