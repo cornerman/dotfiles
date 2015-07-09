@@ -255,10 +255,6 @@ map + <Plug>(expand_region_expand)
 map - <Plug>(expand_region_shrink)
 
 " filetype defs
-augroup vimrc
-    autocmd!
-augroup END
-
 autocmd vimrc Filetype ruby setlocal omnifunc=rubycomplete#Complete
 autocmd vimrc Filetype ruby syn match Error "binding.pry"
 autocmd vimrc FileType ruby nmap <leader><F9> :!rubocop -a % > /dev/null 2>&1<CR><CR>
@@ -272,3 +268,4 @@ autocmd vimrc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
 autocmd vimrc FileType tex setlocal spell spelllang=en_us
+

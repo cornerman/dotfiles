@@ -10,6 +10,10 @@ endif
 " filetype plugins
 filetype plugin indent on
 
+augroup vimrc
+    autocmd!
+augroup END
+
 " syntax hightlighting
 syntax on
 
@@ -90,7 +94,7 @@ set sidescrolloff=5
 
 " change directory to the current buffer when opening files.
 " set autochdir
-autocmd BufEnter * silent! lcd %:p:h
+autocmd vimrc BufEnter * silent! lcd %:p:h
 
 " statusline show last line
 set laststatus=2
@@ -147,7 +151,7 @@ set completeopt-=preview
 set pumheight=8
 
 " formatoptions
-autocmd FileType * setlocal formatoptions=crqnbj
+autocmd vimrc FileType * setlocal formatoptions=crqnbj
 
 " 8 spaces are bad, use 4 and auto expand them
 set expandtab
@@ -172,7 +176,7 @@ runtime macros/matchit.vim
 
 " highlight extra whitespaces
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd vimrc ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+\%#\@<!$/
 
 " In many terminal emulators the mouse works just fine, thus enable it.
@@ -184,7 +188,7 @@ endif
 set textwidth=80
 
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
+autocmd vimrc BufReadPost *
             \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \   exe "normal! g`\"" |
             \ endif
@@ -218,13 +222,10 @@ highlight Pmenu ctermbg=242 ctermfg=153
 
 " only enable cursorline in focused window
 set cul
-augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cul
-    autocmd WinLeave * set nocul
-    autocmd BufEnter * set cul
-    autocmd BufLeave * set nocul
-augroup END
+autocmd vimrc WinEnter * set cul
+autocmd vimrc WinLeave * set nocul
+autocmd vimrc BufEnter * set cul
+autocmd vimrc BufLeave * set nocul
 
 " make gvim look like vim :)
 if has("gui_running")
@@ -340,6 +341,18 @@ function! ToggleSideEffects()
         echo 'side effects on'
     endif
 endfunction
+
+" return to last edit position when opening a file.
+" except for git commits: Enter insert mode instead.
+autocmd vimrc BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\   if &filetype == 'gitcommit' |
+\       setlocal spell |
+\       startinsert |
+\   else |
+\      exe "normal! g`\"" |
+\    endif |
+\ endif
 
 " ========keybindings
 
