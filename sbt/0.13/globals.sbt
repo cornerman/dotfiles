@@ -11,5 +11,3 @@ addCommandAlias("pl", "publish-local")
 addCommandAlias("ppl", "~publish-local")
 addCommandAlias("du", "dependencyUpdates")
 addCommandAlias("re", "reload")
-
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.8")
