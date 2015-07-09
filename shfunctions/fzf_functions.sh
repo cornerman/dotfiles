@@ -3,7 +3,7 @@ fe() {
   local file
   curr_dir=$(pwd)
   cd-git-root
-  file=$(fzf --query="$1" --select-1 --exit-0)
+  file=$(fzf --multi --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
   cd "$curr_dir"
 }
@@ -39,7 +39,7 @@ ft() {
         tags=$(cat ~/.vim/vimtags/*)
     fi
 
-    tag=$(echo "$tags" | grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | column -t | fzf --query="$1" --select-1 --exit-0)
+    tag=$(echo "$tags" | grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | column -t | fzf --multi --query="$1" --select-1 --exit-0)
 
     if [ -n "$tag" ]; then
         tag=$(echo "$tag" | tr -d '|' | awk '{ print $2 " " $3 }')
