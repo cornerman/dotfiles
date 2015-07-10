@@ -20,10 +20,12 @@ Plug 'mbbill/undotree'
 Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.sh' }
 augroup load_ycm
   autocmd!
-  autocmd! InsertLeave *
+  autocmd! InsertEnter *
         \ call plug#load('YouCompleteMe')     |
         \ if exists('g:loaded_youcompleteme') |
+        \   let s:winview = winsaveview()     |
         \   call youcompleteme#Enable()       |
+        \   call winrestview(s:winview)       |
         \ endif                               |
         \ autocmd! load_ycm
 augroup END
