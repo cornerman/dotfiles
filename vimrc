@@ -383,17 +383,20 @@ call <SID>MapFastKeycode('<M-l>', "\el")
 call <SID>MapFastKeycode('<M-d>', "\ed")
 call <SID>MapFastKeycode('<C-q>', "\ed")
 
-" ditch shift for command mode
-map ; :
-
 " toggle sideffects
 nnoremap <leader>, :call ToggleSideEffects()<CR>
 
 " clear search highlighting
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
-" Don't use Ex mode, use Q for formatting
-noremap Q gq
+" shorthand macro
+noremap - @q
+
+" save and quit
+noremap ' :w<CR>
+vnoremap ' :w<CR>
+noremap \ :q<CR>
+vnoremap \ :q<CR>
 
 "w!! writes file with root rights
 cnoremap w!! w !sudo tee % >/dev/null
@@ -403,12 +406,10 @@ cnoremap w!! w !sudo tee % >/dev/null
 inoremap <C-U> <C-G>u<C-U>
 
 " switch buffers/tabs
-nnoremap <leader>a :bprevious<CR>
-nnoremap <leader>s :bnext<CR>
-nnoremap <leader>q :bdelete<CR>
-nnoremap <leader>h gT
-nnoremap <leader>l gt
-nnoremap <leader>. <C-^>
+nnoremap <Backspace> :bprevious<CR>
+nnoremap <Enter> :bnext<CR>
+nnoremap Q :bdelete<CR>
+nnoremap <Tab> <C-^>
 
 " switch to numbered buffer
 nnoremap <Leader>1 :1b<CR>
@@ -441,9 +442,6 @@ nnoremap Y y$
 " delete everything but selection
 vnoremap <leader>d :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 nnoremap <leader>d <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
-
-" apply q macro with one key
-nnoremap \ @q
 
 " i do not know why, but this is defined and blocks c-d in vimpager o_0
 silent! unmap <C-D>
