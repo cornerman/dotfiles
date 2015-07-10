@@ -354,6 +354,26 @@ autocmd vimrc BufReadPost *
 \    endif |
 \ endif
 
+" another online doc search
+" TODO This also needs some work.
+" vimtip #1354
+function! OnlineDoc()
+    let s:browser = "x-www-browser"
+    let s:wordUnderCursor = expand("<cword>")
+    if &ft == "cpp" || &ft == "c" || &ft == "ruby" || &ft == "scala" || &ft == "javascript"
+        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor."+lang:".&ft
+    elseif &ft == "vim"
+        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor."+vim"
+    else
+        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor
+    endif
+    let s:cmd = "silent! !" . s:browser . " \"" . s:url . "\" > /dev/null 2>&1 &"
+    exec s:cmd
+    redraw!
+endfunction
+" online doc search
+map <leader>k :call OnlineDoc()<CR>
+
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
