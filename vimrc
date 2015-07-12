@@ -122,7 +122,7 @@ set tags=./tags;
 au BufWritePre * let &backupext = '@'.substitute(expand('%:p:h'), '/', '%', 'g').'~'
 
 " Remember info about open buffers on close
-set viminfo^=%
+" set viminfo^=%
 
 " tell vim where to put its backup files
 set backupdir=~/.vim/tmp
@@ -186,12 +186,6 @@ endif
 
 " For all text files set 'textwidth' to 80 characters.
 set textwidth=80
-
-" Return to last edit position when opening files (You want this!)
-autocmd vimrc BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
 
 " ========colors/appearance
 
@@ -423,7 +417,8 @@ nnoremap <leader>, :call ToggleSideEffects()<CR>
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
 " shorthand macro
-noremap - @q
+nnoremap - @q
+nnoremap + @w
 
 " online doc search
 noremap <leader>k :call OnlineDoc()<CR>

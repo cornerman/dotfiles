@@ -14,7 +14,7 @@ nmap <F7> :Qtoggle<CR>
 nmap <F8> :Ltoggle<CR>
 
 " autoformat
-nmap <F9> :WsFix<CR>:Autoformat<CR>
+nmap <F9> :WsFix<CR>:silent! Autoformat<CR>
 
 " git gutter toggle
 nmap <F10> :GitGutterToggle<CR>
@@ -26,7 +26,7 @@ nmap <F11> :sign unplace *<CR>:SyntasticToggleMode<CR>:let g:ycm_show_diagnostic
 nmap <F12> :let g:ycm_auto_trigger = 1 - g:ycm_auto_trigger<CR>:echo 'ycm: ' . g:ycm_auto_trigger<CR>
 
 " close all buffers except current
-nmap <leader>Q :BufOnly<CR>
+nmap <leader>q :BufOnly<CR>
 
 " focus undotree when toggled
 let g:undotree_SetFocusWhenToggle = 1
@@ -204,6 +204,7 @@ set grepprg=ag\ --nogroup\ --nocolor
 " ctrlp extensions
 let g:ctrlp_user_command = "ag %s -l --nocolor -g ''"
 nmap <leader>p :CtrlP<CR>
+nmap <leader>P :CtrlPMRUFiles<CR>
 nmap <leader>[ :CtrlPBuffer<CR>
 nmap <leader>] :CtrlPTag<CR>
 
@@ -249,10 +250,6 @@ let g:switch_custom_definitions =
 
 " default omnifunc
 set omnifunc=syntaxcomplete#Complete
-
-" expand region
-map + <Plug>(expand_region_expand)
-map - <Plug>(expand_region_shrink)
 
 " filetype defs
 autocmd vimrc Filetype ruby setlocal omnifunc=rubycomplete#Complete

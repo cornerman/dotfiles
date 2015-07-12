@@ -36,6 +36,9 @@ Plug 'scrooloose/syntastic'
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'
 
+" open files at line with filename:32
+Plug 'bogado/file-line'
+
 " tool for (un-)commenting lines, detects current language
 Plug 'tpope/vim-commentary'
 
@@ -156,6 +159,9 @@ Plug 'henrik/vim-indexed-search'
 
 " toggle more than just numbers with gs
 Plug 'AndrewRadev/switch.vim'
+
+" use previous window when selecting item in quickfix/location window
+Plug 'yssl/QFEnter'
 
 " finished
 call plug#end()
