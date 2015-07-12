@@ -39,13 +39,13 @@ ft() {
         tags=$(cat ~/.vim/vimtags/*)
     fi
 
-    tag=$(echo "$tags" | grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | column -t | fzf --multi --query="$1" --select-1 --exit-0)
+    tag=$(echo "$tags" | grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | column -t | fzf --query="$1" --select-1 --exit-0)
 
     if [ -n "$tag" ]; then
         tag=$(echo "$tag" | tr -d '|' | awk '{ print $2 " " $3 }')
         IFS=' ' read tag ft <<<$tag
         ft=$(echo $ft | tr '[A-Z]' '[a-z]')
-        vim -c "1,100bd | set filetype=$ft | tag $tag"
+        vim -c "set filetype=$ft | tag $tag"
     fi
 }
 
