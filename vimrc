@@ -348,27 +348,23 @@ autocmd vimrc BufReadPost *
 \    endif |
 \ endif
 
-function! VisualSelection()
-  let s:mode = mode()
-  if s:mode != "v" && s:mode != "V" && s:mode != "CTRL-V"
-      return ""
+function! CurrentSelection(visualMode)
+  if a:visualMode
+    let [lnum1, col1] = getpos("'<")[1:2]
+    let [lnum2, col2] = getpos("'>")[1:2]
+    let lines = getline(lnum1, lnum2)
+    let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][col1 - 1:]
+    return join(lines, " ")
+  else
+    return expand("<cword>")
   endif
-
-  let [lnum1, col1] = getpos("'<")[1:2]
-  let [lnum2, col2] = getpos("'>")[1:2]
-  let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][col1 - 1:]
-  return join(lines, "\n")
 endfunction
 
 " online doc
-function! OnlineDoc()
+function! OnlineDoc(visualMode)
     let s:browser = "x-www-browser"
-    let s:word = VisualSelection()
-    if s:word == ""
-        s:word = expand("<cword>")
-    endif
+    let s:word = CurrentSelection(a:visualMode)
     if &ft == "cpp" || &ft == "c" || &ft == "ruby" || &ft == "scala" || &ft == "javascript"
         let s:url = "http://www.google.com/search?q=".s:word."+lang:".&ft
     elseif &ft == "vim"
@@ -425,7 +421,8 @@ nnoremap - @q
 nnoremap + @w
 
 " online doc search
-noremap <leader>k :call OnlineDoc()<CR>
+nnoremap <leader>k :call OnlineDoc(0)<CR>
+vnoremap <leader>k <ESC>:call OnlineDoc(1)<CR>
 
 " save and quit
 noremap ' :w<CR>
