@@ -381,6 +381,11 @@ function! OnlineDoc()
     redraw!
 endfunction
 
+command! -nargs=1 Grep
+\ | execute ':silent grep '.<q-args>
+\ | execute ':redraw!'
+\ | execute ':copen'
+
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
@@ -465,6 +470,9 @@ nnoremap <C-l>     <C-w>l
 " quick switch between quickfix results
 nnoremap <leader>a     :cprev<CR><CR>
 nnoremap <leader>s     :cnext<CR><CR>
+
+" grep
+nnoremap <leader>g     :Grep<space>
 
 " keep selection when indenting
 vnoremap < <gv
