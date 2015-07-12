@@ -354,25 +354,38 @@ autocmd vimrc BufReadPost *
 \    endif |
 \ endif
 
-" another online doc search
-" TODO This also needs some work.
-" vimtip #1354
+function! VisualSelection()
+  let s:mode = mode()
+  if s:mode != "v" && s:mode != "V" && s:mode != "CTRL-V"
+      return ""
+  endif
+
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+" online doc
 function! OnlineDoc()
     let s:browser = "x-www-browser"
-    let s:wordUnderCursor = expand("<cword>")
+    let s:word = VisualSelection()
+    if s:word == ""
+        s:word = expand("<cword>")
+    endif
     if &ft == "cpp" || &ft == "c" || &ft == "ruby" || &ft == "scala" || &ft == "javascript"
-        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor."+lang:".&ft
+        let s:url = "http://www.google.com/search?q=".s:word."+lang:".&ft
     elseif &ft == "vim"
-        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor."+vim"
+        let s:url = "http://www.google.com/search?q=".s:word."+vim"
     else
-        let s:url = "http://www.google.com/search?q=".s:wordUnderCursor
+        let s:url = "http://www.google.com/search?q=".s:word
     endif
     let s:cmd = "silent! !" . s:browser . " \"" . s:url . "\" > /dev/null 2>&1 &"
     exec s:cmd
     redraw!
 endfunction
-" online doc search
-map <leader>k :call OnlineDoc()<CR>
 
 " ========keybindings
 
@@ -411,6 +424,9 @@ nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
 " shorthand macro
 noremap - @q
+
+" online doc search
+noremap <leader>k :call OnlineDoc()<CR>
 
 " save and quit
 noremap ' :w<CR>
