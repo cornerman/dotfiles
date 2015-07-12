@@ -4,29 +4,20 @@ nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
 nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
 
 " undotree
-nmap <F5> :UndotreeToggle<CR>
+nmap <leader>u :UndotreeToggle<CR>
 
 " taglist
-nmap <F6> :TagbarToggle<cr>
+nmap <leader>t :TagbarToggle<cr>
 
-" toggle quickfix window / Shift+F8 for location list
-nmap <F7> :Qtoggle<CR>
-nmap <F8> :Ltoggle<CR>
+" toggle quickfix window / location list
+nmap <leader>q :Qtoggle<CR>
+nmap <leader>Q :Ltoggle<CR>
 
 " autoformat
-nmap <F9> :WsFix<CR>:silent! Autoformat<CR>
-
-" git gutter toggle
-nmap <F10> :GitGutterToggle<CR>
-
-" syntax errors and gitgutter
-nmap <F11> :sign unplace *<CR>:SyntasticToggleMode<CR>:let g:ycm_show_diagnostics_ui = 1 - g:ycm_show_diagnostics_ui<CR>
-
-" toggle youcompleteme
-nmap <F12> :let g:ycm_auto_trigger = 1 - g:ycm_auto_trigger<CR>:echo 'ycm: ' . g:ycm_auto_trigger<CR>
+nmap <leader>f :WsFix<CR>:silent! Autoformat<CR>
 
 " close all buffers except current
-nmap <leader>q :BufOnly<CR>
+nmap <C-q> :BufOnly<CR>
 
 " focus undotree when toggled
 let g:undotree_SetFocusWhenToggle = 1
@@ -133,13 +124,20 @@ let g:LatexBox_quickfix=4
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_map_keys = 0
-nmap <Leader>gs <Plug>GitGutterStageHunk
-nmap <Leader>gr <Plug>GitGutterRevertHunk
-nmap <Leader>gv <Plug>GitGutterPreviewHunk
-nmap <leader>gn <Plug>GitGutterNextHunk
-nmap <leader>gp <Plug>GitGutterPrevHunk
 
 " youcompleteme: auto show completion menu as-you-type
+let g:ycm_use_ultisnips_completer = 0
+let g:ycm_confirm_extra_conf = 1
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_seed_identifiers_with_syntax = 0
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<s-tab>', '<F15>']
+let g:ycm_key_invoke_completion = '<C-Space>'
 
 let g:ycm_semantic_triggers =  {
             \   'c' : ['->', '.'],
@@ -203,8 +201,8 @@ set grepprg=ag\ --nogroup\ --nocolor
 
 " ctrlp extensions
 let g:ctrlp_user_command = "ag %s -l --nocolor -g ''"
+nmap <leader>o :CtrlPMRUFiles<CR>
 nmap <leader>p :CtrlP<CR>
-nmap <leader>P :CtrlPMRUFiles<CR>
 nmap <leader>[ :CtrlPBuffer<CR>
 nmap <leader>] :CtrlPTag<CR>
 

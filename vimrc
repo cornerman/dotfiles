@@ -103,7 +103,7 @@ set laststatus=2
 set noshowmode
 
 " avoid all hit-enter prompts and shorten some other info prompts
-set shortmess=atI
+set shortmess=aoOtI
 
 " backspace delete shiftwidth of spaces
 set smarttab
@@ -408,7 +408,6 @@ call <SID>MapFastKeycode('<M-j>', "\ej")
 call <SID>MapFastKeycode('<M-k>', "\ek")
 call <SID>MapFastKeycode('<M-l>', "\el")
 call <SID>MapFastKeycode('<M-d>', "\ed")
-call <SID>MapFastKeycode('<C-q>', "\ed")
 
 " toggle sideffects
 nnoremap <leader>, :call ToggleSideEffects()<CR>
@@ -462,6 +461,10 @@ nnoremap <C-j>     <C-w>j
 nnoremap <C-k>     <C-w>k
 nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
+
+" quick switch between quickfix results
+nnoremap <leader>a     :cprev<CR><CR>
+nnoremap <leader>s     :cnext<CR><CR>
 
 " keep selection when indenting
 vnoremap < <gv
