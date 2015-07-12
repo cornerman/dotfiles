@@ -37,7 +37,7 @@ Plug 'scrooloose/syntastic'
 Plug 'Chiel92/vim-autoformat'
 
 " open files at line with filename:32
-Plug 'bogado/file-line'
+Plug 'cornerman/file-line'
 
 " tool for (un-)commenting lines, detects current language
 Plug 'tpope/vim-commentary'
