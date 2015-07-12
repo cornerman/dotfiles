@@ -29,7 +29,6 @@ fry mkdir-cd
 fry ncserve
 fry search-select-edit
 fry smart-cd
-fry vim-open-files-at-lines
 fry wait-for-silence
 fry extract-archive
 NEO4J_QUERY_JSON_FORMATTER=json_pp
