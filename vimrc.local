@@ -3,15 +3,18 @@ nmap <F2> :sign unplace *<CR>:setlocal spell! spelllang=en_us<CR>
 nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
 nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
 
+" grep in buffers
+command! -nargs=* BGrep
+\ | execute ':Bgrep '.<q-args>
+\ | execute ':copen'
+
+nmap <leader>G :BGrep<space>
+
 " undotree
 nmap <leader>u :UndotreeToggle<CR>
 
 " taglist
 nmap <leader>t :TagbarToggle<cr>
-
-" toggle quickfix window / location list
-nmap <leader>q :Qtoggle<CR>
-nmap <leader>Q :Ltoggle<CR>
 
 " autoformat
 nmap <leader>f :WsFix<CR>:silent! Autoformat<CR>
@@ -71,7 +74,7 @@ let g:syntastic_java_checkstyle_classpath = '/usr/share/java/checkstyle-5.7.jar'
 let g:syntastic_java_checkstyle_conf = '/usr/share/checkstyle/sun_checks.xml'
 
 " syntastic javascript
-let g:syntastic_jslint_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jshint', 'flow']
 
 " format java code
 let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'

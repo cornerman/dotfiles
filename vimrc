@@ -377,7 +377,7 @@ function! OnlineDoc(visualMode)
     redraw!
 endfunction
 
-command! -nargs=1 Grep
+command! -nargs=* Grep
 \ | execute ':silent grep '.<q-args>
 \ | execute ':redraw!'
 \ | execute ':copen'
@@ -465,8 +465,18 @@ nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
 
 " quick switch between quickfix results
-nnoremap <leader>a     :cprev<CR><CR>
-nnoremap <leader>s     :cnext<CR><CR>
+nnoremap <leader>a     :cprev<CR>
+nnoremap <leader>s     :cnext<CR>
+nnoremap <leader>d     :cfirst<CR>
+
+" quick switch between location results
+nnoremap <leader>A     :lprev<CR>
+nnoremap <leader>S     :lnext<CR>
+nnoremap <leader>D     :lfirst<CR>
+
+" toggle quickfix window / location list
+nmap <leader>q :Qtoggle<CR>
+nmap <leader>Q :Ltoggle<CR>
 
 " grep
 nnoremap <leader>g     :Grep<space>
@@ -479,8 +489,8 @@ vnoremap > >gv
 nnoremap Y y$
 
 " delete everything but selection
-vnoremap <leader>d :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
-nnoremap <leader>d <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
+vnoremap <leader>x :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
+nnoremap <leader>x <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 
 " i do not know why, but this is defined and blocks c-d in vimpager o_0
 silent! unmap <C-D>

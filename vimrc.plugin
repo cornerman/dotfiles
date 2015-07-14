@@ -39,6 +39,9 @@ Plug 'Chiel92/vim-autoformat'
 " open files at line with filename:32
 Plug 'cornerman/file-line'
 
+" grep in open buffers
+Plug 'vim-scripts/buffergrep'
+
 " tool for (un-)commenting lines, detects current language
 Plug 'tpope/vim-commentary'
 
