@@ -481,6 +481,9 @@ nmap <leader>Q :Ltoggle<CR>
 " grep
 nnoremap <leader>g     :Grep<space>
 
+" overwrite :e with :E
+cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
+
 " keep selection when indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -491,6 +494,14 @@ nnoremap Y y$
 " delete everything but selection
 vnoremap <leader>x :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 nnoremap <leader>x <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
+
+nnoremap ö :w<CR>
+
+" fast way to edit ~/.vimrc*
+nnoremap <Leader>vv :e ~/.vimrc<CR>
+nnoremap <Leader>vp :e ~/.vimrc.plugin<CR>
+nnoremap <Leader>vl :e ~/.vimrc.local<CR>
+nnoremap <Leader>vr :source ~/.vimrc<CR>
 
 " i do not know why, but this is defined and blocks c-d in vimpager o_0
 silent! unmap <C-D>
