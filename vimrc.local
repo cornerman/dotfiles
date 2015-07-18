@@ -253,7 +253,7 @@ autocmd vimrc FileType ruby setlocal shiftwidth=2
 
 autocmd vimrc FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd vimrc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd vimrc FileType javascript setlocal omnifunc=tern#Complete
 autocmd vimrc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
