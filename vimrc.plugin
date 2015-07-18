@@ -57,6 +57,7 @@ Plug 'xolox/vim-misc'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " javascript
+Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
 Plug 'burnettk/vim-angular'
 Plug 'othree/javascript-libraries-syntax.vim'
