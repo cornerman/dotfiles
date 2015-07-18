@@ -18,17 +18,6 @@ Plug 'mbbill/undotree'
 
 " as-you-type completion system
 Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.sh' }
-augroup load_ycm
-  autocmd!
-  autocmd! InsertEnter *
-        \ call plug#load('YouCompleteMe')     |
-        \ if exists('g:loaded_youcompleteme') |
-        \   let s:winview = winsaveview()     |
-        \   call youcompleteme#Enable()       |
-        \   call winrestview(s:winview)       |
-        \ endif                               |
-        \ autocmd! load_ycm
-augroup END
 
 " show syntax/style errors
 Plug 'scrooloose/syntastic'
@@ -64,19 +53,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 
-" shows ctags from all open buffers in a separate window
-Plug 'majutsushi/tagbar'
-
 " Latex
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " javascript
-"Plugin 'marijnh/tern_for_vim'
-Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
 Plug 'burnettk/vim-angular'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'matthewsimo/angular-vim-snippets'
 
 " scala
 Plug 'derekwyatt/vim-scala'
@@ -95,9 +78,6 @@ Plug 'tpope/vim-bundler'
 
 " pry integration: ,bp breakpoint and ,ph paste pry history
 Plug 'vim-scripts/pry'
-
-" rdoc integration: K word under cursor and ,r/,R/,K lookup with autocomplete
-Plug 'danchoi/ri.vim'
 
 " i3 config syntax
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -148,12 +128,6 @@ Plug 'panozzaj/vim-autocorrect'
 " close all but the current buffer with :Bonly
 Plug 'vim-scripts/BufOnly.vim'
 
-" cmdline complete: autocomplete search patterns with c-p/c-n
-Plug 'vim-scripts/CmdlineComplete'
-
-" fuzzy finder
-Plug 'kien/ctrlp.vim'
-
 " repeat plugin motions with .
 Plug 'tpope/vim-repeat'
 
@@ -165,6 +139,9 @@ Plug 'AndrewRadev/switch.vim'
 
 " use previous window when selecting item in quickfix/location window
 Plug 'yssl/QFEnter'
+
+" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 " finished
 call plug#end()
