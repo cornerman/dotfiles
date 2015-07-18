@@ -144,5 +144,8 @@ Plug 'yssl/QFEnter'
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
+" autoresize the current window to be larger
+Plug 'zhaocai/GoldenView.Vim'
+
 " finished
 call plug#end()

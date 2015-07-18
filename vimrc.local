@@ -36,6 +36,9 @@ let g:rooter_manual_only = 1
 let g:rooter_disable_map = 1
 nmap <silent> <leader>, :Rooter<CR>
 
+" goldenview window splitting
+let g:goldenview__enable_default_mapping = 0
+
 " camelcase word jumping
 map <leader>w <Plug>CamelCaseMotion_w
 map <leader>b <Plug>CamelCaseMotion_b
