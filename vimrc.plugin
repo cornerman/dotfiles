@@ -17,7 +17,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'mbbill/undotree'
 
 " as-you-type completion system
-Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.sh' }
+Plug 'shougo/neocomplete.vim'
 
 " show syntax/style errors
 Plug 'scrooloose/syntastic'
