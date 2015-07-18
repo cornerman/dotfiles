@@ -3,6 +3,15 @@ nmap <F2> :sign unplace *<CR>:setlocal spell! spelllang=en_us<CR>
 nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
 nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
 
+" silent grep wrapper
+command! -nargs=* Grep
+\ | execute ':Rooter'
+\ | execute ':silent grep '.<q-args>
+\ | execute ':redraw!'
+\ | execute ':copen'
+
+nnoremap <leader>g     :Grep<space>
+
 " grep in buffers
 command! -nargs=* BGrep
 \ | execute ':Bgrep '.<q-args>

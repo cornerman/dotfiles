@@ -382,11 +382,6 @@ function! OnlineDoc(visualMode)
     redraw!
 endfunction
 
-command! -nargs=* Grep
-\ | execute ':silent grep '.<q-args>
-\ | execute ':redraw!'
-\ | execute ':copen'
-
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
@@ -482,9 +477,6 @@ nnoremap <leader>D     :lfirst<CR>
 " toggle quickfix window / location list
 nmap <leader>q :Qtoggle<CR>
 nmap <leader>Q :Ltoggle<CR>
-
-" grep
-nnoremap <leader>g     :Grep<space>
 
 " overwrite :e with :E
 cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
