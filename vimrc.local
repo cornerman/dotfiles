@@ -27,7 +27,8 @@ let g:undotree_SetFocusWhenToggle = 1
 
 " switch to project root
 let g:rooter_manual_only = 1
-nmap <silent> <leader><space> :Rooter<CR>
+let g:rooter_disable_map = 1
+nmap <silent> <leader>, :Rooter<CR>
 
 " camelcase word jumping
 map <leader>w <Plug>CamelCaseMotion_w

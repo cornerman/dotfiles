@@ -248,11 +248,16 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
             \ | wincmd p | diffthis
 
 " open commands for file lists
-command! -complete=file -nargs=+ Etabe call s:ETW('tabnew', <f-args>)
-command! -complete=file -nargs=+ Enew call s:ETW('new', <f-args>)
-command! -complete=file -nargs=+ Evnew call s:ETW('vnew', <f-args>)
-command! -complete=file -nargs=+ E call s:ETW('edit', <f-args>)
+command! -complete=file -nargs=* Etabe call s:ETW('tabnew', <f-args>)
+command! -complete=file -nargs=* Enew call s:ETW('new', <f-args>)
+command! -complete=file -nargs=* Evnew call s:ETW('vnew', <f-args>)
+command! -complete=file -nargs=* E call s:ETW('edit', <f-args>)
 function! s:ETW(what, ...)
+    if empty(a:000)
+        edit
+        return
+    endif
+
     for f1 in a:000
         let files = glob(f1)
         if files == ''
@@ -411,7 +416,7 @@ call <SID>MapFastKeycode('<M-l>', "\el")
 call <SID>MapFastKeycode('<M-d>', "\ed")
 
 " toggle sideffects
-nnoremap <leader>, :call ToggleSideEffects()<CR>
+nnoremap <leader><space> :call ToggleSideEffects()<CR>
 
 " clear search highlighting
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
