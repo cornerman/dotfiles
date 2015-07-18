@@ -23,7 +23,7 @@ nmap <leader>G :BGrep<space>
 nmap <leader>u :UndotreeToggle<CR>
 
 " autoformat
-nmap <leader>f :WsFix<CR>:silent! Autoformat<CR>
+nmap <leader>f :WsFix<CR> ":Autoformat<CR>
 
 " close all buffers except current
 nmap <C-q> :BufOnly<CR>
@@ -81,15 +81,15 @@ let g:syntastic_java_checkstyle_conf = '/usr/share/checkstyle/sun_checks.xml'
 let g:syntastic_javascript_checkers=['jshint', 'flow']
 
 " format java code
-let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+" let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 
 " autoformat ruby
-let g:formatprg_ruby = "rbeautify"
-let g:formatprg_args_ruby = "-"
+let g:formatters_ruby = ["rbeautify"]
+let g:formatdef_rbeautify = '"-"'
 
 " autoformat javascript
-let g:formatprg_javascript = "js-beautify"
-let g:formatprg_args_javascript = "-"
+let g:formatters_javascript = ['jsbeautify']
+let g:formatdef_jsbeautify = '"-"'
 
 " rails policy navigation
 command! -complete=file -nargs=1 Epolicy call s:EditPolicy(<f-args>)
@@ -148,13 +148,20 @@ let g:ycm_key_invoke_completion = '<C-Space>'
 
 " start youcompleteme on demand
 imap <C-@> <ESC>:call YcmStarter()<CR>a
+nmap <C-@> :call YcmStarter()<CR>
 function! YcmStarter()
     let s:winview = winsaveview()
-    iunmap <C-@>
+    silent! iunmap <C-@>
     call plug#load('YouCompleteMe')
     call youcompleteme#Enable()
     call winrestview(s:winview)
 endfunction
+" augroup load_ycm
+"   autocmd!
+"   autocmd! BufWinEnter *
+"             \ call YcmStarter()   |
+"         \ autocmd! load_ycm
+" augroup END
 
 let g:ycm_semantic_triggers =  {
             \   'c' : ['->', '.'],

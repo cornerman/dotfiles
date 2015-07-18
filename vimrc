@@ -456,7 +456,7 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
 " open current file 'fullscreen' / in new tab with ctrl+space
-nnoremap <C-@>     :tabedit %<cr>
+nnoremap <leader><CR>     :tabedit %<cr>
 
 " easier split window navigation
 nnoremap <C-j>     <C-w>j
