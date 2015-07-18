@@ -402,3 +402,4 @@ include_all ~/.zsh/bash_completion
 
 # local settings
 include ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
