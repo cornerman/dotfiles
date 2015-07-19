@@ -23,10 +23,28 @@ nmap <leader>G :BGrep<space>
 nmap <leader>u :UndotreeToggle<CR>
 
 " autoformat
-nmap <leader>f :WsFix<CR> ":Autoformat<CR>
+nmap <leader>f :WsFix<CR>:Autoformat<CR>
 
 " close all buffers except current
-nmap <C-q> :BufOnly<CR>
+nmap <leader>q :BufOnly<CR>
+
+function! OpenChangedFiles()
+    BufOnly
+    let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
+    let filenames = split(status, "\n")
+    for filename in filenames
+        exec "edit " . filename
+    endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+
+nnoremap <leader>m :OpenChangedFiles<CR>
+
+" emmet: zen-coding
+let g:user_emmet_install_global = 0
+autocmd vimrc FileType html,css EmmetInstall
+nmap   <C-e>   <plug>(emmet-expand-abbr)
+imap   <C-e>   <plug>(emmet-expand-abbr)
 
 " focus undotree when toggled
 let g:undotree_SetFocusWhenToggle = 1
@@ -38,6 +56,7 @@ nmap <silent> <leader>, :Rooter<CR>
 
 " goldenview window splitting
 let g:goldenview__enable_default_mapping = 0
+nmap <leader>r :GoldenViewResize<CR>
 
 " camelcase word jumping
 map <leader>w <Plug>CamelCaseMotion_w
@@ -57,11 +76,14 @@ nmap <M-k>  <S-v><Plug>SchleppUp
 vmap <M-d>  <Plug>SchleppDup
 nmap <M-d>  <S-v><Plug>SchleppDup
 
+" colorscheme
+colorscheme solarized
+
 " airline statusline
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='understated'
+let g:airline_theme='solarized'
 
 " disable backslash keybinding of indexed search
 let g:indexed_search_show_index_mappings=0
@@ -219,7 +241,7 @@ nmap <silent> <leader>i :FZFTagFile<CR>
 nmap <silent> <leader>p :FZF<CR>
 nmap <silent> <leader>; :FZFMru<CR>
 nmap <silent> <leader>' :FZFBuffers<CR>
-nmap <silent> <Leader>c :FZFColorscheme<CR>
+nmap <silent> <Leader>C :FZFColorscheme<CR>
 nmap <silent> <Leader>l :FZFLines<CR>
 
 " locate command integration
@@ -422,7 +444,7 @@ imap <C-@> <C-Space>
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#close_popup()."<C-h>"
 inoremap <expr><BS> neocomplete#close_popup()."<C-h>"
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+inoremap <expr><C-q>  neocomplete#cancel_popup()
 
 " For cursor moving in insert mode
 inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
@@ -447,9 +469,6 @@ let g:neocomplete#force_omni_input_patterns.scala = '[^. \t/]\.\w*'
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t/]\.\w*'
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-" let g:neocomplete#sources = {
-"             \ '_' : ['file', 'member', 'omni', 'tag', 'buffer', 'syntax', 'dictionary']
-"   \ }
 let g:neocomplete#sources = {
-            \ '_' : ['file', 'omni', 'buffer', 'syntax', 'dictionary']
+            \ '_' : ['file', 'member', 'omni', 'buffer', 'syntax', 'dictionary']
   \ }

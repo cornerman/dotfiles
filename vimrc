@@ -188,31 +188,11 @@ endif
 set textwidth=80
 
 " ========colors/appearance
+set background=dark
 
-" colorscheme
-colorscheme codeschool
-
-" use background color of terminal
+" " use background color of terminal
 hi Normal ctermbg=none
 hi NonText ctermbg=none
-
-" light cursor line background
-hi CursorLine ctermbg=239 cterm=none
-
-" dark lineNr column
-hi LineNr ctermfg=242 ctermbg=235
-
-" mark current linenumber
-hi CursorLineNr term=bold cterm=bold ctermfg=Yellow gui=bold guifg=Yellow
-
-" search highlights
-hi Search cterm=none ctermfg=black ctermbg=yellow
-
-" underline errors (only needed for the highlighted cursorline :/)
-hi SpellBad cterm=italic,underline
-
-" colors for completionmenu
-highlight Pmenu ctermbg=242 ctermfg=153
 
 " only enable cursorline in focused window
 set cul
@@ -318,7 +298,18 @@ function! ToggleColorColumn()
         windo let &colorcolumn=s:color_column_old
         let s:color_column_old = 0
     endif
-endfunction
+endfunctio:n
+
+command! Bgtoggle call BackgroundToggle()
+" toggle background color
+function! BackgroundToggle()
+    let current = &background
+    if current == 'dark'
+        set background=light
+    elseif current == 'light'
+        set background=dark
+    endif
+endfunctio:n
 
 " toggle side effects on yank register when deleting/modifying text
 function! ToggleSideEffects()
@@ -382,6 +373,28 @@ function! OnlineDoc(visualMode)
     redraw!
 endfunction
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OpenChangedFiles COMMAND
+" Open a split for each dirty file in git
+"
+" Shamelessly stolen from Gary Bernhardt: https://github.com/garybernhardt/dotfiles
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! OpenChangedFiles()
+  only " Close all windows, unless they're modified
+  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
+  let filenames = split(status, "\n")
+  if len(filenames) > 0
+    exec "edit " . filenames[0]
+    for filename in filenames[1:]
+      exec "sp " . filename
+    endfor
+  end
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+
+nnoremap ,ocf :OpenChangedFiles<CR>
+
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
@@ -416,19 +429,22 @@ nnoremap <leader><space> :call ToggleSideEffects()<CR>
 " clear search highlighting
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
+" save some keystrokes
+nnoremap ; :
+nnoremap \ ;
+
 " shorthand macro
 nnoremap - @q
 nnoremap + @w
 
 " online doc search
-nnoremap <leader>k :call OnlineDoc(0)<CR>
-vnoremap <leader>k <ESC>:call OnlineDoc(1)<CR>
+nnoremap <leader>t :call OnlineDoc(0)<CR>
+vnoremap <leader>t <ESC>:call OnlineDoc(1)<CR>
 
 " save and quit
-noremap ' :w<CR>
-vnoremap ' :w<CR>
-noremap \ :q<CR>
-vnoremap \ :q<CR>
+nnoremap ö :w<CR>
+noremap ' :update<CR>
+noremap <leader>' :update<CR>:q<CR>
 
 "w!! writes file with root rights
 cnoremap w!! w !sudo tee % >/dev/null
@@ -455,28 +471,23 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
-" open current file 'fullscreen' / in new tab with ctrl+space
-nnoremap <leader><CR>     :tabedit %<cr>
-
 " easier split window navigation
 nnoremap <C-j>     <C-w>j
 nnoremap <C-k>     <C-w>k
 nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
 
-" quick switch between quickfix results
+" quick switch between quickfix and localtion list results
 nnoremap <leader>a     :cprev<CR>
 nnoremap <leader>s     :cnext<CR>
 nnoremap <leader>d     :cfirst<CR>
-
-" quick switch between location results
-nnoremap <leader>A     :lprev<CR>
-nnoremap <leader>S     :lnext<CR>
-nnoremap <leader>D     :lfirst<CR>
+nnoremap <leader>k     :lprev<CR>
+nnoremap <leader>j     :lnext<CR>
+nnoremap <leader>h     :lfirst<CR>
 
 " toggle quickfix window / location list
-nmap <leader>q :Qtoggle<CR>
-nmap <leader>Q :Ltoggle<CR>
+nmap <leader>[ :Qtoggle<CR>
+nmap <leader>] :Ltoggle<CR>
 
 " overwrite :e with :E
 cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
@@ -492,13 +503,14 @@ nnoremap Y y$
 vnoremap <leader>x :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 nnoremap <leader>x <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 
-nnoremap ö :w<CR>
-
 " fast way to edit ~/.vimrc*
 nnoremap <Leader>vv :e ~/.vimrc<CR>
 nnoremap <Leader>vp :e ~/.vimrc.plugin<CR>
 nnoremap <Leader>vl :e ~/.vimrc.local<CR>
 nnoremap <Leader>vr :source ~/.vimrc<CR>
+nnoremap <leader>c :Bgtoggle<CR>
+
+nmap K o<ESC>
 
 " i do not know why, but this is defined and blocks c-d in vimpager o_0
 silent! unmap <C-D>

@@ -120,12 +120,12 @@ Plug 'mhinz/vim-startify'
 " status bar
 Plug 'bling/vim-airline'
 
+" colorscheme
+Plug 'altercation/vim-colors-solarized'
+
 " spelling error in quickfix window
 Plug 'vim-scripts/SpellCheck'
 Plug 'vim-scripts/ingo-library'
-
-" on-the-fly correction of misspelled words: start manually with 'call AutoCorrect()'
-Plug 'panozzaj/vim-autocorrect'
 
 " close all but the current buffer with :Bonly
 Plug 'vim-scripts/BufOnly.vim'
@@ -150,6 +150,9 @@ Plug 'zhaocai/GoldenView.Vim'
 
 " handle vim swap files, delete older and identical swap files
 Plug 'zirrostig/vim-smart-swap'
+
+" zen coding with emmet
+Plug 'mattn/emmet-vim'
 
 " finished
 call plug#end()
