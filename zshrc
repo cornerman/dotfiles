@@ -400,6 +400,8 @@ compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch 
 autoload bashcompinit && bashcompinit
 include_all ~/.zsh/bash_completion
 
+include ~/.zaliases
+
 # local settings
 include ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

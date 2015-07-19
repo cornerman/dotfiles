@@ -44,5 +44,4 @@ bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down
 
 # include functions and aliases
 include_all ~/.shfunctions/
-include ~/.zaliases
 include ~/.zaliases.local
