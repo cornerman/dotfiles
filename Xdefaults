@@ -1,5 +1,5 @@
 ! plugins
-URxvt.perl-ext-common:      default,matcher,url-select,resize-font,keyboard-select
+URxvt.perl-ext-common:      default,matcher,url-select,resize-font,keyboard-select,urxvt-colors
 URxvt.keysym.M-plus:        perl:resize-font:bigger
 URxvt.keysym.M-minus:       perl:resize-font:smaller
 URxvt.keysym.M-equal:       perl:resize-font:reset
@@ -7,6 +7,8 @@ URxvt.keysym.M-question:    perl:resize-font:show
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-f:           perl:keyboard-select:search
+URxvt.keysym.M-c:           perl:urxvt-colors:
+URxvt.keysym.F12:           perl:urxvt-colors:
 
 !enabling clickable links:
 URxvt.matcher.button:      1
@@ -18,6 +20,13 @@ URxvt.scrollBar: false
 URxvt.cursorBlink: true
 URxvt.secondaryScroll: true
 URxvt.cursorUnderline: false
+
+! pixels for external border
+URxvt.externalBorder:     0
+! pixels for internal border
+URxvt.internalBorder:     0
+! remove border
+URxvt.borderLess:         false
 
 URxvt.utf8: 1
 URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=14:antialias=true
@@ -50,4 +59,5 @@ URxvt.keysym.Shift-ISO_Left_Tab:         \033}
 URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[Z
 
 ! normal and bold colors should be equal
-URxvt*intensityStyles: false
+URxvt.intensityStyles: false
+urxvt.dynamicColors: on

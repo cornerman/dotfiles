@@ -3,7 +3,7 @@
 # load xdefaults
 xdefaults=~/.Xdefaults
 [ -f $xdefaults ] && xrdb $xdefaults
-xresources=~/.Xresources
+xresources=~/.Xresources.colors
 [ -f $xresources ] && xrdb -merge $xresources
 
 # set mouse cursor

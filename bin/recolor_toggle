@@ -1,7 +1,6 @@
 #!/bin/sh
 
-
-if [ "$(basename $(readlink ~/.Xresources))" = ".Xresources.light" ]; then
+if [ "$(basename $(readlink ~/.Xresources.colors))" = ".Xresources.light" ]; then
     dark
 else
     light
