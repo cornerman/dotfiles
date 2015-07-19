@@ -150,15 +150,15 @@ bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
 # program starters
 bindsym $mod+o $exec pcmanfm
 bindsym $mod+Shift+o $exec pcmanfm $(xcwd)
-bindsym $mod+u $exec chromium
-bindsym $mod+Shift+u $exec focus_or_run.rb -w Chromium -c chromium
-bindsym $mod+i $exec qutebrowser
-bindsym $mod+Shift+i $exec focus_or_run.rb -w qutebrowser -c qutebrowser
+bindsym $mod+Shift+u $exec chromium
+bindsym $mod+u $exec focus_or_run.rb -w Chromium -c chromium
+bindsym $mod+Shift+i $exec qutebrowser
+bindsym $mod+i $exec focus_or_run.rb -w qutebrowser -c qutebrowser
 bindsym $mod+p $nexec $term -name 'htop' -e 'htop'
-bindsym $mod+colon $nexec radio playlist radio
-bindsym $mod+Shift+colon $nexec radio playlist music
-bindsym $mod+apostrophe $nexec radio query artist
-bindsym $mod+Shift+apostrophe $nexec radio query album
+bindsym $mod+x $nexec radio playlist radio
+bindsym $mod+Shift+x $nexec radio playlist music
+bindsym $mod+z $nexec radio query artist
+bindsym $mod+Shift+z $nexec radio query album
 bindsym $mod+t $nexec sink 0 && notify -a pulse "moved sink to 0"
 bindsym $mod+Shift+t $nexec sink 1 && notify -a pulse "moved sink to 1"
 
@@ -220,7 +220,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # kill focused window
-bindsym $mod+Shift+Q kill
+bindsym $mod+Q kill
 
 # Read identifier and mark the current window with this identifier
 bindsym $mod+m $nexec win_mark mark
@@ -230,14 +230,17 @@ bindsym $mod+Shift+m $nexec win_mark unmark
 bindsym $mod+n $nexec win_mark goto
 
 # split in horizontal orientation
-bindsym $mod+x split v; mark lastsplit
+bindsym $mod+apostrophe split v
 
 # split in vertical orientation
-bindsym $mod+z split h; mark lastsplit
+bindsym $mod+colon split h
 
 # xkill a window
-bindsym $mod+c $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [con_id = {}] kill"
-bindsym $mod+Shift+c $nexec "i3-easyfocus -a -w | xargs xkill -id"
+bindsym $mod+Shift+q $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [con_id = {}] kill"
+bindsym $mod+Ctrl+q $nexec "i3-easyfocus -a -w | xargs xkill -id"
+
+# toggle color theme
+bindsym $mod+c $nexec recolor_toggle
 
 # move to last split
 bindsym $mod+f fullscreen
@@ -246,7 +249,6 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+F fullscreen global
 
 # change container layout (stacked, tabbed, default)
-bindsym $mod+q layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
