@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ln -fs ~/.Xresources.dark ~/.Xresources
+ln -fs ~/.vimrc.dark ~/.vimrc.background
+xrdb -merge ~/.Xresources
+
+recolor_apply

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+
+if [ "$(basename $(readlink ~/.Xresources))" = ".Xresources.light" ]; then
+    dark
+else
+    light
+fi

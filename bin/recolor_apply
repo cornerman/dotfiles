@@ -1,0 +1,8 @@
+#!/bin/sh
+
+VIMS=`vim --serverlist`
+for vim in $VIMS; do
+    vim --servername $vim --remote-send '<ESC>:!recolor_urxvt<CR>:source ~/.vimrc.background<CR>:echo ""<CR>'
+done
+
+recolor_urxvt
