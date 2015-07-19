@@ -3,6 +3,8 @@
 # load xdefaults
 xdefaults=~/.Xdefaults
 [ -f $xdefaults ] && xrdb $xdefaults
+xresources=~/.Xresources
+[ -f $xresources ] && xrdb -merge $xresources
 
 # set mouse cursor
 xsetroot -cursor_name left_ptr

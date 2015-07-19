@@ -188,7 +188,11 @@ endif
 set textwidth=80
 
 " ========colors/appearance
-set background=dark
+if !empty(glob("~/.vimrc.background"))
+    source ~/.vimrc.background
+else
+    set background=dark
+endif
 
 " " use background color of terminal
 hi Normal ctermbg=none
