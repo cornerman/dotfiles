@@ -27,9 +27,6 @@ let maplocalleader = " "
 " no auto line break
 set tw=0
 
-" background
-set background=dark
-
 " hides buffers instead of closing them
 set hidden
 
@@ -188,8 +185,8 @@ endif
 set textwidth=80
 
 " ========colors/appearance
-if !empty(glob("~/.vimrc.background"))
-    source ~/.vimrc.background
+if !empty(glob("~/.vimrc.colors"))
+    source ~/.vimrc.colors
 else
     set background=dark
 endif

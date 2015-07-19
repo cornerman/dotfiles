@@ -4,12 +4,12 @@ xsource="$1"
 vimsource="$2"
 
 ln -fs "$xsource" ~/.Xresources.colors
-ln -fs "$vimsource" ~/.vimrc.background
+ln -fs "$vimsource" ~/.vimrc.colors
 xrdb -merge ~/.Xresources.colors
 
 VIMS=`vim --serverlist`
 for vim in $VIMS; do
-    vim --servername $vim --remote-send '<ESC>:source ~/.vimrc.background<CR>:echo ""<CR>'
+    vim --servername $vim --remote-send '<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>'
 done
 
 xdotool search --class URxvt key --window %@ "F12"

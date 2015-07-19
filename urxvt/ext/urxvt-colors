@@ -1,5 +1,5 @@
 sub on_user_command {
     my ($self, $cmd) = @_;
-    my $output = `recolor_urxvt`;
+    my $output = `color_escape`;
     $self->cmd_parse($output);
 }

@@ -7,7 +7,6 @@ URxvt.keysym.M-question:    perl:resize-font:show
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-f:           perl:keyboard-select:search
-URxvt.keysym.M-c:           perl:urxvt-colors:
 URxvt.keysym.F12:           perl:urxvt-colors:
 
 !enabling clickable links:
