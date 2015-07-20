@@ -248,8 +248,9 @@ endfunction
 
 function! s:ag_handler(lines)
   let list = map(a:lines, 's:ag_to_file(v:val)')
-  for l in list
-    execute 'e ' . l
+  for l in a:lines
+    execute 'E ' . l
+    blast
   endfor
 endfunction
 
@@ -257,10 +258,8 @@ command! -nargs=* FZFAg call fzf#run({
 \ 'source':  printf('ag --nogroup --column --color "%s"',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
-\ 'options': '--ansi --no-hscroll --multi '.
-\            '--multi '.
-\            '--color hl:68,hl+:110',
-\ 'down':    '50%'
+\ 'options': '--ansi --multi '.
+\            '--multi '
 \ })
 
 command! FZFE call fzf#run(
@@ -348,8 +347,7 @@ endfunction
 command! FZFLines call fzf#run({
 \   'source':  <sid>buffer_lines(),
 \   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=3..',
-\   'down':    '60%'
+\   'options': '--extended --nth=3..'
 \})
 
 " fuzzy cmdline completion
