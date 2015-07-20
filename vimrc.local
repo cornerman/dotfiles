@@ -238,12 +238,33 @@ nmap <silent> <Leader>l :FZFLines<CR>
 nmap <leader>g :FZFAg<space>
 
 " locate command integration
-command! -nargs=1 FZFAg
-\ | execute ':Rooter'
-\ | call fzf#run({'source': 'ag --filename --noheading --numbers --column --nobreak --color -S <q-args>', 'sink': 'e', 'options': '-m --ansi'})
+command! -nargs=1 Locate call fzf#run(
+      \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
+
+function! s:ag_to_file(line)
+  let parts = split(a:line, ':')
+  return parts[0] . ":" . parts[1] . ":" . parts[2]
+endfunction
+
+function! s:ag_handler(lines)
+  let list = map(a:lines, 's:ag_to_file(v:val)')
+  for l in list
+    execute 'e ' . l
+  endfor
+endfunction
+
+command! -nargs=* FZFAg call fzf#run({
+\ 'source':  printf('ag --nogroup --column --color "%s"',
+\                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
+\ 'sink*':    function('<sid>ag_handler'),
+\ 'options': '--ansi --no-hscroll --multi '.
+\            '--multi '.
+\            '--color hl:68,hl+:110',
+\ 'down':    '50%'
+\ })
 
 command! FZFE call fzf#run(
-            \ {'sink': 'e', 'options': '-m'})
+            \ {'sink': 'E', 'options': '-m'})
 
 " choose colorscheme
 command! FZFColorscheme call fzf#run({
@@ -254,24 +275,38 @@ command! FZFColorscheme call fzf#run({
 \   'options': '+m',
 \   'left':    30
 \ })<CR>
+
 " jump to tags
+function! s:tags_to_file(line)
+  let parts = split(a:line, '  ')
+  return parts[1]
+endfunction
+
+function! s:tags_handler(lines)
+  let list = map(a:lines, 's:tags_to_file(v:val)')
+  for l in list
+    execute 'tag ' . l
+  endfor
+endfunction
+
 command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
 \   'source': 'cat ' . join(tagfiles()) . ' | format_tags',
-\   'sink':   'tag',
+\   'sink*':   function('<sid>tags_handler'),
+\   'options': '--multi',
 \ }) | else | echo 'No tags' | endif
 
 " jump to tags in current file
 command! FZFTagFile if !empty(tagfiles()) | call fzf#run({
 \   'source': "format_tags < " . tagfiles()[0],
 \   'sink':   'tag',
-\   'options':  '+m',
+\   'options': '--multi',
 \   'left':     60,
 \ }) | else | echo 'No tags' | endif
 
 " mru files
 command! FZFMru call fzf#run({
             \'source': v:oldfiles,
-            \'sink' : 'e ',
+            \'sink' : 'E',
             \'options' : '-m',
             \})
 
