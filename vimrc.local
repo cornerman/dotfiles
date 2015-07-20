@@ -248,9 +248,10 @@ endfunction
 
 function! s:ag_handler(lines)
   let list = map(a:lines, 's:ag_to_file(v:val)')
+  let wd = system('pwd')
   for l in a:lines
+    execute 'silent! lcd ' . wd
     execute 'E ' . l
-    blast
   endfor
 endfunction
 
