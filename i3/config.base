@@ -35,10 +35,10 @@ set $font       xft:Monospace 9
 set $barfont    xft:Monospace 8
 
 # background colors
-set $bgclr_focused      #3465a4
-set $bgclr_active       #49796b
-set $bgclr_unfocused    #303030
-set $bgclr_urgent       #CC0000
+set $bgclr_focused      #0087ff
+set $bgclr_active       #00afaf
+set $bgclr_unfocused    #2b2b2b
+set $bgclr_urgent       #cb4b16
 
 # foreground colors
 set $fgclr              #dcdccc
@@ -53,10 +53,10 @@ set $clr_indicator      #dcdccc
 set $bgclr_client       #000000
 
 # background bar color
-set $bgclr_bar          #303030
+set $bgclr_bar          #2b2b2b
 
 # foreground bar color
-set $fgclr_bar          #dadaaa
+set $fgclr_bar          #dcdccc
 
 # separator bar color
 set $spclr_bar          #202020

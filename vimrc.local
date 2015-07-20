@@ -77,6 +77,7 @@ vmap <M-d>  <Plug>SchleppDup
 nmap <M-d>  <S-v><Plug>SchleppDup
 
 " colorscheme
+" let g:solarized_termcolors=256
 colorscheme solarized
 
 " airline statusline
@@ -238,7 +239,7 @@ autocmd vimrc FileType tex setlocal spell spelllang=en_us
 " fzf:
 nmap <silent> <leader>o :FZFTags<CR>
 nmap <silent> <leader>i :FZFTagFile<CR>
-nmap <silent> <leader>p :FZF<CR>
+nmap <silent> <leader>p :FZFE<CR>
 nmap <silent> <leader>; :FZFMru<CR>
 nmap <silent> <leader>' :FZFBuffers<CR>
 nmap <silent> <Leader>C :FZFColorscheme<CR>
@@ -247,6 +248,9 @@ nmap <silent> <Leader>l :FZFLines<CR>
 " locate command integration
 command! -nargs=1 Locate call fzf#run(
       \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
+
+command! FZFE call fzf#run(
+            \ {'sink': 'e', 'options': '-m'})
 
 " choose colorscheme
 command! FZFColorscheme call fzf#run({

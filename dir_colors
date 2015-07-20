@@ -1,3 +1,4 @@
+
 # Dark 256 color solarized theme for the color GNU ls utility.
 # Used and tested with dircolors (GNU coreutils) 8.5
 #
@@ -25,6 +26,8 @@ TERM cons25
 TERM console
 TERM cygwin
 TERM dtterm
+TERM dvtm
+TERM dvtm-256color
 TERM eterm-color
 TERM fbterm
 TERM gnome
@@ -55,6 +58,7 @@ TERM screen-256color
 TERM screen-256color-bce
 TERM screen-256color-s
 TERM screen-256color-bce-s
+TERM screen-256color-italic
 TERM screen-bce
 TERM screen-w
 TERM screen.linux
@@ -66,6 +70,7 @@ TERM vt100
 TERM xterm
 TERM xterm-16color
 TERM xterm-256color
+TERM xterm-256color-italic
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
@@ -165,6 +170,7 @@ EXEC 00;38;5;64
 .tif    00;38;5;136
 .tiff   00;38;5;136
 .png    00;38;5;136
+.PNG    00;38;5;136
 .svg    00;38;5;136
 .svgz   00;38;5;136
 .mng    00;38;5;136
@@ -190,6 +196,7 @@ EXEC 00;38;5;64
 .xml             00;38;5;245
 *Makefile        00;38;5;245
 *Rakefile        00;38;5;245
+*Dockerfile      00;38;5;245
 *build.xml       00;38;5;245
 *rc              00;38;5;245
 *1               00;38;5;245
@@ -207,6 +214,7 @@ EXEC 00;38;5;64
 .cpp             00;38;5;245
 .cc              00;38;5;245
 .sqlite          00;38;5;245
+.go              00;38;5;245
 
 # "unimportant" files as logs and backups (base01)
 .log        00;38;5;240
@@ -252,6 +260,7 @@ EXEC 00;38;5;64
 
 # Video formats (as audio + bold)
 .mov    00;38;5;166
+.MOV    00;38;5;166
 .mpg    00;38;5;166
 .mpeg   00;38;5;166
 .m2v    00;38;5;166
@@ -280,4 +289,5 @@ EXEC 00;38;5;64
 .anx 00;38;5;166
 .ogv 00;38;5;166
 .ogx 00;38;5;166
+
 
