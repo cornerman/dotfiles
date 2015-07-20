@@ -145,7 +145,7 @@ ft() {
         tags=$(cat ~/.vim/vimtags/*)
     fi
 
-    tag=$(echo "$tags" | grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | column -t | fzf --query="$1" --select-1 --exit-0)
+    tag=$(echo "$tags" | format_tags | fzf --query="$1" --select-1 --exit-0)
 
     if [ -n "$tag" ]; then
         tag=$(echo "$tag" | tr -d '|' | awk '{ print $2 " " $3 }')

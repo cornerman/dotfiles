@@ -263,13 +263,13 @@ command! FZFColorscheme call fzf#run({
 \ })<CR>
 " jump to tags
 command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
-\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
+\   'source': 'cat ' . join(tagfiles()) . ' | format_tags',
 \   'sink':   'tag',
 \ }) | else | echo 'No tags' | endif
 
 " jump to tags in current file
 command! FZFTagFile if !empty(tagfiles()) | call fzf#run({
-\   'source': "cat " . tagfiles()[0] . ' | grep "' . expand('%:@') . '"' . " | sed -e '/^\\!/d;s/\t.*//' ". ' |  uniq',
+\   'source': "format_tags < " . tagfiles()[0],
 \   'sink':   'tag',
 \   'options':  '+m',
 \   'left':     60,
