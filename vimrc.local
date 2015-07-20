@@ -3,15 +3,6 @@ nmap <F2> :sign unplace *<CR>:setlocal spell! spelllang=en_us<CR>
 nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
 nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
 
-" silent grep wrapper
-command! -nargs=* Grep
-\ | execute ':Rooter'
-\ | execute ':silent grep '.<q-args>
-\ | execute ':redraw!'
-\ | execute ':copen'
-
-nnoremap <leader>g     :Grep<space>
-
 " grep in buffers
 command! -nargs=* BGrep
 \ | execute ':Bgrep '.<q-args>
@@ -244,10 +235,12 @@ nmap <silent> <leader>; :FZFMru<CR>
 nmap <silent> <leader>' :FZFBuffers<CR>
 nmap <silent> <Leader>C :FZFColorscheme<CR>
 nmap <silent> <Leader>l :FZFLines<CR>
+nmap <leader>g :FZFAg<space>
 
 " locate command integration
-command! -nargs=1 Locate call fzf#run(
-      \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
+command! -nargs=1 FZFAg
+\ | execute ':Rooter'
+\ | call fzf#run({'source': 'ag --filename --noheading --numbers --column --nobreak --color -S <q-args>', 'sink': 'e', 'options': '-m --ansi'})
 
 command! FZFE call fzf#run(
             \ {'sink': 'e', 'options': '-m'})
