@@ -59,4 +59,19 @@ URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[Z
 
 ! normal and bold colors should be equal
 URxvt.intensityStyles: false
-urxvt.dynamicColors: on
+
+! rofi starter
+rofi.modi:                           combi,ruby:puts_ruby
+rofi.combi-modi:                     window,run,ssh
+rofi.width:                          50
+rofi.lines:                          15
+rofi.columns:                        1
+rofi.location:                       2
+rofi.terminal:                       urxvt
+rofi.sidebar-mode:                   true
+rofi.levenshtein-sort:               false
+rofi.fuzzy:                          false
+rofi.kb-mode-next:                   Shift+Right,Alt+Tab
+rofi.kb-mode-previous:               Shift+Left,Alt+Shift+Tab
+rofi.bc:                             #0087ff
+rofi.bw:                             2

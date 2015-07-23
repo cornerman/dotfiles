@@ -4,7 +4,7 @@
 
 # modifier key
 set $mod    Mod4
-set $barmod Mod4
+set $barmod Mod3
 
 # terminal definition
 set $term urxvt
@@ -148,19 +148,14 @@ bindsym $mod+Return $exec $term
 bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
 
 # program starters
-bindsym $mod+o $exec pcmanfm
-bindsym $mod+Shift+o $exec pcmanfm $(xcwd)
-bindsym $mod+Shift+u $exec chromium
-bindsym $mod+u $exec focus_or_run.rb -w Chromium -c chromium
-bindsym $mod+Shift+i $exec qutebrowser
-bindsym $mod+i $exec focus_or_run.rb -w qutebrowser -c qutebrowser
+bindsym $mod+o $exec pcmanfm $(xcwd)
+bindsym $mod+u $exec chromium
+bindsym $mod+i $exec qutebrowser
 bindsym $mod+p $nexec $term -name 'htop' -e 'htop'
 bindsym $mod+x $nexec radio playlist radio
 bindsym $mod+Shift+x $nexec radio playlist music
 bindsym $mod+z $nexec radio query artist
 bindsym $mod+Shift+z $nexec radio query album
-bindsym $mod+t $nexec sink 0 && notify -a pulse "moved sink to 0"
-bindsym $mod+Shift+t $nexec sink 1 && notify -a pulse "moved sink to 1"
 
 # paste from clipboard
 #bindsym $mod+y $nexec xsel | xvkbd -xsendevent -file -
@@ -173,11 +168,7 @@ bindsym $mod+Shift+g $nexec i3-easyfocus -c
 bindsym $mod+Ctrl+g $nexec i3-easyfocus
 
 # start dmenu (a program launcher)
-bindsym $mod+d $nexec dmenu_run -p run
-
-# application switcher
-bindsym $mod+v $nexec quickswitch.py --dmenu 'dmenu -p focus -l 8'
-bindsym $mod+Shift+v $nexec quickswitch.py --move --dmenu 'dmenu -p move -l 8'
+bindsym $mod+d $nexec rofi -show combi
 
 # make screenshot (print)
 bindcode 107 $nexec screenshot root
@@ -298,8 +289,8 @@ bindsym $mod+Shift+bracketright move workspace next_on_output
 bindsym $mod+Shift+bracketleft move workspace prev_on_output
 
 # get fresh worspace
-bindsym $mod+BackSpace $nexec fresh_workspace.rb
-bindsym $mod+Shift+BackSpace $nexec fresh_workspace.rb -r
+bindsym $mod+t $nexec fresh_workspace.rb
+bindsym $mod+Shift+t $nexec fresh_workspace.rb -r
 
 # switch to workspace
 bindsym $mod+grave workspace number $ws0
@@ -393,6 +384,7 @@ mode $resize {
 }
 
 bindsym $mod+r mode $resize
+bindsym $mod+Shift+r $nexec maximize_window.sh
 
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
@@ -400,7 +392,7 @@ mode $pass_through {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+Shift+r mode $pass_through
+# bindsym $mod+Shift+r mode $pass_through
 
 # i3 session control mode
 set $session_ctrl "(e)xit, (r)estart, (l)oad"
