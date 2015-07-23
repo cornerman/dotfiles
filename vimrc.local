@@ -3,6 +3,20 @@ nmap <F2> :sign unplace *<CR>:setlocal spell! spelllang=en_us<CR>
 nmap <F3> :sign unplace *<CR>:setlocal spell! spelllang=de_de<CR>
 nmap <F4> :SpellCheck<CR>:Qtoggle<CR>
 
+" felix
+nnoremap ö :update<CR>
+nnoremap Ö :SudoWrite<CR>
+vnoremap ö <esc>:update<CR>gv
+vnoremap Ö <esc>:SudoWrite<CR>gv
+nnoremap ä :q<CR>
+nnoremap Ä :q!<CR>
+vnoremap ä <esc>:q<CR>
+vnoremap Ä <esc>:q!<CR>
+nnoremap ü :bd<CR>
+nnoremap Ü :BufOnly<CR>
+vnoremap ü <esc>:bd<CR>
+vnoremap Ü <esc>:BufOnly<CR>
+
 " grep in buffers
 command! -nargs=* BGrep
 \ | execute ':Bgrep '.<q-args>
@@ -80,7 +94,7 @@ let g:airline_theme='solarized'
 " disable backslash keybinding of indexed search
 let g:indexed_search_show_index_mappings=0
 
-" syntastic always populate location list + don't check on wq
+" syntastic settings
 let g:syntastic_check_on_open = 0
 let g:syntastic_enable_signs  = 1
 let g:syntastic_always_populate_loc_list = 1
@@ -222,6 +236,7 @@ autocmd vimrc FileType ruby setlocal shiftwidth=2
 autocmd vimrc FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd vimrc FileType javascript setlocal omnifunc=tern#Complete
+" autocmd vimrc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd vimrc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
@@ -297,10 +312,9 @@ command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
 
 " jump to tags in current file
 command! FZFTagFile if !empty(tagfiles()) | call fzf#run({
-\   'source': "format_tags < " . tagfiles()[0],
-\   'sink':   'tag',
+\   'source': 'cat ' . join(tagfiles()) . ' | grep "' . expand('%:p') . '" | format_tags',
+\   'sink*':   function('<sid>tags_handler'),
 \   'options': '--multi',
-\   'left':     60,
 \ }) | else | echo 'No tags' | endif
 
 " mru files
@@ -326,7 +340,6 @@ command! FZFBuffers call fzf#run({
 \   'source':  reverse(<sid>buflist()),
 \   'sink':    function('<sid>bufopen'),
 \   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
 " select lines of open buffers

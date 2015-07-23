@@ -24,9 +24,6 @@ syntax on
 let mapleader=" "
 let maplocalleader = " "
 
-" no auto line break
-set tw=0
-
 " hides buffers instead of closing them
 set hidden
 
@@ -181,8 +178,9 @@ if has('mouse')
     set mouse=a
 endif
 
-" For all text files set 'textwidth' to 80 characters.
-set textwidth=80
+" For all text files set 'textwidth'
+set textwidth=0
+set wrapmargin=0
 
 " ========colors/appearance
 if !empty(glob("~/.vimrc.colors"))
@@ -287,20 +285,6 @@ function! QFixToggle(loc)
     endif
 endfunction
 
-" toggle colored right border after 80 chars
-set colorcolumn=0
-let s:color_column_old = 81
-command! -bang -nargs=? ColorToggle call ToggleColorColumn(<bang>0)
-function! ToggleColorColumn()
-    if s:color_column_old == 0
-        let s:color_column_old = &colorcolumn
-        windo let &colorcolumn = 0
-    else
-        windo let &colorcolumn=s:color_column_old
-        let s:color_column_old = 0
-    endif
-endfunctio:n
-
 command! Bgtoggle call BackgroundToggle()
 " toggle background color
 function! BackgroundToggle()
@@ -320,7 +304,7 @@ function! ToggleSideEffects()
         noremap d "_d
         noremap X "_X
         noremap x "_x
-        xnoremap <expr> p 'pgv"'.v:register.'y'
+        " xnoremap <expr> p 'pgv"'.v:register.'y'
         echo 'side effects off'
     else
         unmap dd
@@ -328,7 +312,7 @@ function! ToggleSideEffects()
         unmap d
         unmap X
         unmap x
-        xunmap p
+        " xunmap p
         echo 'side effects on'
     endif
 endfunction
@@ -445,7 +429,7 @@ vnoremap <leader>t <ESC>:call OnlineDoc(1)<CR>
 " save and quit
 nnoremap ö :w<CR>
 noremap ' :update<CR>
-noremap <leader>' :update<CR>:q<CR>
+noremap <leader>' :q<CR>
 
 "w!! writes file with root rights
 cnoremap w!! w !sudo tee % >/dev/null
@@ -512,9 +496,6 @@ nnoremap <Leader>vr :source ~/.vimrc<CR>
 nnoremap <leader>c :Bgtoggle<CR>
 
 nmap K o<ESC>
-
-" i do not know why, but this is defined and blocks c-d in vimpager o_0
-silent! unmap <C-D>
 
 " local settings
 if !empty(glob("~/.vimrc.local"))

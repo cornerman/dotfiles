@@ -154,7 +154,5 @@ Plug 'zirrostig/vim-smart-swap'
 " zen coding with emmet
 Plug 'mattn/emmet-vim'
 
-Plug 'Floobits/floobits-vim'
-
 " finished
 call plug#end()
