@@ -1,5 +1,5 @@
 # fe - edit
-fe() {
+v() {
   local file
   file=$(fzf --multi --query="$(echo $@ | tr ' ' '\ ')" --select-1 --exit-0 | tr "\n" " ")
   [ -n "$file" ] && eval "${EDITOR:-vim} $file"
@@ -102,15 +102,6 @@ fstash() {
         git stash show -p $sha
       fi
     done
-}
-
-# v - open files in ~/.viminfo
-v() {
-  local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
-          while read line; do
-            [ -f "${line/\~/$HOME}" ] && echo "$line"
-          done | fzf -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 }
 
 unalias z
