@@ -404,7 +404,7 @@ mode $pass_through {
 # i3 session control mode
 set $session_ctrl "(e)xit, (r)estart, (l)oad"
 mode $session_ctrl {
-    bindsym e $nexec acknowledge "exit" && i3-msg exit; mode "default"
+    bindsym e exit
     bindsym r mode "default"; $nexec ~/.i3/create_i3_config; restart
     bindsym l mode "default"; $nexec ~/.i3/create_i3_config; reload
 
