@@ -143,6 +143,13 @@ for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating 
 
 ####keybindings
 
+# The middle button over a titlebar kills the window
+bindsym button3 kill
+
+# The side buttons move the window around
+bindsym button8 move left
+bindsym button9 move right
+
 # start a terminal
 bindsym $mod+Return $exec $term
 bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
@@ -428,7 +435,6 @@ bindsym $mod+Shift+e mode $system_ctrl
 
 $nexec nitrogen --restore
 $nexec unclutter -idle 3 -jitter 5 -noevents -root
-$nexec dunst
 $nexec xcmenu
 $nexec_always window_back_forth.rb
 $nexec_always urgent_indicator.rb
