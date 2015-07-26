@@ -26,7 +26,7 @@ Plug 'scrooloose/syntastic'
 Plug 'Chiel92/vim-autoformat'
 
 " open files at line with filename:32
-Plug 'cornerman/file-line'
+Plug 'kopischke/vim-fetch'
 
 " grep in open buffers
 Plug 'vim-scripts/buffergrep'
