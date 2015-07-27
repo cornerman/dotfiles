@@ -1,0 +1,48 @@
+#!/bin/bash
+
+playlist() {
+    stations=`mpc lsplaylists`
+
+    prefix=""
+    if [ -n "$1" ]; then
+        prefix=$1"_"
+        stations=`echo "$stations" | grep '^'$prefix | sed s/^$prefix//g | sort`
+    fi
+
+    playlist=`echo "$stations" | sort | dmenu -p "playlist: "`
+
+    if [ -n "$playlist" ]; then
+        number=$(($(mpc playlist | wc -l) + 1))
+        err=`mpc load ${prefix}${playlist} >/dev/null`
+        if [ -z "$err" ]; then
+            mpc play $number > /dev/null 2>&1
+        fi
+    fi
+}
+
+query() {
+    chosen=`mpc list $1 | sort | uniq | dmenu -p "$1: "`
+
+    if [ -n "$chosen" ]; then
+        number=$(($(mpc playlist | wc -l) + 1))
+        err=`mpc findadd $1 "$chosen"`
+        if [ -z "$err" ]; then
+            mpc play $number > /dev/null 2>&1
+        fi
+    fi
+}
+
+mode=$1
+shift
+case $mode in
+    playlist )
+        playlist $1
+        ;;
+    query )
+        query $1
+        ;;
+    * )
+        echo "query or playlist expected as arg"
+        exit 1
+        ;;
+esac
