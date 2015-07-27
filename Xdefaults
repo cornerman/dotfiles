@@ -61,8 +61,8 @@ URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[Z
 URxvt.intensityStyles: false
 
 ! rofi starter
-rofi.modi:                           combi,ruby:puts_ruby
-rofi.combi-modi:                     window,run,ssh
+rofi.modi:                           combi,ruby:puts_ruby,ssh
+rofi.combi-modi:                     window,run
 rofi.width:                          50
 rofi.lines:                          15
 rofi.columns:                        1
