@@ -1,0 +1,33 @@
+#!/bin/bash
+
+print_usage() {
+    echo "Usage: `basename $0` <plus|minus|mute|unmute|toggle>"
+    exit -1
+}
+
+set_mute() {
+    amixer sset Master $1 > /dev/null
+}
+
+set_volume() {
+    set_mute "unmute"
+    [ "$1" == "minus" ] && change='-'
+    [ "$1" == "plus" ] && change='+'
+
+    amixer sset Master 3%${change} > /dev/null
+}
+
+if [ $# -lt 1 ]; then
+    print_usage
+fi
+
+case "$1" in
+    plus|minus )
+        set_volume "$1";;
+    toggle|mute|unmute )
+        set_mute "$1";;
+    *)
+        print_usage ;;
+esac
+
+killall -USR1 i3status

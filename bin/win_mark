@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]
+then
+  echo "Usage: $0 <mark/goto/unmark>"
+  exit -1
+fi
+
+case "$1" in
+"mark")
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p 'mark'`;
+    /usr/bin/i3-msg "mark $name"
+    ;;
+"goto")
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p 'goto'`;
+    /usr/bin/i3-msg "[con_mark=$name]" focus
+    ;;
+"unmark")
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p "unmark"`;
+    if [[ -n $name ]]; then
+        /usr/bin/i3-msg unmark $name
+    fi
+    ;;
+*)
+    echo "unknown winmark command"
+    exit -1;
+    ;;
+esac
+

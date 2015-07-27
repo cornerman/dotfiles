@@ -1,0 +1,26 @@
+#!/bin/bash
+
+SCREEN_DIR=~/shots/
+
+window='root'
+
+case $1 in
+    root)
+        window='root';;
+    active)
+        window=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | cut -d' ' -f5`;;
+esac
+
+if [ $window == "root" ];then
+    name='root'
+else
+    name=`xprop -id $window | sed -n '/WM_CLASS/s/.* = "\([^\"]*\)".*/\1\n/p'`
+    [ -z "$name" ] && name='window'
+fi
+
+mkdir -p $SCREEN_DIR
+filename="`date +%Y-%m-%d_%H-%M-%S`-$name.png"
+
+import -border -window $window "$SCREEN_DIR/$filename"
+
+ln -sf "$filename" $SCREEN_DIR/last
