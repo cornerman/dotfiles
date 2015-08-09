@@ -1,8 +1,12 @@
 # fe - edit
 v() {
   local file
+  local curr_dir
+  curr_dir=$(pwd)
+  cd-git-root
   file=$(fzf --multi --query="$(echo $@ | tr ' ' '\ ')" --select-1 --exit-0 | tr "\n" " ")
   [ -n "$file" ] && eval "${EDITOR:-vim} $file"
+  cd "$curr_dir"
 }
 
 # fd - cd to selected directory

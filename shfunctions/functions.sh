@@ -53,3 +53,9 @@ whichpkg() {
 debchange() {
     zless /usr/share/doc/$1/changelog.Debian.gz
 }
+
+lastvim() {
+    num=${1:-"1"}
+    files=$(find . -maxdepth 1 | tail -n "$num" | tr "\n" " ")
+    [ -n "$files" ] && eval "${EDITOR:-vim} $files"
+}
