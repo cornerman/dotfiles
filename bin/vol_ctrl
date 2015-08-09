@@ -6,7 +6,11 @@ print_usage() {
 }
 
 set_mute() {
-    amixer sset Master $1 > /dev/null
+    change="toggle"
+    [ "$1" == "unmute" ] && change='-'
+    [ "$1" == "plus" ] && change='+'
+
+    pactl set-sink-mute 0 $1 > /dev/null
 }
 
 set_volume() {
@@ -14,7 +18,7 @@ set_volume() {
     [ "$1" == "minus" ] && change='-'
     [ "$1" == "plus" ] && change='+'
 
-    amixer sset Master 3%${change} > /dev/null
+    pactl set-sink-volume 0 ${change}3% > /dev/null
 }
 
 if [ $# -lt 1 ]; then
