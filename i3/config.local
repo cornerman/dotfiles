@@ -11,6 +11,8 @@ bar {
     mode dock
     hidden_state hide
     position bottom
+    bindsym button4 nop
+    bindsym button5 nop
     colors {
         background $bgclr_bar
         statusline $fgclr_bar
@@ -34,6 +36,8 @@ bar {
     mode dock
     hidden_state hide
     position bottom
+    bindsym button4 nop
+    bindsym button5 nop
     colors {
         background $bgclr_bar
         statusline $fgclr_bar

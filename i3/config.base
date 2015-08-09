@@ -28,7 +28,7 @@ set $ws8 8
 set $ws9 9
 set $ws10 10:♫♫
 set $ws11 11:mail
-set $ws12 12:s
+set $ws12 12:>>
 
 # font
 set $font       xft:Monospace 9
@@ -38,7 +38,7 @@ set $barfont    xft:Monospace 8
 set $bgclr_focused      #0087ff
 set $bgclr_active       #00afaf
 set $bgclr_unfocused    #2b2b2b
-set $bgclr_urgent       #cb4b16
+set $bgclr_urgent       #b64313
 
 # foreground colors
 set $fgclr              #dcdccc
@@ -103,6 +103,9 @@ force_display_urgency_hint 1000 ms
 # set focus depending on mouse movement
 focus_follows_mouse no
 
+# do not let window steal focus on window activation, set urgency hint instead
+focus_on_window_activation urgent
+
 # modifier for moving and resizing floating windows with the mouse
 floating_modifier $mod
 
@@ -139,7 +142,7 @@ assign [instance="(?i)ncmpcpp"] $ws10
 for_window [title="(?i)Password Required"] floating enable
 for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="Starting MPLAB X IDE"] floating enable
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
-for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
+for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] move scratchpad
 
 ####keybindings
 
@@ -154,44 +157,21 @@ bindsym button9 move right
 bindsym $mod+Return $exec $term
 bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
 
-# program starters
-bindsym $mod+o $exec pcmanfm $(xcwd)
-bindsym $mod+u $exec chromium
-bindsym $mod+i $exec qutebrowser
-bindsym $mod+p $nexec $term -name 'htop' -e 'htop'
-bindsym $mod+x $nexec radio playlist radio
-bindsym $mod+Shift+x $nexec radio playlist music
-bindsym $mod+z $nexec radio query artist
-bindsym $mod+Shift+z $nexec radio query album
-
-# paste from clipboard
-#bindsym $mod+y $nexec xsel | xvkbd -xsendevent -file -
-bindsym --release $mod+y $nexec xdotool key Shift+Insert
-bindsym $mod+Shift+y $nexec exec xcmenuctrl
+bindsym $mod+v $nexec radio
+bindsym $mod+Shift+v $nexec radio clear playlist
 
 # iterate over all windows
 bindsym $mod+g $nexec i3-easyfocus -a
-bindsym $mod+Shift+g $nexec i3-easyfocus -c
-bindsym $mod+Ctrl+g $nexec i3-easyfocus
+bindsym $mod+Shift+g $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [ con_id = {} ] move workspace current, floating enable, floating disable"
+bindsym $mod+Ctrl+g $nexec i3-easyfocus -c
 
 # start dmenu (a program launcher)
 bindsym $mod+d $nexec rofi -show combi
+bindsym $mod+Shift+d $nexec get_window
 
 # make screenshot (print)
 bindcode 107 $nexec screenshot root
 bindcode Shift+107 $nexec screenshot active
-
-# alter volume (volkeys)
-bindcode 121 $nexec vol_ctrl toggle
-bindcode 122 $nexec vol_ctrl minus
-bindcode 123 $nexec vol_ctrl plus
-
-# communicate with mpd
-bindcode $mod+122 $nexec mpc volume '-2'
-bindcode $mod+123 $nexec mpc volume '+2'
-bindcode $mod+121 $nexec mpc prev
-bindcode $mod+180 $nexec mpc next
-bindcode 180 $nexec mpc toggle
 
 # change focus
 bindsym $mod+h focus left
@@ -296,8 +276,8 @@ bindsym $mod+Shift+bracketright move workspace next_on_output
 bindsym $mod+Shift+bracketleft move workspace prev_on_output
 
 # get fresh worspace
-bindsym $mod+t $nexec fresh_workspace.rb
-bindsym $mod+Shift+t $nexec fresh_workspace.rb -r
+bindsym $mod+BackSpace $nexec fresh_workspace.rb
+bindsym $mod+Shift+BackSpace $nexec fresh_workspace.rb -r
 
 # switch to workspace
 bindsym $mod+grave workspace number $ws0
@@ -315,19 +295,19 @@ bindsym $mod+minus workspace number $ws11
 bindsym $mod+equal workspace number $ws12
 
 # move to righ ws to column
-bindsym $mod+Ctrl+grave $nexec split_ws.rb -s $ws0
-bindsym $mod+Ctrl+1 $nexec split_ws.rb -s $ws1
-bindsym $mod+Ctrl+2 $nexec split_ws.rb -s $ws2
-bindsym $mod+Ctrl+3 $nexec split_ws.rb -s $ws3
-bindsym $mod+Ctrl+4 $nexec split_ws.rb -s $ws4
-bindsym $mod+Ctrl+5 $nexec split_ws.rb -s $ws5
-bindsym $mod+Ctrl+6 $nexec split_ws.rb -s $ws6
-bindsym $mod+Ctrl+7 $nexec split_ws.rb -s $ws7
-bindsym $mod+Ctrl+8 $nexec split_ws.rb -s $ws8
-bindsym $mod+Ctrl+9 $nexec split_ws.rb -s $ws9
-bindsym $mod+Ctrl+0 $nexec split_ws.rb -s $ws10
-bindsym $mod+Ctrl+minus $nexec split_ws.rb -s $ws11
-bindsym $mod+Ctrl+equal $nexec split_ws.rb -s $ws12
+bindsym $mod+Ctrl+grave $nexec split_ws.rb -s "$ws0"
+bindsym $mod+Ctrl+1 $nexec split_ws.rb -s "$ws1"
+bindsym $mod+Ctrl+2 $nexec split_ws.rb -s "$ws2"
+bindsym $mod+Ctrl+3 $nexec split_ws.rb -s "$ws3"
+bindsym $mod+Ctrl+4 $nexec split_ws.rb -s "$ws4"
+bindsym $mod+Ctrl+5 $nexec split_ws.rb -s "$ws5"
+bindsym $mod+Ctrl+6 $nexec split_ws.rb -s "$ws6"
+bindsym $mod+Ctrl+7 $nexec split_ws.rb -s "$ws7"
+bindsym $mod+Ctrl+8 $nexec split_ws.rb -s "$ws8"
+bindsym $mod+Ctrl+9 $nexec split_ws.rb -s "$ws9"
+bindsym $mod+Ctrl+0 $nexec split_ws.rb -s "$ws10"
+bindsym $mod+Ctrl+minus $nexec split_ws.rb -s "$ws11"
+bindsym $mod+Ctrl+equal $nexec split_ws.rb -s "$ws12"
 
 bindsym $mod+Escape $nexec split_ws.rb -r
 bindsym $mod+Ctrl+Escape $nexec split_ws.rb -a
@@ -390,8 +370,8 @@ mode $resize {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode $resize
-bindsym $mod+Shift+r $nexec maximize_window.sh
+bindsym $mod+Shift+r mode $resize
+bindsym $mod+r $nexec maximize_window.sh
 
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
@@ -431,11 +411,35 @@ mode $system_ctrl {
 
 bindsym $mod+Shift+e mode $system_ctrl
 
+# sound and music control
+set $sound_ctrl "(h) previous, (l) next, (p) pause, (j) down, (k) up, (m) mute, (i) in, (o) out"
+
+mode $sound_ctrl {
+    bindsym m $nexec vol_ctrl toggle
+    bindsym j $nexec vol_ctrl minus
+    bindsym k $nexec vol_ctrl plus
+
+    bindsym Shift+m $nexec PULSE_SERVER=appendix vol_ctrl toggle
+    bindsym Shift+j $nexec PULSE_SERVER=appendix vol_ctrl minus
+    bindsym Shift+k $nexec PULSE_SERVER=appendix vol_ctrl plus
+    bindsym h $nexec mpc prev
+    bindsym l $nexec mpc next
+    bindsym p $nexec mpc toggle
+
+    bindsym i $nexec pa_sink 0
+    bindsym o $nexec pa_sink 1
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+t mode $sound_ctrl
+
 ####exec
 
 $nexec nitrogen --restore
 $nexec unclutter -idle 3 -jitter 5 -noevents -root
-$nexec xcmenu
 $nexec_always window_back_forth.rb
 $nexec_always urgent_indicator.rb
 $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::icedove" -s "$ws12::$term"
