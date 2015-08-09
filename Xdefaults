@@ -53,9 +53,8 @@ URxvt.keysym.M-Down:                     \033[1;3B
 URxvt.keysym.M-Up:                       \033[1;3A
 URxvt.keysym.M-Left:                     \033[1;3D
 URxvt.keysym.M-Right:                    \033[1;3C
+URxvt.keysym.S-Tab:                      \033[[Z
 URxvt.keysym.C-Tab:                      \033{
-URxvt.keysym.Shift-ISO_Left_Tab:         \033}
-URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[Z
 
 ! normal and bold colors should be equal
 URxvt.intensityStyles: false
