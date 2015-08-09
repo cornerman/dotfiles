@@ -17,13 +17,6 @@ nnoremap Ü :BufOnly<CR>
 vnoremap ü <esc>:bd<CR>
 vnoremap Ü <esc>:BufOnly<CR>
 
-" grep in buffers
-command! -nargs=* BGrep
-\ | execute ':Bgrep '.<q-args>
-\ | execute ':copen'
-
-nmap <leader>G :BGrep<space>
-
 " undotree
 nmap <leader>u :UndotreeToggle<CR>
 
@@ -167,7 +160,7 @@ let g:gitgutter_map_keys = 0
 let g:easytags_cmd = "/usr/bin/ctags-exuberant"
 let g:easytags_dynamic_files = 1
 let g:easytags_by_filetype = "~/.vim/vimtags/"
-let g:easytags_async = 1
+let g:easytags_async = 0
 let g:easytags_ignored_filetypes = ''
 let g:easytags_updatetime_min = 30000
 let g:easytags_languages = {
@@ -245,12 +238,19 @@ autocmd vimrc FileType tex setlocal spell spelllang=en_us
 " fzf:
 nmap <silent> <leader>o :FZFTags<CR>
 nmap <silent> <leader>i :FZFTagFile<CR>
-nmap <silent> <leader>p :FZFE<CR>
+nmap <silent> <leader>p :Rooter<CR>:FZFE<CR>:silent! lcd %:p:h<CR>
+nmap <silent> <leader>P :FZFE<CR>
 nmap <silent> <leader>; :FZFMru<CR>
 nmap <silent> <leader>' :FZFBuffers<CR>
 nmap <silent> <Leader>C :FZFColorscheme<CR>
 nmap <silent> <Leader>l :FZFLines<CR>
-nmap <leader>g :FZFAg<space>
+nmap <leader>g :RFZFAg<space>
+nmap <leader>G :FZFAg<space>
+
+command! -nargs=* RFZFAg
+\ | execute ':Rooter'
+\ | execute ':FZFAg '.<q-args>
+\ | execute 'silent! lcd %:p:h'
 
 " locate command integration
 command! -nargs=1 Locate call fzf#run(

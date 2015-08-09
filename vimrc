@@ -441,8 +441,10 @@ inoremap <C-U> <C-G>u<C-U>
 " switch buffers/tabs
 nnoremap <Backspace> :bprevious<CR>
 nnoremap <Enter> :bnext<CR>
+nnoremap <leader>a :bprevious<CR>
+nnoremap <leader>s :bnext<CR>
+nnoremap <C-q> <C-^>
 nnoremap Q :bdelete<CR>
-nnoremap <Tab> <C-^>
 
 " switch to numbered buffer
 nnoremap <Leader>1 :1b<CR>
@@ -462,17 +464,13 @@ nnoremap <C-k>     <C-w>k
 nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
 
-" quick switch between quickfix and localtion list results
-nnoremap <leader>a     :cprev<CR>
-nnoremap <leader>s     :cnext<CR>
-nnoremap <leader>d     :cfirst<CR>
-nnoremap <leader>k     :lprev<CR>
-nnoremap <leader>j     :lnext<CR>
-nnoremap <leader>h     :lfirst<CR>
-
 " toggle quickfix window / location list
-nmap <leader>[ :Qtoggle<CR>
-nmap <leader>] :Ltoggle<CR>
+nnoremap <leader>a     :Ltoggle<CR>
+nnoremap <leader>s     :Qtoggle<CR>
+
+" switch between tags
+nmap <leader>[ :tprev<CR>
+nmap <leader>] :tnext<CR>
 
 " overwrite :e with :E
 cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
