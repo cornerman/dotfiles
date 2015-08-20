@@ -52,6 +52,7 @@ alias vag=search-select-edit
 alias silence=wait-for-silence
 alias extract=extract-archive
 alias gda='git-dirty-files-command git add'
+alias gdc='git-dirty-files-command'
 alias gdv='git-dirty-files-command vim'
 alias nquery=neo4j-query
 alias nclear=neo4j-clear
