@@ -18,7 +18,7 @@ hi -append -link FontFixed CompTitle
 au Fullscreen * -javascript ex.set('guioptions+=s')
 
 " default search engine
-set defsearch=startpage
+set defsearch=duckduckgo
 
 " keybindings
 map -modes=n,v , <C-6>
