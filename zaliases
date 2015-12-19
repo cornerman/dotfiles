@@ -14,6 +14,12 @@ alias archive='tar -pczvf'
 alias grep='grep --color=auto'
 
 alias g=git
+alias gf='git f'
+alias gp='git p'
+alias gu='git u'
+alias gs='git s'
+alias gl='git l'
+alias gd='git dw --no-index'
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
