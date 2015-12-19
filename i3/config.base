@@ -53,7 +53,8 @@ set $clr_indicator      #dcdccc
 set $bgclr_client       #000000
 
 # background bar color
-set $bgclr_bar          #2b2b2b
+set $bgclr_bar_focused  #2b2b2b
+set $bgclr_bar          #3C3C3C
 
 # foreground bar color
 set $fgclr_bar          #dcdccc
@@ -79,7 +80,7 @@ client.unfocused        $brclr    $bgclr_unfocused    $fgclr    $clr_indicator
 client.urgent           $brclr    $bgclr_urgent       $fgclr    $clr_indicator
 
 # default tiling orientation
-default_orientation horizontal
+default_orientation auto
 
 # default workspace layout
 workspace_layout tabbed
@@ -142,11 +143,13 @@ assign [instance="(?i)ncmpcpp"] $ws10
 for_window [title="(?i)Password Required"] floating enable
 for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="Starting MPLAB X IDE"] floating enable
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
-for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] move scratchpad
+for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 
 ####keybindings
 
-# The middle button over a titlebar kills the window
+bindcode 133 nop
+
+# The right button button over a titlebar kills the window
 bindsym button3 kill
 
 # The side buttons move the window around
@@ -160,14 +163,14 @@ bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
 bindsym $mod+v $nexec radio
 bindsym $mod+Shift+v $nexec radio clear playlist
 
-# iterate over all windows
+# focus with visual hints
 bindsym $mod+g $nexec i3-easyfocus -a
 bindsym $mod+Shift+g $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [ con_id = {} ] move workspace current, floating enable, floating disable"
 bindsym $mod+Ctrl+g $nexec i3-easyfocus -c
 
 # start dmenu (a program launcher)
 bindsym $mod+d $nexec rofi -show combi
-bindsym $mod+Shift+d $nexec get_window
+bindsym $mod+Shift+d $nexec move_window_to_current
 
 # make screenshot (print)
 bindcode 107 $nexec screenshot root
@@ -197,9 +200,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# kill focused window
-bindsym $mod+Q kill
-
 # Read identifier and mark the current window with this identifier
 bindsym $mod+m $nexec win_mark mark
 bindsym $mod+Shift+m $nexec win_mark unmark
@@ -212,6 +212,9 @@ bindsym $mod+apostrophe split v
 
 # split in vertical orientation
 bindsym $mod+colon split h
+
+# kill focused window
+bindsym $mod+q kill
 
 # xkill a window
 bindsym $mod+Shift+q $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [con_id = {}] kill"
@@ -265,7 +268,7 @@ bindcode $mod+94 $nexec next_split.rb -v
 # switch to unfocused output
 bindsym $mod+Tab focus output right
 bindsym $mod+Shift+Tab move to output right
-bindsym $mod+Ctrl+Tab move workspace to output right
+bindsym $mod+mod1+Tab move workspace to output right
 
 # focus next/prev workspace on output
 bindsym $mod+bracketright workspace next_on_output
@@ -294,23 +297,22 @@ bindsym $mod+0 workspace number $ws10
 bindsym $mod+minus workspace number $ws11
 bindsym $mod+equal workspace number $ws12
 
-# move to righ ws to column
-bindsym $mod+Ctrl+grave $nexec split_ws.rb -s "$ws0"
-bindsym $mod+Ctrl+1 $nexec split_ws.rb -s "$ws1"
-bindsym $mod+Ctrl+2 $nexec split_ws.rb -s "$ws2"
-bindsym $mod+Ctrl+3 $nexec split_ws.rb -s "$ws3"
-bindsym $mod+Ctrl+4 $nexec split_ws.rb -s "$ws4"
-bindsym $mod+Ctrl+5 $nexec split_ws.rb -s "$ws5"
-bindsym $mod+Ctrl+6 $nexec split_ws.rb -s "$ws6"
-bindsym $mod+Ctrl+7 $nexec split_ws.rb -s "$ws7"
-bindsym $mod+Ctrl+8 $nexec split_ws.rb -s "$ws8"
-bindsym $mod+Ctrl+9 $nexec split_ws.rb -s "$ws9"
-bindsym $mod+Ctrl+0 $nexec split_ws.rb -s "$ws10"
-bindsym $mod+Ctrl+minus $nexec split_ws.rb -s "$ws11"
-bindsym $mod+Ctrl+equal $nexec split_ws.rb -s "$ws12"
+# move workspace to right column
+bindsym $mod+mod1+grave $nexec split_ws.rb -s "$ws0"
+bindsym $mod+mod1+1 $nexec split_ws.rb -s "$ws1"
+bindsym $mod+mod1+2 $nexec split_ws.rb -s "$ws2"
+bindsym $mod+mod1+3 $nexec split_ws.rb -s "$ws3"
+bindsym $mod+mod1+4 $nexec split_ws.rb -s "$ws4"
+bindsym $mod+mod1+5 $nexec split_ws.rb -s "$ws5"
+bindsym $mod+mod1+6 $nexec split_ws.rb -s "$ws6"
+bindsym $mod+mod1+7 $nexec split_ws.rb -s "$ws7"
+bindsym $mod+mod1+8 $nexec split_ws.rb -s "$ws8"
+bindsym $mod+mod1+9 $nexec split_ws.rb -s "$ws9"
+bindsym $mod+mod1+0 $nexec split_ws.rb -s "$ws10"
+bindsym $mod+mod1+minus $nexec split_ws.rb -s "$ws11"
+bindsym $mod+mod1+equal $nexec split_ws.rb -s "$ws12"
 
-bindsym $mod+Escape $nexec split_ws.rb -r
-bindsym $mod+Ctrl+Escape $nexec split_ws.rb -a
+bindsym $mod+mod1+Escape $nexec split_ws.rb -r
 
 # move focused container to workspace
 bindsym $mod+Shift+grave move workspace number $ws0
@@ -326,6 +328,21 @@ bindsym $mod+Shift+9 move workspace number $ws9
 bindsym $mod+Shift+0 move workspace number $ws10
 bindsym $mod+Shift+minus move workspace number $ws11
 bindsym $mod+Shift+equal move workspace number $ws12
+
+# move focused container and focus workspace
+bindsym $mod+Ctrl+grave move workspace number $ws0; workspace number $ws0
+bindsym $mod+Ctrl+1 move workspace number $ws1; workspace number $ws1
+bindsym $mod+Ctrl+2 move workspace number $ws2; workspace number $ws2
+bindsym $mod+Ctrl+3 move workspace number $ws3; workspace number $ws3
+bindsym $mod+Ctrl+4 move workspace number $ws4; workspace number $ws4
+bindsym $mod+Ctrl+5 move workspace number $ws5; workspace number $ws5
+bindsym $mod+Ctrl+6 move workspace number $ws6; workspace number $ws6
+bindsym $mod+Ctrl+7 move workspace number $ws7; workspace number $ws7
+bindsym $mod+Ctrl+8 move workspace number $ws8; workspace number $ws8
+bindsym $mod+Ctrl+9 move workspace number $ws9; workspace number $ws9
+bindsym $mod+Ctrl+0 move workspace number $ws10; workspace number $ws10
+bindsym $mod+Ctrl+minus move workspace number $ws11; workspace number $ws11
+bindsym $mod+Ctrl+equal move workspace number $ws12; workspace number $ws12
 
 # bar control
 bindsym $mod+b bar mode toggle
@@ -370,8 +387,8 @@ mode $resize {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+Shift+r mode $resize
-bindsym $mod+r $nexec maximize_window.sh
+bindsym $mod+r mode $resize
+bindsym $mod+Shift+r $nexec maximize_window.sh
 
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
@@ -435,6 +452,7 @@ mode $sound_ctrl {
 }
 
 bindsym $mod+t mode $sound_ctrl
+bindsym $mod+mod1+Delete exec scite
 
 ####exec
 

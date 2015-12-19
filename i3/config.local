@@ -14,6 +14,7 @@ bar {
     bindsym button4 nop
     bindsym button5 nop
     colors {
+        focused_background $bgclr_bar_focused
         background $bgclr_bar
         statusline $fgclr_bar
         separator  $spclr_bar
@@ -39,6 +40,7 @@ bar {
     bindsym button4 nop
     bindsym button5 nop
     colors {
+        focused_background $bgclr_bar_focused
         background $bgclr_bar
         statusline $fgclr_bar
         separator  $spclr_bar
