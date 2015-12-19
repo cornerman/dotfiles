@@ -33,6 +33,7 @@ fry wait-for-silence
 fry extract-archive
 NEO4J_QUERY_JSON_FORMATTER=json_pp
 fry neo4j-query
+fry git-onstage
 # fry print-expanded-alias
 
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
