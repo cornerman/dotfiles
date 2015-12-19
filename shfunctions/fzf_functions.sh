@@ -127,8 +127,8 @@ fa () {
     fzf | while read -r line; do $@ "$line"; done
 }
 
-# ft - edit tags
-ft() {
+# vt - edit tags
+vt() {
     local tagsdir=$PWD
     while [[ -n "$tagsdir" && ! -f "$tagsdir/tags" ]]; do
         tagsdir=${tagsdir%/*}
