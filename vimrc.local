@@ -50,7 +50,15 @@ let g:undotree_SetFocusWhenToggle = 1
 " switch to project root
 let g:rooter_manual_only = 1
 let g:rooter_disable_map = 1
-nmap <silent> <leader>, :Rooter<CR>
+
+nmap <silent> <leader>g, :Rooter<CR>
+nmap <leader>gn <Plug>GitGutterNextHunk
+nmap <leader>gN <Plug>GitGutterPrevHunk
+nmap <leader>ga <Plug>GitGutterStageHunk
+nmap <leader>gu <Plug>GitGutterStageHunk
+nmap <leader>gr <Plug>GitGutterRevertHunk
+nmap <leader>gs :silent !tig status<CR>:GitGutterAll<CR>:redraw!<CR>
+nmap <leader>gp :!git push<CR>
 
 " goldenview window splitting
 let g:goldenview__enable_default_mapping = 0
@@ -151,6 +159,8 @@ let g:LatexBox_custom_indent = '/usr/share/vim/vim74/indent/tex.vim'
 " latexbox only show quickfix on error (don't autofocus)
 let g:LatexBox_quickfix=4
 
+let g:languagetool_jar="/home/cornerman/downloads/LanguageTool-3.1/languagetool-commandline.jar"
+
 " gitgutter settings
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -160,7 +170,7 @@ let g:gitgutter_map_keys = 0
 let g:easytags_cmd = "/usr/bin/ctags-exuberant"
 let g:easytags_dynamic_files = 1
 let g:easytags_by_filetype = "~/.vim/vimtags/"
-let g:easytags_async = 0
+let g:easytags_async = 1
 let g:easytags_ignored_filetypes = ''
 let g:easytags_updatetime_min = 30000
 let g:easytags_languages = {
@@ -243,9 +253,9 @@ nmap <silent> <leader>P :FZFE<CR>
 nmap <silent> <leader>; :FZFMru<CR>
 nmap <silent> <leader>' :FZFBuffers<CR>
 nmap <silent> <Leader>C :FZFColorscheme<CR>
-nmap <silent> <Leader>l :FZFLines<CR>
-nmap <leader>g :RFZFAg<space>
-nmap <leader>G :FZFAg<space>
+" nmap <silent> <Leader>l :FZFLines<CR>
+nmap <leader>s :RFZFAg<space>
+nmap <leader>S :FZFAg<space>
 
 command! -nargs=* RFZFAg
 \ | execute ':Rooter'
@@ -262,8 +272,8 @@ function! s:ag_to_file(line)
 endfunction
 
 function! s:ag_handler(lines)
-  let list = map(a:lines, 's:ag_to_file(v:val)')
   let wd = system('pwd')
+  let list = map(a:lines, 's:ag_to_file(v:val)')
   for l in a:lines
     execute 'silent! lcd ' . wd
     execute 'E ' . l

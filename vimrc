@@ -259,6 +259,16 @@ function! WhitespaceFix()
     endif
 endfunction
 
+" from: http://stackoverflow.com/questions/18157501/toggle-semicolon-or-other-character-at-end-of-line
+function! s:ToggleEndChar(charToMatch)
+    let save_cursor = getpos(".") " backup cursor
+    s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
+    call setpos('.', save_cursor) " restore cursor
+    silent! call repeat#set("\<Plug>ToggleEndChar".a:charToMatch, -1)
+endfunction
+noremap! <unique> <Plug>ToggleEndChar; :call <SID>ToggleEndChar(';')<CR>
+noremap! <unique> <Plug>ToggleEndChar, :call <SID>ToggleEndChar(',')<CR>
+
 " toggles the quickfix and location window.
 command! Qtoggle call QFixToggle(0)
 command! Ltoggle call QFixToggle(1)
@@ -323,7 +333,6 @@ autocmd vimrc BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \   if &filetype == 'gitcommit' |
 \       setlocal spell |
-\       startinsert |
 \   else |
 \      exe "normal! g`\"" |
 \    endif |
@@ -427,7 +436,20 @@ nnoremap <leader>t :call OnlineDoc(0)<CR>
 vnoremap <leader>t <ESC>:call OnlineDoc(1)<CR>
 
 " save and quit
-nnoremap ö :w<CR>
+nnoremap ö :update<CR>
+vnoremap ö <esc>:update<CR>gv
+nnoremap Ö :SudoWrite<CR>
+vnoremap Ö <esc>:SudoWrite<CR>gv
+nnoremap <Leader>ö :update<CR>:call SyntasticAndStatusUpdate()<CR>
+nnoremap ä :q<CR>
+vnoremap ä <esc>:q<CR>
+nnoremap Ä :q!<CR>
+vnoremap Ä <esc>:q!<CR>
+nnoremap ü :bd<CR>
+vnoremap ü <esc>:bd<CR>
+nnoremap <Leader>ü :BufOnly<CR>
+vnoremap <Leader>ü <esc>:BufOnly<CR>gv
+
 noremap ' :update<CR>
 noremap <leader>' :q<CR>
 
@@ -445,6 +467,7 @@ nnoremap <leader>a :bprevious<CR>
 nnoremap <leader>s :bnext<CR>
 nnoremap <C-q> <C-^>
 nnoremap Q :bdelete<CR>
+nnoremap gqq <S-v>gq
 
 " switch to numbered buffer
 nnoremap <Leader>1 :1b<CR>
@@ -466,7 +489,7 @@ nnoremap <C-l>     <C-w>l
 
 " toggle quickfix window / location list
 nnoremap <leader>a     :Ltoggle<CR>
-nnoremap <leader>s     :Qtoggle<CR>
+nnoremap <leader>A     :Qtoggle<CR>
 
 " switch between tags
 nmap <leader>[ :tprev<CR>
@@ -493,7 +516,21 @@ nnoremap <Leader>vl :e ~/.vimrc.local<CR>
 nnoremap <Leader>vr :source ~/.vimrc<CR>
 nnoremap <leader>c :Bgtoggle<CR>
 
+" toggle chars at end of line
+nmap <silent> <Leader>< <Plug>ToggleEndChar;
+nmap <silent> <Leader>, <Plug>ToggleEndChar,
+
+" paste over rest of line
+nnoremap <Leader>p v$<Left>p
+" delete/edit whole word backwards
+nnoremap db xdb
+nnoremap cb xcb
+
 nmap K o<ESC>
+
+" c+s corrects the last word
+inoremap <c-s> <c-g>u<Esc>[s1z=`]a<c-g>u
+nnoremap <c-s> 1z=
 
 " local settings
 if !empty(glob("~/.vimrc.local"))

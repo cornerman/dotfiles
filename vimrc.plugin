@@ -7,6 +7,9 @@ endif
 
 call plug#begin('~/.vim/plug')
 
+" grammar check
+Plug 'vim-scripts/LanguageTool'
+
 " multiple cursors like sublime
 Plug 'terryma/vim-multiple-cursors'
 
@@ -55,10 +58,13 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " javascript
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
-Plug 'burnettk/vim-angular'
+" Plug 'burnettk/vim-angular'
 Plug 'othree/javascript-libraries-syntax.vim'
+
+" neo4j
+Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " scala
 Plug 'derekwyatt/vim-scala'
@@ -90,7 +96,7 @@ Plug 'kana/vim-textobj-indent' " ai, ii
 Plug 'rhysd/vim-textobj-anyblock' " ab, ib
 Plug 'thinca/vim-textobj-between' " af<char>, if<char>
 Plug 'coderifous/textobj-word-column.vim' " ac, ic
-Plug 'vim-scripts/argtextobj.vim' " aa, ia
+Plug 'PeterRincker/vim-argumentative' " a, ,i, with movements: <>, jumping: []
 Plug 'kana/vim-textobj-entire' " ae, ie
 
 " language pack
