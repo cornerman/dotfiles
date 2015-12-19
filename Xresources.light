@@ -1,4 +1,4 @@
-*background:            #fdf6e3
+*background:            #FFFFFF
 *borderColor:           #fdf6e3
 *foreground:            #657b83
 *fadeColor:             #fdf6e3
@@ -36,4 +36,4 @@
 
 !! white dark/light
 *color7:                #eee8d5
-*color15:               #fdf6e3
+*color15:               #FFFFFF
