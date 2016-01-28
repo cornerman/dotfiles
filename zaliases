@@ -1,17 +1,18 @@
-alias agu='sudo apt-get update'
-alias agg='sudo apt-get upgrade'
-alias agd='sudo apt-get dist-upgrade'
-alias agi='sudo apt-get install'
-alias agp='sudo apt-get purge'
-alias agr='sudo apt-get remove'
-alias aga='sudo apt-get --purge autoremove'
-alias acs='apt-cache search'
-alias acp='apt-cache policy'
-alias aci='apt-cache show'
+alias y='yaourt'
+alias yoghurt='yaourt'
+alias ys='yaourt -S' # install and mark as explicitly installed
+alias yu='yaourt -Syy' # update
+alias yr='yaourt -Rs' # remove package
+alias yi='yaourt -Qi' # package info
+alias yb='yaourt -Sb' # build package
+alias yo='yaourt -Qo' # package for command
+alias yl='yaourt -Ql' # list files for package
+alias ye='yaourt -Qe --date' # list installed packages
 
 alias archive='tar -pczvf'
 
 alias grep='grep --color=auto'
+alias gr=grep
 
 alias g=git
 alias gf='git f'
@@ -20,6 +21,7 @@ alias gu='git u'
 alias gs='git s'
 alias gl='git l'
 alias gd='git dw --no-index'
+alias slop=scite
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -52,7 +54,7 @@ alias cdg=cd-git-root
 alias cdt=cd-tmp
 alias onstage=git-onstage
 alias sc=git-select-commit
-alias imv=interactive-mv
+alias mvi=interactive-mv
 alias mkcd=mkdir-cd
 alias vag=search-select-edit
 alias silence=wait-for-silence
