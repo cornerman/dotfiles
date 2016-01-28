@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# needed as replacement for dbus-launch
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?* ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
 # load xdefaults
 xdefaults=~/.Xdefaults
 [ -f $xdefaults ] && xrdb $xdefaults
@@ -36,7 +44,7 @@ i3config=~/.i3/create_i3_config
 [ -f $i3config ] && $i3config
 
 # start i3
-exec dbus-launch i3 > /dev/null 2>&1
+exec i3 > /dev/null 2>&1
 
 # Enable core dumps in case something goes wrong
 ulimit -c unlimited
