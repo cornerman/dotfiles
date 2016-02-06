@@ -1,4 +1,4 @@
-# fe - edit
+# v - edit
 v() {
   local file
   local curr_dir
@@ -36,7 +36,7 @@ fcoc() {
 }
 
 # fbr - checkout git branch (including remote branches)
-fbr() {
+fcob() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |

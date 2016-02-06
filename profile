@@ -1,5 +1,3 @@
-export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
-
 # colorize manpages
 export LESS_TERMCAP_mb=$(printf "\33[01;34m")   # begin blinking
 export LESS_TERMCAP_md=$(printf "\33[01;34m")   # begin bold
@@ -15,4 +13,3 @@ export FZF_DEFAULT_OPTS="--extended --ansi --exit-0 --select-1 --bind ctrl-a:sel
 touch $HOME/.fzf_history
 
 [ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"
-

@@ -394,10 +394,6 @@ autoload -Uz compinit && compinit
 #parameter completions for programms that understand --hrlp
 compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
 
-# custom bash completion
-autoload bashcompinit && bashcompinit
-include_all ~/.zsh/bash_completion
-
 include ~/.zaliases
 
 # local settings
