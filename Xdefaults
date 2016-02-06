@@ -9,8 +9,11 @@ URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-f:           perl:keyboard-select:search
 URxvt.keysym.F12:           perl:urxvt-colors:
 
-!enabling clickable links:
+! enabling clickable links:
 URxvt.matcher.button:      1
+
+! url select browser
+URxvt.url-select.launcher: chromium
 
 ! URxvt scrolling options and cursor style:
 URxvt.saveLines: 200000
@@ -60,10 +63,11 @@ URxvt.keysym.C-Tab:                      \033{
 URxvt.intensityStyles: false
 
 ! rofi starter
-rofi.modi:                           combi,ruby:puts_ruby,ssh
+rofi.modi:                           combi,ssh
 rofi.combi-modi:                     window,run
-rofi.width:                          50
-rofi.lines:                          15
+rofi.width:                          100
+rofi.lines:                          20
+rofi.fixed-num-lines:                true
 rofi.columns:                        1
 rofi.location:                       2
 rofi.terminal:                       urxvt
@@ -72,5 +76,16 @@ rofi.levenshtein-sort:               false
 rofi.fuzzy:                          false
 rofi.kb-mode-next:                   Shift+Right,Alt+Tab
 rofi.kb-mode-previous:               Shift+Left,Alt+Shift+Tab
-rofi.bc:                             #0087ff
-rofi.bw:                             2
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #ffffff,#2b2b2b,#f7f7f7,#00afaf,#ffffff
+! Color scheme for urgent row
+rofi.color-urgent:                   #ffffff,#d64313,#f7f7f7,#d64313,#ffffff
+! Color scheme for active row
+rofi.color-active:                   #ffffff,#6495ed,#f7f7f7,#6495ed,#ffffff
+! Color scheme window
+rofi.color-window:                   #ffffff,#6495ed
+! Separator style (none, dash, solid)
+rofi.separator-style:                dash
+rofi.run-command:                    i3-msg exec {cmd}
