@@ -39,6 +39,8 @@ autocutsel -selection PRIMARY -fork
 
 redshift &
 
+xss-lock -- slock &
+
 # create i3 config
 i3config=~/.i3/create_i3_config
 [ -f $i3config ] && $i3config
