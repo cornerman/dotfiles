@@ -26,46 +26,42 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 set $ws9 9
-set $ws10 10:♫♫
-set $ws11 11:mail
-set $ws12 12:>>
+set $ws10 "10: "
+set $ws11 "11: "
+set $ws12 "12: "
 
 # font
-set $font       xft:Monospace 9
-set $barfont    xft:Monospace 8
+set $font       xft:Ubuntu 10
+set $barfont    xft:Ubuntu,FontAwesome 9
 
 # background colors
-set $bgclr_focused      #0087ff
+set $bgclr_focused      #6495ED
 set $bgclr_active       #00afaf
-set $bgclr_unfocused    #2b2b2b
+set $bgclr_unfocused    #d2d2bd
 set $bgclr_urgent       #b64313
 
 # foreground colors
-set $fgclr              #dcdccc
+set $fgclr              #2b2b2b
 
 # border colors
-set $brclr              #202020
+set $brclr              #2b2b2b
 
 # indicator color
-set $clr_indicator      #dcdccc
+set $clr_indicator      #d2d2bd
 
 # client background color
 set $bgclr_client       #000000
 
 # background bar color
-set $bgclr_bar_focused  #2b2b2b
-set $bgclr_bar          #3C3C3C
+set $bgclr_bar          #d2d2bd
 
 # foreground bar color
-set $fgclr_bar          #dcdccc
+set $fgclr_bar          #2b2b2b
 
 # separator bar color
-set $spclr_bar          #202020
+set $spclr_bar          #ffffff
 
 ####settings
-
-# ipc socket
-ipc-socket ~/.i3/ipc.sock
 
 # font for window titles
 font $font
@@ -110,6 +106,8 @@ focus_on_window_activation urgent
 # modifier for moving and resizing floating windows with the mouse
 floating_modifier $mod
 
+focus_keeps_workspace yes
+
 # set floating size constraints
 floating_minimum_size 10 x 10
 floating_maximum_size 1280 x 1024
@@ -135,7 +133,7 @@ workspace $ws11 output $screen2
 workspace $ws12 output $screen2
 
 # program to workspace assignment
-assign [class="(?i)icedove"] $ws11
+assign [class="(?i)thunderbird"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
 
@@ -146,8 +144,6 @@ for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floa
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 
 ####keybindings
-
-bindcode 133 nop
 
 # The right button button over a titlebar kills the window
 bindsym button3 kill
@@ -166,7 +162,7 @@ bindsym $mod+Shift+v $nexec radio clear playlist
 # focus with visual hints
 bindsym $mod+g $nexec i3-easyfocus -a
 bindsym $mod+Shift+g $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [ con_id = {} ] move workspace current, floating enable, floating disable"
-bindsym $mod+Ctrl+g $nexec i3-easyfocus -c
+bindsym Shift+Ctrl+g $nexec i3-easyfocus -c
 
 # start dmenu (a program launcher)
 bindsym $mod+d $nexec rofi -show combi
@@ -388,7 +384,7 @@ mode $resize {
 }
 
 bindsym $mod+r mode $resize
-bindsym $mod+Shift+r $nexec maximize_window.sh
+# bindsym $mod+Shift+r resize set 
 
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
@@ -415,10 +411,10 @@ bindsym $mod+Shift+w mode $session_ctrl
 # shutdown/reboot/hibernate system mode
 set $system_ctrl "(r)eboot, (p)oweroff, (h)ibernate, (s)uspend, (l)ock"
 mode $system_ctrl {
-    bindsym r mode "default"; $nexec gksudo reboot
-    bindsym p mode "default"; $nexec gksudo poweroff
-    bindsym h mode "default"; $nexec gksudo pm-hibernate
-    bindsym s mode "default"; $nexec gksudo pm-suspend
+    bindsym r mode "default"; $nexec systemctl reboot
+    bindsym p mode "default"; $nexec systemctl poweroff
+    bindsym h mode "default"; $nexec systemctl hibernate
+    bindsym s mode "default"; $nexec systemctl suspend
     bindsym l mode "default"; $nexec slock
 
     # back to normal: Enter or Escape
@@ -430,7 +426,6 @@ bindsym $mod+Shift+e mode $system_ctrl
 
 # sound and music control
 set $sound_ctrl "(h) previous, (l) next, (p) pause, (j) down, (k) up, (m) mute, (i) in, (o) out"
-
 mode $sound_ctrl {
     bindsym m $nexec vol_ctrl toggle
     bindsym j $nexec vol_ctrl minus
@@ -452,7 +447,6 @@ mode $sound_ctrl {
 }
 
 bindsym $mod+t mode $sound_ctrl
-bindsym $mod+mod1+Delete exec scite
 
 ####exec
 
@@ -460,4 +454,4 @@ $nexec nitrogen --restore
 $nexec unclutter -idle 3 -jitter 5 -noevents -root
 $nexec_always window_back_forth.rb
 $nexec_always urgent_indicator.rb
-$nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::icedove" -s "$ws12::$term"
+$nexec_always run_on_ws.rb -s "10::$term -name ncmpcpp -e ncmpcpp" -s "11::thunderbird" -s "12::$term"

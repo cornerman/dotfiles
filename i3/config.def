@@ -2,5 +2,5 @@
 
 ####variables
 
-set $screen1 DVI-I-2
-set $screen2 DVI-I-3
+set $screen1 DVI-I-1
+set $screen2 DVI-I-2

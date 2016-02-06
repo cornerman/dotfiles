@@ -6,15 +6,14 @@ bar {
     id 1
     output $screen1
     font $barfont
-    status_command i3status
+    status_command py3status -n 1 -d
     modifier $barmod
     mode dock
     hidden_state hide
-    position bottom
+    position top
     bindsym button4 nop
     bindsym button5 nop
     colors {
-        focused_background $bgclr_bar_focused
         background $bgclr_bar
         statusline $fgclr_bar
         separator  $spclr_bar
@@ -32,15 +31,14 @@ bar {
     tray_output none
     output $screen2
     font $barfont
-    status_command i3status
+    status_command py3status -n 1 -d
     modifier $barmod
     mode dock
     hidden_state hide
-    position bottom
+    position top
     bindsym button4 nop
     bindsym button5 nop
     colors {
-        focused_background $bgclr_bar_focused
         background $bgclr_bar
         statusline $fgclr_bar
         separator  $spclr_bar
