@@ -226,29 +226,6 @@ command! WQ wq
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
             \ | wincmd p | diffthis
 
-" open commands for file lists
-command! -complete=file -nargs=* Etabe call s:ETW('tabnew', <f-args>)
-command! -complete=file -nargs=* Enew call s:ETW('new', <f-args>)
-command! -complete=file -nargs=* Evnew call s:ETW('vnew', <f-args>)
-command! -complete=file -nargs=* E call s:ETW('edit', <f-args>)
-function! s:ETW(what, ...)
-    if empty(a:000)
-        edit
-        return
-    endif
-
-    for f1 in a:000
-        let files = glob(f1)
-        if files == ''
-            execute a:what . ' ' . escape(f1, '\ "')
-        else
-            for f2 in split(files, "\n")
-                execute a:what . ' ' . escape(f2, '\ "')
-            endfor
-        endif
-    endfor
-endfunction
-
 " fix all whitespaces
 command! WsFix call WhitespaceFix()
 function! WhitespaceFix()
@@ -266,8 +243,8 @@ function! s:ToggleEndChar(charToMatch)
     call setpos('.', save_cursor) " restore cursor
     silent! call repeat#set("\<Plug>ToggleEndChar".a:charToMatch, -1)
 endfunction
-noremap! <unique> <Plug>ToggleEndChar; :call <SID>ToggleEndChar(';')<CR>
-noremap! <unique> <Plug>ToggleEndChar, :call <SID>ToggleEndChar(',')<CR>
+" noremap! <unique> <Plug>ToggleEndChar; :call <SID>ToggleEndChar(';')<CR>
+" noremap! <unique> <Plug>ToggleEndChar, :call <SID>ToggleEndChar(',')<CR>
 
 " toggles the quickfix and location window.
 command! Qtoggle call QFixToggle(0)
@@ -494,9 +471,6 @@ nnoremap <leader>A     :Qtoggle<CR>
 " switch between tags
 nmap <leader>[ :tprev<CR>
 nmap <leader>] :tnext<CR>
-
-" overwrite :e with :E
-cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
 
 " keep selection when indenting
 vnoremap < <gv
