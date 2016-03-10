@@ -159,7 +159,7 @@ let g:LatexBox_custom_indent = '/usr/share/vim/vim74/indent/tex.vim'
 " latexbox only show quickfix on error (don't autofocus)
 let g:LatexBox_quickfix=4
 
-let g:languagetool_jar="/home/cornerman/downloads/LanguageTool-3.1/languagetool-commandline.jar"
+let g:languagetool_jar="/home/cornerman/sw/LanguageTool-3.2/languagetool-commandline.jar"
 
 " gitgutter settings
 let g:gitgutter_realtime = 0
