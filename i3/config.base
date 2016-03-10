@@ -106,8 +106,6 @@ focus_on_window_activation urgent
 # modifier for moving and resizing floating windows with the mouse
 floating_modifier $mod
 
-focus_keeps_workspace yes
-
 # set floating size constraints
 floating_minimum_size 10 x 10
 floating_maximum_size 1280 x 1024
