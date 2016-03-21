@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# [+|-]alignArguments                                        Enable/disable Align method arguments on different lines in the same column
+# [+|-]alignParameters                                       Enable/disable Align parameters on different lines in the same column
+# [+|-]alignSingleLineCaseStatements                         Enable/disable Align the arrows of consecutive single-line case statements
+# [+|-]compactControlReadability                             Enable/disable Enable Compact Control Readability style
+# [+|-]compactStringConcatenation                            Enable/disable Omit spaces when formatting a '+' operator on String literals
+# [+|-]doubleIndentClassDeclaration                          Enable/disable Double indent either a class's parameters or its inheritance list
+# [+|-]doubleIndentMethodDeclaration                         Enable/disable Double indent a method's parameters, if they span multiple lines
+# [+|-]formatXml                                             Enable/disable Format XML literals
+# [+|-]indentLocalDefs                                       Enable/disable Indent local defs an extra level
+# [+|-]indentPackageBlocks                                   Enable/disable Indent package blocks
+# [+|-]indentWithTabs                                        Enable/disable Use a tab character for indentation
+# [+|-]multilineScaladocCommentsStartOnFirstLine             Enable/disable Start multiline Scaladoc comment body on same line as the opening '/**'
+# [+|-]newlineAtEndOfFile                                    Enable/disable Add a newline at the end of all files
+# [+|-]placeScaladocAsterisksBeneathSecondAsterisk           Enable/disable Place Scaladoc asterisks beneath the second asterisk in the opening '/**', as opposed to the first
+# [+|-]preserveDanglingCloseParenthesis                      Enable/disable Allow a newline before a ')' in an argument expression
+# [+|-]preserveSpaceBeforeArguments                          Enable/disable Preserve a space before a parenthesis argument
+# [+|-]rewriteArrowSymbols                                   Enable/disable Replace arrow tokens with unicode equivalents: => with ⇒, and <- with ←
+# [+|-]spaceBeforeColon                                      Enable/disable Add a space before colons
+# [+|-]spaceInsideBrackets                                   Enable/disable Require a space after '[' and before ']'
+# [+|-]spaceInsideParentheses                                Enable/disable Require a space after '(' and before ')'
+# [+|-]spacesAroundMultiImports                              Enable/disable Place spaces around multi imports (import a.{ b, c, d }
+# [+|-]spacesWithinPatternBinders                            Enable/disable Add a space around the @ token in pattern binders
+# -alignSingleLineCaseStatements.maxArrowIndent=[1-100]      Set Maximum number of spaces inserted before an arrow to align case statements
+# -indentSpaces=[1-10]                                       Set Number of spaces to use for indentation
+
+scalariform_path=~/sw/scalariform
+
+if [[ ! -d $scalariform_path ]]; then
+    git clone https://github.com/scala-ide/scalariform $scalariform_path
+    cd $scalariform_path
+    sbt "project cli" "assembly"
+fi
+
+java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -f -q +compactControlReadability +alignArguments +alignParameters +alignSingleLineCaseStatements +doubleIndentClassDeclaration +doubleIndentMethodDeclaration -newlineAtEndOfFile +preserveDanglingCloseParenthesis -indentSpaces=2 --stdout $@
