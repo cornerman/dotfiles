@@ -7,9 +7,4 @@ export LESS_TERMCAP_so=$(printf "\33[44;1;37m") # begin standout-mode - info box
 export LESS_TERMCAP_ue=$(printf "\33[0m")       # end underline
 export LESS_TERMCAP_us=$(printf "\33[01;35m")   # begin underline
 
-# fzf fuzzy file finder
-export FZF_DEFAULT_COMMAND='ag -l --hidden -g ""'
-export FZF_DEFAULT_OPTS="--extended --ansi --exit-0 --select-1 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-o:toggle-down,shift-tab:toggle-down,tab:toggle-up,ctrl-s:toggle-sort --history=$HOME/.fzf_history"
-touch $HOME/.fzf_history
-
 [ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"

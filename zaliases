@@ -66,15 +66,32 @@ alias gdv='git-dirty-files-command vim'
 alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
-alias sbt='cdg; sbt'
-alias vim="vim --servername vim-$$"
 
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
+alias sbt='cdg; sbt'
 
-alias on?='ping 8.8.8.8'
+alias vim="vim --servername vim-$$"
+
+alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
+
+alias va="vim ~/.zaliases"
+alias vv="vim ~/.vimrc"
+alias vvl="vim ~/.vimrc.local"
+alias vvp="vim ~/.vimrc.plugin"
+alias vz="vim ~/.zshrc"
+alias vzl="vim ~/.zshrc.local"
+alias vr="vim +:FZFMru"
+
+alias -g G="| grep"
+alias -g H="| head"
+alias -g T="| tail"
+alias -g X="| xargs -I{}"
+alias -g L="| less"
+alias -g N="\$(\ls -tp | grep -v '\/$' | head -1)"
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
-alias -s {pdf,ps,dvi}='evince'
-alias -s {jpg,jpeg,png}='eog'
+alias -s {pdf,ps,dvi}='atril'
+alias -s {jpg,jpeg,png}='imv'
 alias -s {tex,c,java,txt,scala}='vim'
-alias -s {html}='x-www-browser'
+
+# vim: ft=sh

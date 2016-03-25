@@ -394,8 +394,8 @@ autoload -Uz compinit && compinit
 #parameter completions for programms that understand --hrlp
 compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
 
-include ~/.zaliases
-
 # local settings
 include ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+include ~/.zaliases
