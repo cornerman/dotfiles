@@ -28,14 +28,18 @@ isomount(){
     sudo mount -o loop "$@" /media/iso/
 }
 
-pro_ctags () {
-    dir=${1:-"."}
+proj_ctags () {
+    cd-git-root
+    dir=$(realpath .)
     touch $dir/tags
-    ctags-exuberant --fields=+l --c-kinds=+p --c++-kinds=+p -f $dir/tags -R $dir
+    ctags --fields=+l --c-kinds=+p --c++-kinds=+p -f $dir/tags -R $dir
 }
 
-proj_ctags () {
-    pro_ctags $(realpath ${1:-"."})
+watch_proj_ctags () {
+    cd-git-root
+    dir=$(realpath .)
+    touch $dir/tags
+    watchdo "ctags --fields=+l --c-kinds=+p --c++-kinds=+p -f $dir/tags -R $dir" $dir/**.scala &
 }
 
 cflags() {
