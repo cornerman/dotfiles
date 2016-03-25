@@ -7,6 +7,10 @@ endif
 
 call plug#begin('~/.vim/plug')
 
+" rust
+Plug 'wting/rust.vim'
+Plug 'racer-rust/vim-racer'
+
 " grammar check
 Plug 'vim-scripts/LanguageTool'
 
@@ -20,7 +24,8 @@ Plug 'jamessan/vim-gnupg'
 Plug 'mbbill/undotree'
 
 " as-you-type completion system
-Plug 'shougo/neocomplete.vim'
+" Plug 'shougo/neocomplete.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " show syntax/style errors
 Plug 'scrooloose/syntastic'
@@ -122,6 +127,7 @@ Plug 'mhinz/vim-startify'
 
 " status bar
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " colorscheme
 Plug 'altercation/vim-colors-solarized'
@@ -156,6 +162,9 @@ Plug 'zirrostig/vim-smart-swap'
 
 " zen coding with emmet
 Plug 'mattn/emmet-vim'
+
+" syntax highlighting for qml
+Plug 'peterhoeg/vim-qml'
 
 " finished
 call plug#end()

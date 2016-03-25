@@ -304,6 +304,29 @@ function! ToggleSideEffects()
     endif
 endfunction
 
+" open commands for file lists
+command! -complete=file -nargs=* Etabe call s:ETW('tabnew', <f-args>)
+command! -complete=file -nargs=* Enew call s:ETW('new', <f-args>)
+command! -complete=file -nargs=* Evnew call s:ETW('vnew', <f-args>)
+command! -complete=file -nargs=* E call s:ETW('edit', <f-args>)
+function! s:ETW(what, ...)
+    if empty(a:000)
+        edit
+        return
+    endif
+
+    for f1 in a:000
+        let files = glob(f1)
+        if files == ''
+            execute a:what . ' ' . escape(f1, '\ "')
+        else
+            for f2 in split(files, "\n")
+                execute a:what . ' ' . escape(f2, '\ "')
+            endfor
+        endif
+    endfor
+endfunction
+
 " return to last edit position when opening a file.
 " except for git commits: Enter insert mode instead.
 autocmd vimrc BufReadPost *
@@ -478,6 +501,9 @@ vnoremap > >gv
 
 " Y yanks till end of line
 nnoremap Y y$
+
+" overwrite :e with :E
+cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
 
 " delete everything but selection
 vnoremap <leader>x :<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
