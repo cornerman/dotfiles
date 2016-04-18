@@ -134,6 +134,7 @@ workspace $ws12 output $screen2
 assign [class="(?i)thunderbird"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
+assign [class="chromium" title="Signal" window_role="app"] $ws12
 
 # definition of floating windows
 for_window [title="(?i)Password Required"] floating enable
@@ -445,6 +446,31 @@ mode $sound_ctrl {
 }
 
 bindsym $mod+t mode $sound_ctrl
+
+####bar config
+
+bar {
+    id 1
+    font $barfont
+    status_command py3status
+    modifier $barmod
+    mode dock
+    hidden_state hide
+    position top
+    bindsym button4 nop
+    bindsym button5 nop
+    colors {
+        background $bgclr_bar
+        statusline $fgclr_bar
+        separator  $spclr_bar
+
+        #Colors             border  background          text
+        focused_workspace   $brclr  $bgclr_focused      $fgclr
+        active_workspace    $brclr  $bgclr_active       $fgclr
+        inactive_workspace  $brclr  $bgclr_unfocused    $fgclr
+        urgent_workspace    $brclr  $bgclr_urgent       $fgclr
+    }
+}
 
 ####exec
 

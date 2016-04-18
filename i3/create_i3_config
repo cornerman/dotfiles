@@ -9,5 +9,4 @@ append_config() {
 echo -n > $i3_folder/config
 append_config $i3_folder/config.base
 append_config $i3_folder/config.local
-append_config $i3_folder/config.def
 sync

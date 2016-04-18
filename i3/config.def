@@ -1,6 +1,0 @@
-####i3 config def
-
-####variables
-
-set $screen1 DVI-I-1
-set $screen2 DVI-I-2
