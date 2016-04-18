@@ -81,6 +81,7 @@ alias vvp="vim ~/.vimrc.plugin"
 alias vz="vim ~/.zshrc"
 alias vzl="vim ~/.zshrc.local"
 alias vr="vim +:FZFMru"
+alias vt="vim -c FZFTags"
 
 alias -g G="| grep"
 alias -g H="| head"

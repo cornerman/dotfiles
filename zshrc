@@ -3,6 +3,7 @@
 setopt append_history
 
 # import new commands from the history file also in other zsh-session
+setopt inc_append_history
 setopt share_history
 
 # save each command's beginning timestamp and the duration to the history file
@@ -319,12 +320,6 @@ bind2maps emacs viins vicmd -- "End" end-of-line
 bind2maps emacs viins vicmd -- Up     up-line-or-search
 bind2maps emacs viins vicmd -- Down   down-line-or-search
 
-# move in insert mode
-bind2maps emacs viins vicmd -- -s '^w' vi-forward-blank-word
-bind2maps emacs viins vicmd -- -s '^b' vi-backward-blank-word
-bind2maps emacs viins vicmd -- -s '^e' end-of-line
-bind2maps emacs viins vicmd -- -s '^a' beginning-of-line
-
 # search history backwards/forwards with ctrl+r/ctrl+f
 bind2maps emacs viins vicmd -- -s '^r' history-incremental-pattern-search-backward
 bind2maps emacs viins vicmd -- -s '^f' history-incremental-pattern-search-forward
@@ -351,7 +346,7 @@ export LESS=-asrRix8
 # edit command in editor
 autoload edit-command-line
 zle -N edit-command-line
-bind2maps vicmd -- -s 'v' edit-command-line
+bind2maps vicmd -- -s '^v' edit-command-line
 
 # zsh with pwd in window title
 function precmd {

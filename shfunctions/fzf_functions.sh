@@ -126,26 +126,3 @@ zz() {
 fa () {
     fzf | while read -r line; do $@ "$line"; done
 }
-
-# vt - edit tags
-vt() {
-    local tagsdir=$PWD
-    while [[ -n "$tagsdir" && ! -f "$tagsdir/tags" ]]; do
-        tagsdir=${tagsdir%/*}
-    done
-
-    if [[ -f "$tagsdir/tags" ]]; then
-        tags=$(cat "$tagsdir/tags")
-    else
-        tags=$(cat ~/.vim/vimtags/*)
-    fi
-
-    tag=$(echo "$tags" | format_tags | fzf --query="$1" --select-1 --exit-0)
-
-    if [ -n "$tag" ]; then
-        tag=$(echo "$tag" | tr -d '|' | awk '{ print $2 " " $3 }')
-        IFS=' ' read tag ft <<<$tag
-        ft=$(echo $ft | tr '[A-Z]' '[a-z]')
-        vim -c "set filetype=$ft | tag $tag"
-    fi
-}

@@ -8,10 +8,12 @@ if ! zgen saved; then
     # plugins
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
+    zgen load b4b4r07/zsh-vimode-visual
     zgen load Tarrasch/zsh-bd
-    zgen load Tarrasch/zsh-functional
-    zgen load taru/zsh-functional
     zgen load dottr/dottr
+    zgen load rupa/z
+    # zgen load mafredri/zsh-async # for pure-prompt
+    # zgen load sindresorhus/pure # prompt
 
     # save all to init script
     zgen save
@@ -34,6 +36,7 @@ fry extract-archive
 NEO4J_QUERY_JSON_FORMATTER=json_pp
 fry neo4j-query
 fry git-onstage
+fry github-clone
 # fry print-expanded-alias
 
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
