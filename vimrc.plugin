@@ -7,9 +7,11 @@ endif
 
 call plug#begin('~/.vim/plug')
 
+" Plug 'jiangxincode/vim-kite'
+
 " rust
-Plug 'wting/rust.vim'
-Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
+" Plug 'racer-rust/vim-racer'
 
 " grammar check
 Plug 'vim-scripts/LanguageTool'
@@ -25,7 +27,8 @@ Plug 'mbbill/undotree'
 
 " as-you-type completion system
 " Plug 'shougo/neocomplete.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer'}
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
 Plug 'scrooloose/syntastic'
@@ -73,6 +76,7 @@ Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " scala
 Plug 'derekwyatt/vim-scala'
+Plug 'ensime/ensime-vim'
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
@@ -120,7 +124,7 @@ Plug 'tpope/vim-surround'
 Plug 'zirrostig/vim-schlepp'
 
 " align text
-Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 
 " start screen
 Plug 'mhinz/vim-startify'
@@ -153,6 +157,7 @@ Plug 'yssl/QFEnter'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 
 " autoresize the current window to be larger
 Plug 'zhaocai/GoldenView.Vim'

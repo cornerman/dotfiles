@@ -17,6 +17,7 @@ augroup END
 " syntax hightlighting
 syntax on
 
+
 " syntax coloring lines that are too long just slows down the world
 " set synmaxcol=256
 
@@ -46,7 +47,9 @@ set showcmd
 set lazyredraw
 
 " tty scroll
-set ttyscroll=3
+if !has('nvim')
+    set ttyscroll=3
+endif
 
 " set linenumbers
 set number
@@ -387,8 +390,6 @@ function! OpenChangedFiles()
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
 
-nnoremap ,ocf :OpenChangedFiles<CR>
-
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
@@ -425,17 +426,17 @@ nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
 " save some keystrokes
 nnoremap ; :
-nnoremap \ ;
-
-" shorthand macro
-nnoremap - @q
-nnoremap + @w
+nnoremap , ;
+nnoremap \ :update<CR>
+nnoremap - _
+nnoremap + @m
+nnoremap _ qm
 
 " online doc search
 nnoremap <leader>t :call OnlineDoc(0)<CR>
 vnoremap <leader>t <ESC>:call OnlineDoc(1)<CR>
 
-" save and quit
+" felix
 nnoremap ö :update<CR>
 vnoremap ö <esc>:update<CR>gv
 nnoremap Ö :SudoWrite<CR>
@@ -449,9 +450,6 @@ nnoremap ü :bd<CR>
 vnoremap ü <esc>:bd<CR>
 nnoremap <Leader>ü :BufOnly<CR>
 vnoremap <Leader>ü <esc>:BufOnly<CR>gv
-
-noremap ' :update<CR>
-noremap <leader>' :q<CR>
 
 "w!! writes file with root rights
 cnoremap w!! w !sudo tee % >/dev/null
@@ -520,13 +518,8 @@ nnoremap <leader>c :Bgtoggle<CR>
 nmap <silent> <Leader>< <Plug>ToggleEndChar;
 nmap <silent> <Leader>, <Plug>ToggleEndChar,
 
-" paste over rest of line
-nnoremap <Leader>p v$<Left>p
-" delete/edit whole word backwards
-nnoremap db xdb
-nnoremap cb xcb
-
-nmap K o<ESC>
+" kind of reverse of J
+nmap K i<CR><ESC>
 
 " c+s corrects the last word
 inoremap <c-s> <c-g>u<Esc>[s1z=`]a<c-g>u
