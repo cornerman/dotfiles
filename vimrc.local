@@ -254,12 +254,11 @@ autocmd vimrc FileType tex setlocal spell spelllang=en_us
 " fzf:
 nmap <silent> <leader>o :FZFTags<CR>
 nmap <silent> <leader>i :FZFTagFile<CR>
-nmap <silent> <leader>p :Rooter<CR>:FZFE<CR>:silent! lcd %:p:h<CR>
-nmap <silent> <leader>P :FZFE<CR>
-nmap <silent> <leader>; :FZFMru<CR>
-nmap <silent> <leader>' :FZFBuffers<CR>
-nmap <silent> <Leader>C :FZFColorscheme<CR>
-" nmap <silent> <Leader>l :FZFLines<CR>
+nmap <silent> <leader>e :Rooter<CR>:FZFE<CR>:silent! lcd %:p:h<CR>
+nmap <silent> <leader>E :FZFE<CR>
+nmap <silent> <leader>r :FZFMru<CR>
+nmap <silent> <leader>b :Buffers<CR>
+nmap <silent> <Leader>l :Locate<space>
 nmap <leader>s :RFZFAg<space>
 nmap <leader>S :FZFAg<space>
 
@@ -297,15 +296,6 @@ command! -nargs=* FZFAg call fzf#run({
 command! FZFE call fzf#run(
             \ {'sink': 'E', 'options': '-m'})
 
-" choose colorscheme
-command! FZFColorscheme call fzf#run({
-            \   'source':
-            \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-            \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-            \   'sink':    'colo',
-            \   'options': '+m'
-            \ })<CR>
-
 " jump to tags
 function! s:tags_to_file(line)
     let parts = split(a:line, '  ')
@@ -339,210 +329,123 @@ command! FZFMru call fzf#run({
             \'options' : '-m',
             \})
 
-" buffer switching
-function! s:buflist()
-    redir => ls
-    silent ls
-    redir END
-    return split(ls, '\n')
-endfunction
+" " NeoComplete
 
-function! s:bufopen(e)
-    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
+" " Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
 
-command! FZFBuffers call fzf#run({
-            \   'source':  reverse(<sid>buflist()),
-            \   'sink':    function('<sid>bufopen'),
-            \   'options': '+m',
-            \ })<CR>
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
 
-" select lines of open buffers
-function! s:line_handler(l)
-    let keys = split(a:l, ':\t')
-    exec 'buf' keys[0]
-    exec keys[1]
-    normal! ^zz
-endfunction
+" " Use neocomplete.
+" let g:neocomplete#enable_insert_char_pre = 1
+" let g:neocomplete#enable_at_startup = 0
+" autocmd VimEnter * NeoCompleteEnable    " Workaround to make multiple-cursors fast
 
-function! s:buffer_lines()
-    let res = []
-    for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
-        call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
-    endfor
-    return res
-endfunction
+" " Make multiple cursors fast with neocomplete
+" function! Multiple_cursors_before()
+"     exe 'NeoCompleteDisable'
+" endfunction
+" function! Multiple_cursors_after()
+"     exe 'NeoCompleteEnable'
+" endfunction
 
-command! FZFLines call fzf#run({
-            \   'source':  <sid>buffer_lines(),
-            \   'sink':    function('<sid>line_handler'),
-            \   'options': '--extended --nth=3..'
-            \})
+" " Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 2
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" let g:neocomplete#auto_completion_start_length = 2
+" let g:neocomplete#manual_completion_start_length = 2
 
-" fuzzy cmdline completion
-cnoremap <silent> <c-l> <c-\>eGetCompletions()<cr>
-"add an extra <cr> at the end of this line to automatically accept the fzf-selected completions.
+" " neocomplete should not do anything with ctags
+" " just read the tagfiles...
+" let g:neocomplete#ctags_command = ""
 
-function! Lister()
-    call extend(g:FZF_Cmd_Completion_Pre_List,split(getcmdline(),'\(\\\zs\)\@<!\& '))
-endfunction
+" " For snippet_complete marker.
+" " if has('conceal')
+" "     set conceallevel=2 concealcursor=vin
+" " endif
 
-function! CmdLineDirComplete(prefix, options, rawdir)
-    let l:dirprefix = matchstr(a:rawdir,"^.*/")
-    if isdirectory(expand(l:dirprefix))
-        return join(a:prefix + map(fzf#run({
-                    \'options': a:options . ' --select-1  --query=' .
-                    \ a:rawdir[matchend(a:rawdir,"^.*/"):len(a:rawdir)],
-                    \'dir': expand(l:dirprefix)
-                    \}),
-                    \'"' . escape(l:dirprefix, " ") . '" . escape(v:val, " ")'))
-    else
-        return join(a:prefix + map(fzf#run({
-                    \'options': a:options . ' --query='. a:rawdir }),
-                    \'escape(v:val, " ")'))
-        "dropped --select-1 to speed things up on a long query
-    endfunction
+" " heavy: refresh always
+" let g:neocomplete#skip_auto_completion_time = '0.1'
+" let g:neocomplete#enable_refresh_always = 0
+" let g:neocomplete#enable_prefetch = 1
 
-    function! GetCompletions()
-        let g:FZF_Cmd_Completion_Pre_List = []
-        let l:cmdline_list = split(getcmdline(), '\(\\\zs\)\@<!\& ', 1)
-        let l:Prefix = l:cmdline_list[0:-2]
-        execute "silent normal! :" . getcmdline() . "\<c-a>\<c-\>eLister()\<cr>\<c-c>"
-        let l:FZF_Cmd_Completion_List = g:FZF_Cmd_Completion_Pre_List[len(l:Prefix):-1]
-        unlet g:FZF_Cmd_Completion_Pre_List
-        if len(l:Prefix) > 0 && l:Prefix[0] =~
-                    \ '^ed\=i\=t\=$\|^spl\=i\=t\=$\|^tabed\=i\=t\=$\|^arged\=i\=t\=$\|^vsp\=l\=i\=t\=$'
-            "single-argument file commands
-            return CmdLineDirComplete(l:Prefix, "",l:cmdline_list[-1])
-        elseif len(l:Prefix) > 0 && l:Prefix[0] =~
-                    \ '^arg\=s\=$\|^ne\=x\=t\=$\|^sne\=x\=t\=$\|^argad\=d\=$'
-            "multi-argument file commands
-            return CmdLineDirComplete(l:Prefix, '--multi', l:cmdline_list[-1])
-        else
-            return join(l:Prefix + fzf#run({
-                        \'source':l:FZF_Cmd_Completion_List,
-                        \'options': '--select-1 --query='.shellescape(l:cmdline_list[-1])
-                        \}))
-        endif
-    endfunction
+" " Define dictionary.
+" let g:neocomplete#sources#dictionary#dictionaries = {
+"     \ 'default' : '',
+"     \ 'zsh' : $HOME.'/.zsh_history',
+"     \ 'sh' : $HOME.'/.zsh_history',
+"     \ 'ruby' : $HOME.'/.pry_history',
+"     \ 'scala' : $HOME.'/.scala_history',
+"         \ }
 
-    " " NeoComplete
+" " Define keyword.
+" if !exists('g:neocomplete#keyword_patterns')
+"     let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " " Disable AutoComplPop.
-    " let g:acp_enableAtStartup = 0
+" " Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-    " " Use smartcase.
-    " let g:neocomplete#enable_smart_case = 1
+" " <TAB>/<S-TAB>: completion next/prev
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" imap <expr><S-Tab>  pumvisible() ? "\<C-p>" :"\<S-TAB>"
 
-    " " Use neocomplete.
-    " let g:neocomplete#enable_insert_char_pre = 1
-    " let g:neocomplete#enable_at_startup = 0
-    " autocmd VimEnter * NeoCompleteEnable    " Workaround to make multiple-cursors fast
+" " ctrl+shift+tab: force tab, even if completion menu visible
+" "imap <expr><C-@>  neocomplete#close_popup() . "<TAB>"
 
-    " " Make multiple cursors fast with neocomplete
-    " function! Multiple_cursors_before()
-    "     exe 'NeoCompleteDisable'
-    " endfunction
-    " function! Multiple_cursors_after()
-    "     exe 'NeoCompleteEnable'
-    " endfunction
+" " trigger normal completion with ctrl+tab
+" "inoremap <expr><ESC>{  neocomplete#start_manual_complete() . "<c-p>"
 
-    " " Set minimum syntax keyword length.
-    " let g:neocomplete#sources#syntax#min_keyword_length = 2
-    " let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-    " let g:neocomplete#auto_completion_start_length = 2
-    " let g:neocomplete#manual_completion_start_length = 2
+" " trigger omnicompletion with ctrl+space
+" inoremap <C-Space> <c-x><c-o><c-p>
+" imap <C-@> <C-Space>
 
-    " " neocomplete should not do anything with ctags
-    " " just read the tagfiles...
-    " let g:neocomplete#ctags_command = ""
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#close_popup()."<C-h>"
+" inoremap <expr><BS> neocomplete#close_popup()."<C-h>"
+" inoremap <expr><C-q>  neocomplete#cancel_popup()
 
-    " " For snippet_complete marker.
-    " " if has('conceal')
-    " "     set conceallevel=2 concealcursor=vin
-    " " endif
+" " For cursor moving in insert mode
+" inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+" inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+" inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+" inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 
-    " " heavy: refresh always
-    " let g:neocomplete#skip_auto_completion_time = '0.1'
-    " let g:neocomplete#enable_refresh_always = 0
-    " let g:neocomplete#enable_prefetch = 1
+" " Enable heavy omni completion.
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+"   let g:neocomplete#sources#omni#input_patterns = {}
+" endif
+" if !exists('g:neocomplete#force_omni_input_patterns')
+"  let g:neocomplete#force_omni_input_patterns = {}
+" endif
 
-    " " Define dictionary.
-    " let g:neocomplete#sources#dictionary#dictionaries = {
-    "     \ 'default' : '',
-    "     \ 'zsh' : $HOME.'/.zsh_history',
-    "     \ 'sh' : $HOME.'/.zsh_history',
-    "     \ 'ruby' : $HOME.'/.pry_history',
-    "     \ 'scala' : $HOME.'/.scala_history',
-    "         \ }
+" let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" let g:neocomplete#force_omni_input_patterns.tex = '\cite\a\?{[^}]|\ref{[^}]'
+" let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t/]\.\w*\|\h\w*::'
+" let g:neocomplete#force_omni_input_patterns.java = '[^. \t/]\.\w*'
+" let g:neocomplete#force_omni_input_patterns.scala = '[^. \t/]\.\w*'
+" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t/]\.\w*'
+" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-    " " Define keyword.
-    " if !exists('g:neocomplete#keyword_patterns')
-    "     let g:neocomplete#keyword_patterns = {}
-    " endif
-    " let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" let g:neocomplete#sources = {
+"             \ '_' : ['file', 'member', 'omni', 'buffer', 'syntax', 'dictionary']
+"   \ }
 
-    " " Plugin key-mappings.
-    " inoremap <expr><C-g>     neocomplete#undo_completion()
-    " inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " " <TAB>/<S-TAB>: completion next/prev
-    " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " imap <expr><S-Tab>  pumvisible() ? "\<C-p>" :"\<S-TAB>"
-
-    " " ctrl+shift+tab: force tab, even if completion menu visible
-    " "imap <expr><C-@>  neocomplete#close_popup() . "<TAB>"
-
-    " " trigger normal completion with ctrl+tab
-    " "inoremap <expr><ESC>{  neocomplete#start_manual_complete() . "<c-p>"
-
-    " " trigger omnicompletion with ctrl+space
-    " inoremap <C-Space> <c-x><c-o><c-p>
-    " imap <C-@> <C-Space>
-
-    " " <C-h>, <BS>: close popup and delete backword char.
-    " inoremap <expr><C-h> neocomplete#close_popup()."<C-h>"
-    " inoremap <expr><BS> neocomplete#close_popup()."<C-h>"
-    " inoremap <expr><C-q>  neocomplete#cancel_popup()
-
-    " " For cursor moving in insert mode
-    " inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-    " inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-    " inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-    " inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-
-    " " Enable heavy omni completion.
-    " if !exists('g:neocomplete#sources#omni#input_patterns')
-    "   let g:neocomplete#sources#omni#input_patterns = {}
-    " endif
-    " if !exists('g:neocomplete#force_omni_input_patterns')
-    "  let g:neocomplete#force_omni_input_patterns = {}
-    " endif
-
-    " let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    " let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-    " let g:neocomplete#force_omni_input_patterns.tex = '\cite\a\?{[^}]|\ref{[^}]'
-    " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t/]\.\w*\|\h\w*::'
-    " let g:neocomplete#force_omni_input_patterns.java = '[^. \t/]\.\w*'
-    " let g:neocomplete#force_omni_input_patterns.scala = '[^. \t/]\.\w*'
-    " let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t/]\.\w*'
-    " let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-    " let g:neocomplete#sources = {
-    "             \ '_' : ['file', 'member', 'omni', 'buffer', 'syntax', 'dictionary']
-    "   \ }
-
-    " youcompleteme: auto show completion menu as-you-type
-    let g:ycm_use_ultisnips_completer = 0
-    let g:ycm_confirm_extra_conf = 1
-    let g:ycm_add_preview_to_completeopt = 0
-    let g:ycm_auto_trigger = 1
-    let g:ycm_path_to_python_interpreter= '/usr/bin/python'
-    " let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_min_num_of_chars_for_completion = 2
-    let g:ycm_min_num_identifier_candidate_chars = 0
-    let g:ycm_seed_identifiers_with_syntax = 1
-    let g:ycm_key_list_select_completion = ['<tab>']
-    let g:ycm_key_list_previous_completion = ['<s-tab>', '<F15>']
-    let g:ycm_key_invoke_completion = '<C-Space>'
+" youcompleteme: auto show completion menu as-you-type
+let g:ycm_use_ultisnips_completer = 0
+let g:ycm_confirm_extra_conf = 1
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_path_to_python_interpreter= '/usr/bin/python'
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<s-tab>', '<F15>']
+let g:ycm_key_invoke_completion = '<C-Space>'
