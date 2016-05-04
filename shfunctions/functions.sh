@@ -63,3 +63,21 @@ lastvim() {
     files=$(find . -maxdepth 1 | tail -n "$num" | tr "\n" " ")
     [ -n "$files" ] && eval "${EDITOR:-vim} $files"
 }
+
+nvim_command() {
+    # usage: nvim_command <socket> <command>
+    # requires: https://github.com/jakm/msgpack-cli
+
+    # https://github.com/msgpack-rpc/msgpack-rpc/blob/master/spec.md
+    # msgpack-rpc is an array of [type, msgid, method, params]
+    # encode and send it to nvims unix socket via netcat
+    msgpack-cli encode <(echo "[0,0,\"vim_command\",[\"$2\"]]") | netcat -U $1
+}
+
+nvim_all_command() {
+    # usage: nvim_all_command <command>
+    for nvim in /tmp/nvim*/0; do
+        nvim_command $nvim "$1"
+    done
+}
+
