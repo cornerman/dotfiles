@@ -13,7 +13,7 @@ URxvt.keysym.F12:           perl:urxvt-colors:
 URxvt.matcher.button:      1
 
 ! url select browser
-URxvt.url-select.launcher: chromium
+URxvt.url-select.launcher: x-www-browser
 
 ! URxvt scrolling options and cursor style:
 URxvt.saveLines: 200000
@@ -31,7 +31,7 @@ URxvt.internalBorder:     0
 URxvt.borderLess:         false
 
 URxvt.utf8: 1
-URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=14:antialias=true
+URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=14.5:antialias=true
 
 ! first disable Keycap Picture insert mode
 URxvt.iso14755:         false
