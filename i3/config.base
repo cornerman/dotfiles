@@ -240,11 +240,11 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+s focus child
 
-# Make the currently focused window a scratchpad
+# scratchpad
+bindsym $mod+backslash $nexec select-scratchpad.rb -m "^scratched$" -n
 bindsym $mod+Shift+backslash move scratchpad
-
-# Show the first scratchpad window
-bindsym $mod+backslash scratchpad show
+bindsym $mod+BackSpace $nexec select-scratchpad.rb -m "^scratched$"
+bindsym $mod+Shift+BackSpace mark --add --toggle scratched; exec i3-msg -t get_marks | grep \"scratched\" && i3-msg move scratchpad || i3-msg floating disable
 
 # goto last urgent window
 bindsym $mod+comma [urgent=latest] focus
@@ -274,8 +274,8 @@ bindsym $mod+Shift+bracketright move workspace next_on_output
 bindsym $mod+Shift+bracketleft move workspace prev_on_output
 
 # get fresh worspace
-bindsym $mod+BackSpace $nexec fresh_workspace.rb
-bindsym $mod+Shift+BackSpace $nexec fresh_workspace.rb -r
+bindsym $mod+p $nexec fresh_workspace.rb
+bindsym $mod+Shift+p $nexec fresh_workspace.rb -r
 
 # switch to workspace
 bindsym $mod+grave workspace number $ws0
