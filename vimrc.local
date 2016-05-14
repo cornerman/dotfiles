@@ -192,6 +192,9 @@ let g:easytags_languages = {
 " use ag for the grep command
 set grepprg=ag\ --nogroup\ --nocolor
 
+" committia word-based diff
+let g:committia#git#diff_cmd = "diff --irreversible-delete --find-copies-harder --find-copies --ignore-space-at-eol --ignore-space-change --ignore-all-space -u --cached --no-color --no-ext-diff"
+
 " switch.vim
 let g:switch_custom_definitions =
             \ [

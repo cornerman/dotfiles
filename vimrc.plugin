@@ -19,6 +19,9 @@ Plug 'vim-scripts/LanguageTool'
 " multiple cursors like sublime
 Plug 'terryma/vim-multiple-cursors'
 
+" show diff in git commit message
+Plug 'rhysd/committia.vim'
+
 " edit pgp file
 Plug 'jamessan/vim-gnupg'
 
@@ -28,10 +31,11 @@ Plug 'mbbill/undotree'
 " as-you-type completion system
 " Plug 'shougo/neocomplete.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer'}
+" Plug 'puremourning/YouCompleteMe', { 'branch': 'unicode', 'do': './install.py --clang-completer --racer-completer --tern-completer'}
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'
@@ -65,7 +69,7 @@ Plug 'xolox/vim-misc'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " javascript
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+" Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
 " Plug 'burnettk/vim-angular'
@@ -76,7 +80,7 @@ Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim'
+" Plug 'ensime/ensime-vim'
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
