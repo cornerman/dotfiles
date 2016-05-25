@@ -1,0 +1,15 @@
+alias off = set offline := true
+alias opt = set scalacOptions ++= Seq("-Xdisable-assertions", "-optimize", "-Yinline")
+alias c = compile
+alias cc = ~compile
+alias ccc = clean;~compile
+alias r = run
+alias cr = clean; run
+alias rr = ~run
+alias t = test
+alias tt = ~test
+alias pl = publish-local
+alias ppl = ~publish-local
+alias du = dependencyUpdates
+alias re = reload
+alias err = set maxErrors := 
