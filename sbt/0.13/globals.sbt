@@ -1,4 +1,5 @@
 addCommandAlias("off", "set offline := true")
+addCommandAlias("opt", """set scalacOptions ++= Seq("-Xdisable-assertions", "-optimize", "-Yinline")""")
 addCommandAlias("c", "compile")
 addCommandAlias("cc", "~compile")
 addCommandAlias("ccc", ";clean;~compile")
