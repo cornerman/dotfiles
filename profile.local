@@ -1,0 +1,12 @@
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
+export PATH="$PATH:$HOME/.multirust/toolchains/nightly/cargo/bin"
+export MPD_HOST="appendix"
+
+# fzf fuzzy file finder
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
+export FZF_DEFAULT_OPTS="--extended --ansi --exit-0 --select-1 --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,ctrl-o:toggle-down,shift-tab:toggle-down,tab:toggle-up,ctrl-s:toggle-sort --history=$HOME/.fzf_history"
+touch $HOME/.fzf_history
+
+# start x if on first tty
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
