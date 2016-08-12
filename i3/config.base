@@ -452,7 +452,7 @@ bindsym $mod+t mode $sound_ctrl
 bar {
     id 1
     font $barfont
-    status_command py3status
+    status_command py3status -n 5
     modifier $barmod
     mode dock
     hidden_state hide
@@ -475,7 +475,6 @@ bar {
 ####exec
 
 $nexec nitrogen --restore
-$nexec unclutter -idle 3 -jitter 5 -noevents -root
 $nexec_always window_back_forth.rb
 $nexec_always urgent_indicator.rb
-$nexec_always run_on_ws.rb -s "10::$term -name ncmpcpp -e ncmpcpp" -s "11::thunderbird" -s "12::$term"
+# $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
