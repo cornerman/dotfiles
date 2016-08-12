@@ -37,7 +37,12 @@ autocutsel -selection CLIPBOARD -fork
 #this will keep the primary in sync with the clipboard buffer
 autocutsel -selection PRIMARY -fork
 
+# xrandr --output DVI-1 --auto
+# xrandr --output DVI-2 --auto
+
 redshift &
+
+unclutter --timeout 3 --jitter 5 --fork
 
 xss-lock -- slock &
 
