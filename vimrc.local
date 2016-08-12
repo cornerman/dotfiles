@@ -164,7 +164,7 @@ let g:LatexBox_custom_indent = '/usr/share/vim/vim74/indent/tex.vim'
 " latexbox only show quickfix on error (don't autofocus)
 let g:LatexBox_quickfix=4
 
-let g:languagetool_jar="/home/cornerman/sw/LanguageTool-3.2/languagetool-commandline.jar"
+let g:languagetool_jar="/home/cornerman/sw/LanguageTool-3.1/languagetool-commandline.jar"
 
 " gitgutter settings
 let g:gitgutter_realtime = 0
@@ -257,13 +257,18 @@ autocmd vimrc FileType tex setlocal spell spelllang=en_us
 " fzf:
 nmap <silent> <leader>o :FZFTags<CR>
 nmap <silent> <leader>i :FZFTagFile<CR>
-nmap <silent> <leader>e :Rooter<CR>:FZFE<CR>:silent! lcd %:p:h<CR>
+nmap <silent> <leader>e :RFZFE<CR>
 nmap <silent> <leader>E :FZFE<CR>
 nmap <silent> <leader>r :FZFMru<CR>
 nmap <silent> <leader>b :Buffers<CR>
 nmap <silent> <Leader>l :Locate<space>
 nmap <leader>s :RFZFAg<space>
 nmap <leader>S :FZFAg<space>
+
+command! -nargs=* RFZFE
+            \ | execute ':Rooter'
+            \ | execute ':FZFE'
+            \ | execute 'silent! lcd %:p:h'
 
 command! -nargs=* RFZFAg
             \ | execute ':Rooter'

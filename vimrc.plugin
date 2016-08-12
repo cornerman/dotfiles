@@ -19,9 +19,6 @@ Plug 'vim-scripts/LanguageTool'
 " multiple cursors like sublime
 Plug 'terryma/vim-multiple-cursors'
 
-" show diff in git commit message
-Plug 'rhysd/committia.vim'
-
 " edit pgp file
 Plug 'jamessan/vim-gnupg'
 
@@ -35,7 +32,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-c
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
-" Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'

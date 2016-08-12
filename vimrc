@@ -160,7 +160,7 @@ set shiftround
 
 " Turn on the WiLd menu
 set wildmenu
-set wildignore=*.o,*.d,*~,*.pyc,*.class
+set wildignore=*.o,*.d,*~,*.pyc,*.class,target/**
 set wildmode=longest,list,full
 set wildignorecase
 
@@ -499,6 +499,9 @@ vnoremap > >gv
 
 " Y yanks till end of line
 nnoremap Y y$
+
+" paste over rest of line
+nnoremap <leader>p v$hp
 
 " overwrite :e with :E
 cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
