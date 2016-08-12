@@ -31,7 +31,7 @@ alias l='ls -lF --color=auto'
 alias ls='ls -b -CF --color=auto'
 alias la='ls -la --color=auto'
 alias lh='ls -hAl --color=auto'
-alias ll='ls -l --color=auto'
+alias ll='ls -l --color=auto -S'
 
 alias mcp='noglob zmv -C -W'
 alias mln='noglob zmv -L -W'
@@ -67,20 +67,21 @@ alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
 
+alias s=scala
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
 alias sbt='cdg; sbt'
 
-alias vim="vim --servername vim-$$"
-
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
+alias vim="vim --servername vim-$$"
 alias va="vim ~/.zaliases"
 alias vv="vim ~/.vimrc"
 alias vvl="vim ~/.vimrc.local"
 alias vvp="vim ~/.vimrc.plugin"
 alias vz="vim ~/.zshrc"
 alias vzl="vim ~/.zshrc.local"
-alias vr="vim +:FZFMru"
+# alias v="vim -c FZFE"
+alias vr="vim -c FZFMru"
 alias vt="vim -c FZFTags"
 
 alias -g G="| grep"
@@ -89,10 +90,17 @@ alias -g T="| tail"
 alias -g X="| xargs -I{}"
 alias -g L="| less"
 alias -g N="\$(\ls -tp | grep -v '\/$' | head -1)"
+alias -g E="&; disown && exit"
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
 alias -s {pdf,ps,dvi}='atril'
 alias -s {jpg,jpeg,png}='imv'
 alias -s {tex,c,java,txt,scala}='vim'
+
+x() {
+    $@ &
+    disown
+    exit
+}
 
 # vim: ft=sh
