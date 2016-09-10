@@ -13,3 +13,5 @@ map - zoomPageOut
 unmap E
 unmap x
 unmap X
+
+let defaultengine = "duckduckgo"
