@@ -90,7 +90,7 @@ alias -g T="| tail"
 alias -g X="| xargs -I{}"
 alias -g L="| less"
 alias -g N="\$(\ls -tp | grep -v '\/$' | head -1)"
-alias -g E="&; disown && exit"
+alias -g C="| xclip"
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
 alias -s {pdf,ps,dvi}='atril'
