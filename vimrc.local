@@ -17,11 +17,17 @@ nnoremap Ü :BufOnly<CR>
 vnoremap ü <esc>:bd<CR>
 vnoremap Ü <esc>:BufOnly<CR>
 
+" multi cursors
+let g:multi_cursor_exit_from_insert_mode=0
+let g:multi_cursor_exit_from_visual_mode=0
+nnoremap <silent> <M-n> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <M-n> :MultipleCursorsFind <C-R>/<CR>
+
 " undotree
 nmap <leader>u :UndotreeToggle<CR>
 
 " autoformat
-nmap <leader>f :WsFix<CR>:Autoformat<CR>
+nmap <leader>f :Autoformat<CR>
 
 " close all buffers except current
 nmap <leader>q :BufOnly<CR>

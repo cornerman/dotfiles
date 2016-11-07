@@ -32,7 +32,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-c
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'

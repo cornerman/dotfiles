@@ -417,6 +417,7 @@ call <SID>MapFastKeycode('<M-j>', "\ej")
 call <SID>MapFastKeycode('<M-k>', "\ek")
 call <SID>MapFastKeycode('<M-l>', "\el")
 call <SID>MapFastKeycode('<M-d>', "\ed")
+call <SID>MapFastKeycode('<M-n>', "\en")
 
 " toggle sideffects
 nnoremap <leader><space> :call ToggleSideEffects()<CR>
