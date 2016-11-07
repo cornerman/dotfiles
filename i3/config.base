@@ -216,7 +216,7 @@ bindsym $mod+Shift+q $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [con_id = {}
 bindsym $mod+Ctrl+q $nexec "i3-easyfocus -a -w | xargs xkill -id"
 
 # toggle color theme
-bindsym $mod+c $nexec color_toggle
+bindsym --release $mod+c $nexec color_toggle
 
 # move to last split
 bindsym $mod+f fullscreen
