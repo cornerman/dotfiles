@@ -67,10 +67,16 @@ alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
 
-alias s=scala
+alias s=amm
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
-alias sbt='cdg; sbt'
-
+sbt() { (
+    # TODO: search tree upwards for build.sbt
+    if [ ! -f build.sbt ]; then
+        cd-git-root
+    fi
+    env sbt -Dscala.color $@
+    )
+}
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
 alias vim="vim --servername vim-$$"
@@ -84,18 +90,26 @@ alias vzl="vim ~/.zshrc.local"
 alias vr="vim -c FZFMru"
 alias vt="vim -c FZFTags"
 
+alias d=docker
+alias dc=docker-compose
+alias dm=docker-machine
+
 alias -g G="| grep"
 alias -g H="| head"
 alias -g T="| tail"
 alias -g X="| xargs -I{}"
 alias -g L="| less"
-alias -g N="\$(\ls -tp | grep -v '\/$' | head -1)"
+alias -g N="\"\$(\ls -tp | grep -v '\/$' | head -1)\""
 alias -g C="| xclip"
+alias -g P="~/projects"
+alias oo="o N"
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
 alias -s {pdf,ps,dvi}='atril'
 alias -s {jpg,jpeg,png}='imv'
 alias -s {tex,c,java,txt,scala}='vim'
+
+addusertogroup() { sudo usermod -a -G $1 ${2-$USER}; }
 
 x() {
     $@ &

@@ -126,3 +126,8 @@ zz() {
 fa () {
     fzf | while read -r line; do $@ "$line"; done
 }
+
+# start vms
+fvm() {
+    vboxmanage list vms | awk '{ print $1 }' | tr -d '"' | fa vboxmanage startvm
+}
