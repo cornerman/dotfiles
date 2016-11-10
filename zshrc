@@ -312,6 +312,9 @@ bind2maps menuselect -- 'l' vi-forward-char                 # rechts
 bind2maps emacs viins vicmd -- -s '^[[1;5C' forward-word
 bind2maps emacs viins vicmd -- -s '^[[1;5D' backward-word
 
+# delete key
+bind2maps emacs viins vicmd -- "Delete" delete-char
+
 # use home/end to move to beginning/end of line
 bind2maps emacs viins vicmd -- "Home" beginning-of-line
 bind2maps emacs viins vicmd -- "End" end-of-line
