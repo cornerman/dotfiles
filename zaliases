@@ -1,7 +1,7 @@
 alias y='yaourt'
 alias yoghurt='yaourt'
 alias ys='yaourt -S' # install and mark as explicitly installed
-alias yu='upgrade'
+alias yu='yaourt -Syy' # update
 alias yr='yaourt -Rs' # remove package
 alias ya='yaourt -Qdt' # autoremove unneeded packages
 alias yi='yaourt -Qi' # package info
@@ -94,6 +94,8 @@ alias d=docker
 alias dc=docker-compose
 alias dm=docker-machine
 
+alias P='parallel-moreutils -i'
+
 alias -g G="| grep"
 alias -g H="| head"
 alias -g T="| tail"
@@ -101,7 +103,6 @@ alias -g X="| xargs -I{}"
 alias -g L="| less"
 alias -g N="\"\$(\ls -tp | grep -v '\/$' | head -1)\""
 alias -g C="| xclip"
-alias -g P="~/projects"
 alias oo="o N"
 
 alias -s {mkv,mpg,avi,mp3,mp4,flac}='mpv'
