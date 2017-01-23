@@ -349,7 +349,7 @@ export LESS=-asrRix8
 # edit command in editor
 autoload edit-command-line
 zle -N edit-command-line
-bind2maps vicmd -- -s '^v' edit-command-line
+bind2maps vicmd viins -- -s '^v' edit-command-line
 
 # zsh with pwd in window title
 function precmd {
