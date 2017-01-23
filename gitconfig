@@ -18,7 +18,7 @@
     stashu = stash save --include-untracked
     f = pull
     p = push
-    u = up
+    u = pull --autostash
     a = add
     s = status
     po = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
