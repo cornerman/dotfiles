@@ -51,6 +51,8 @@ alias watch='watch -d -c'
 alias swust='cd ~/projects/wust/; sbt ~run'
 alias bwust='x-www-browser localhost:9000 > /dev/null 2>&1 &'
 
+alias sys="systemctl"
+
 alias cdg=cd-git-root
 alias cdt=cd-tmp
 alias onstage=git-onstage
