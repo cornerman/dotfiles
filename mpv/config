@@ -2,7 +2,7 @@
 gapless-audio
 
 # skip displaying some frames to maintain A/V sync on slow systems
-framedrop=yes
+# framedrop=yes
 
 # disable screensaver
 stop-screensaver="yes"
@@ -11,7 +11,7 @@ stop-screensaver="yes"
 # note: opengl has numerous quality/performance trade-off options.
 # as per the mpv(1), "opengl-hq" is just an alias for
 # "opengl:lscale=lanczos2:dither-depth=auto:fbo-format=rgb16"
-vo=opengl-hq,opengl,xv,wayland
+# vo=opengl-hq,opengl,xv,wayland
 
 # correct pitch when speed is faster or slower than 1.0
 af=scaletempo
