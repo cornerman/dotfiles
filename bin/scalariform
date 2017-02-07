@@ -1,5 +1,18 @@
 #!/bin/bash
 
+#Options:
+#  --encoding=<encoding>                Set the encoding, e.g. UTF-8. If not set, defaults to the platform default encoding (currently UTF-8).
+#  --fileList=<path>, -l=<path>         Read the list of input file(s) from a text file (one per line)
+#  --forceOutput, -f                    If using --stdout, print the source unchanged if it cannot be parsed correctly.
+#  --help, -h                           Show help
+#  --preferenceFile=<path>, -p=<path>   Read preferences from a properties file
+#  --quiet, -q                          Work quietly
+#  --recurse, -r                        If any given file is a directory, recurse beneath it and collect all .scala files for processing
+#  --scalaVersion=<v>, -s=<v>           Assume the source is written against the given version of Scala (e.g. 2.9.2). Default is runtime version (currently 2.9.2).
+#  --stdin                              Read Scala source from standard input
+#  --stdout                             Write the formatted output to standard output
+#  --test, -t                           Check the input(s) to see if they are correctly formatted, return a non-zero error code if not.
+#  --version                            Show Scalariform version
 # [+|-]alignArguments                                        Enable/disable Align method arguments on different lines in the same column
 # [+|-]alignParameters                                       Enable/disable Align parameters on different lines in the same column
 # [+|-]alignSingleLineCaseStatements                         Enable/disable Align the arrows of consecutive single-line case statements
@@ -27,6 +40,7 @@
 
 scalariform_path=~/sw/scalariform
 command="java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -q -indentSpaces=2 --stdout"
+args="-+compactControlReadability +alignParameters +alignSingleLineCaseStatements +doubleIndentClassDeclaration +preserveDanglingCloseParenthesis -rewriteArrowSymbols +preserveSpaceBeforeArguments --stdout"
 
 if [[ ! -d $scalariform_path ]]; then
     mkdir -p $scalariform_path
@@ -36,7 +50,7 @@ if [[ ! -d $scalariform_path ]]; then
 fi
 
 if [ "$#" -eq 0 ]; then
-    $command --stdin --forceOutput
+    $command --stdin --forceOutput --quiet
 else
     $command --fileList=<(echo $@ | tr ' ' '\n')
 fi
