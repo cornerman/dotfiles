@@ -31,7 +31,7 @@ URxvt.internalBorder:     0
 URxvt.borderLess:         false
 
 URxvt.utf8: 1
-URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=14.5:antialias=true
+URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=16:antialias=true
 
 ! first disable Keycap Picture insert mode
 URxvt.iso14755:         false
