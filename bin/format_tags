@@ -1,3 +1,0 @@
-#!/bin/sh
-
-grep language | sed 's/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/' | uniq | column -t
