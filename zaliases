@@ -1,7 +1,7 @@
 alias y='yaourt'
 alias yoghurt='yaourt'
 alias ys='yaourt -S' # install and mark as explicitly installed
-alias yu='yaourt -Syyuu' # update
+alias yu='upgrade' # update
 alias yr='yaourt -Rs' # remove package
 alias ya='yaourt -Qdt' # autoremove unneeded packages
 alias yi='yaourt -Qi' # package info
