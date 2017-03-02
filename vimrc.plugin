@@ -27,8 +27,7 @@ Plug 'mbbill/undotree'
 
 " as-you-type completion system
 " Plug 'shougo/neocomplete.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer'}
-" Plug 'puremourning/YouCompleteMe', { 'branch': 'unicode', 'do': './install.py --clang-completer --racer-completer --tern-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --racer-completer --clang-completer --system-libclang'}
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
@@ -68,12 +67,12 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 " javascript
 " Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs'
+" Plug 'othree/yajs'
 " Plug 'burnettk/vim-angular'
-Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
 
 " neo4j
-Plug 'neo4j-contrib/cypher-vim-syntax'
+" Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " scala
 Plug 'derekwyatt/vim-scala'
@@ -83,13 +82,13 @@ Plug 'derekwyatt/vim-scala'
 Plug 'vim-ruby/vim-ruby'
 
 " rails integration
-Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-rails'
 
 " bundle integration: edit Gemfile (:Bopen), syntax highlighting in Gemfile
 " (vundle and bundle both use the command :bundle, vundle wins...)
 " 'path' and 'tags' are automatically altered to include all gems from
 " your bundle. (Generate those tags with gem-ctags!)
-Plug 'tpope/vim-bundler'
+" Plug 'tpope/vim-bundler'
 
 " pry integration: ,bp breakpoint and ,ph paste pry history
 Plug 'vim-scripts/pry'
