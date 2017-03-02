@@ -39,19 +39,18 @@
 # -indentSpaces=[1-10]                                       Set Number of spaces to use for indentation
 
 scalariform_path=~/sw/scalariform
-command="java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -q -indentSpaces=2 --stdout"
-args="-+compactControlReadability +alignParameters +alignSingleLineCaseStatements +doubleIndentClassDeclaration +preserveDanglingCloseParenthesis -rewriteArrowSymbols +preserveSpaceBeforeArguments --stdout"
+java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -f -q +compactControlReadability +alignParameters +alignSingleLineCaseStatements +doubleIndentClassDeclaration +preserveDanglingCloseParenthesis -rewriteArrowSymbols +preserveSpaceBeforeArguments --stdin --stdout
 
-if [[ ! -d $scalariform_path ]]; then
-    mkdir -p $scalariform_path
-    git clone https://github.com/scala-ide/scalariform $scalariform_path
-    cd $scalariform_path
-    sbt "project cli" "assembly"
-fi
+# if [[ ! -d $scalariform_path ]]; then
+#     mkdir -p $scalariform_path
+#     git clone https://github.com/scala-ide/scalariform $scalariform_path
+#     cd $scalariform_path
+#     sbt "project cli" "assembly"
+# fi
 
-if [ "$#" -eq 0 ]; then
-    $command --stdin --forceOutput --quiet
-else
-    $command --fileList=<(echo $@ | tr ' ' '\n')
-fi
+# if [ "$#" -eq 0 ]; then
+    # $command --stdin --forceOutput --quiet
+# else
+#     $command --fileList=<(echo $@ | tr ' ' '\n')
+# fi
 
