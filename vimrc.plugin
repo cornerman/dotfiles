@@ -76,7 +76,7 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-" Plug 'ensime/ensime-vim'
+Plug 'ensime/ensime-vim'
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
@@ -91,7 +91,7 @@ Plug 'vim-ruby/vim-ruby'
 " Plug 'tpope/vim-bundler'
 
 " pry integration: ,bp breakpoint and ,ph paste pry history
-Plug 'vim-scripts/pry'
+" Plug 'vim-scripts/pry'
 
 " i3 config syntax
 Plug 'PotatoesMaster/i3-vim-syntax'

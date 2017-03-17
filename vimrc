@@ -46,6 +46,10 @@ set showcmd
 " redraw lazy
 set lazyredraw
 
+" indent wrapped lines
+set breakindent
+set breakindentopt=shift:2
+
 " tty scroll
 if !has('nvim')
     set ttyscroll=3
@@ -426,8 +430,8 @@ nnoremap <leader><space> :call ToggleSideEffects()<CR>
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
 " save some keystrokes
-nnoremap ; :
-nnoremap , ;
+" nnoremap ; :
+" nnoremap , ;
 nnoremap \ :update<CR>
 nnoremap - _
 nnoremap + @m
