@@ -49,6 +49,7 @@ bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down
 # custom bash completion
 autoload bashcompinit && bashcompinit
 include_all ~/.zsh/bash_completion
+include ~/projects/wust2/.zsh_completion
 
 # include functions and aliases
 include_all ~/.shfunctions/
