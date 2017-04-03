@@ -37,6 +37,7 @@ autocutsel -selection CLIPBOARD -fork
 #this will keep the primary in sync with the clipboard buffer
 autocutsel -selection PRIMARY -fork
 
+xrandr --output DVI-D-0 --right-of DP-4
 # xrandr --output DVI-1 --auto
 # xrandr --output DVI-2 --auto
 
