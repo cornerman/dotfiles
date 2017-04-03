@@ -234,6 +234,8 @@ let g:switch_custom_definitions =
             \   ['small', 'large'],
             \   ['even', 'odd'],
             \   ['inside', 'outside'],
+            \   ['with', 'extends'],
+            \   ['val', 'def'],
             \   {'"\([^"]*\)"': '''\1''', '''\([^'']*\)''': '"\1"'},
             \   {
             \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
