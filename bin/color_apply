@@ -7,10 +7,12 @@ ln -fs "$xsource" ~/.Xresources.colors
 ln -fs "$vimsource" ~/.vimrc.colors
 xrdb -merge ~/.Xresources.colors
 
-# nvim_all_command "source ~/.vimrc.colors"
-VIMS=`vim --serverlist`
-for vim in $VIMS; do
-    vim --servername $vim --remote-send '<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>'
+for nvim in /tmp/nvim*/0; do
+    $nvim "source ~/.vimrc.colors"
 done
+# VIMS=`vim --serverlist`
+# for vim in $VIMS; do
+#     vim --servername $vim --remote-send '<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>'
+# done
 
 xdotool search --class URxvt key --window %@ "F12"
