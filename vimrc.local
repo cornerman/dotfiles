@@ -32,24 +32,6 @@ nmap <leader>f :Autoformat<CR>
 " close all buffers except current
 nmap <leader>q :BufOnly<CR>
 
-function! OpenChangedFiles()
-    BufOnly
-    let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
-    let filenames = split(status, "\n")
-    for filename in filenames
-        exec "edit " . filename
-    endfor
-endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
-
-nnoremap <leader>m :OpenChangedFiles<CR>
-
-" emmet: zen-coding
-let g:user_emmet_install_global = 0
-autocmd vimrc FileType html,css EmmetInstall
-nmap   <C-e>   <plug>(emmet-expand-abbr)
-imap   <C-e>   <plug>(emmet-expand-abbr)
-
 " focus undotree when toggled
 let g:undotree_SetFocusWhenToggle = 1
 
@@ -116,7 +98,7 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " let g:syntastic_java_checkstyle_conf = '/usr/share/checkstyle/sun_checks.xml'
 
 " syntastic javascript
-let g:syntastic_javascript_checkers=['jshint', 'flow']
+" let g:syntastic_javascript_checkers=['jshint', 'flow']
 
 " format java code
 " let g:formatprg_args_expr_java = '"--mode=java --style=attach -pcH".(&expandtab ? "s".&shiftwidth : "t")'
@@ -133,31 +115,6 @@ let g:formatdef_scalariform = '"scalariform --stdin"'
 let g:autoformat_autoindent = 1
 let g:autoformat_retab = 1
 let g:autoformat_remove_trailing_spaces = 1
-
-" rails policy navigation
-command! -complete=file -nargs=1 Epolicy call s:EditPolicy(<f-args>)
-function! s:EditPolicy(name)
-    let name = a:name
-    let len = strlen(name)
-    let bang = stridx(name, "!", len - 1)
-    if bang > 0
-        let name = strpart(name, 0, len - 1)
-    endif
-
-    let fullname = "policies/" . name . "_policy.rb"
-    let file = findfile(fullname, ".;")
-    if file == ""
-        if bang > 0
-            execute "Rails generate pundit:policy " . name
-            let file = findfile(fullname, ".;")
-        else
-            echo 'no such file'
-            return
-        endif
-    endif
-
-    execute "edit " . file
-endfunction
 
 " omnicomplete ruby
 let g:rubycomplete_use_bundler = 1
@@ -246,12 +203,26 @@ let g:switch_custom_definitions =
 " default omnifunc
 set omnifunc=syntaxcomplete#Complete
 
+" ensime
+autocmd BufWritePost *.scala silent :EnTypeCheck
+nnoremap <leader>gt :EnTypeCheck<CR>
+nnoremap <leader>gD :EnDocBrowse<CR>
+nnoremap <leader>gd :EnDeclaration<CR>
+nnoremap <leader>gi :EnSuggestImport<CR>
+nnoremap <leader>gI :EnOrganizeImports<CR>
+nnoremap <leader>gp :EnShowPackage<CR>
+nnoremap <leader>gr :EnRename<CR>
+nnoremap <leader>gs :EnSearch<space>
+
 " filetype defs
 autocmd vimrc Filetype ruby setlocal omnifunc=rubycomplete#Complete
 autocmd vimrc Filetype ruby syn match Error "binding.pry"
 autocmd vimrc FileType ruby nmap <leader><F9> :!rubocop -a % > /dev/null 2>&1<CR><CR>
 autocmd vimrc FileType ruby setlocal tabstop=2
 autocmd vimrc FileType ruby setlocal shiftwidth=2
+
+autocmd vimrc FileType scala setlocal tabstop=2
+autocmd vimrc FileType scala setlocal shiftwidth=2
 
 autocmd vimrc FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd vimrc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -263,193 +234,16 @@ autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
 autocmd vimrc FileType tex setlocal spell spelllang=en_us
 
 " fzf:
-nmap <silent> <leader>o :FZFTags<CR>
-nmap <silent> <leader>i :FZFTagFile<CR>
-nmap <silent> <leader>e :RFZFE<CR>
-nmap <silent> <leader>E :FZFE<CR>
-nmap <silent> <leader>r :FZFMru<CR>
+nmap <silent> <leader>o :Tags<CR>
+nmap <silent> <leader>i :BTags<CR>
+nmap <silent> <leader>e :GitFiles<CR>
+nmap <silent> <leader>m :GitFiles?<CR>
+nmap <silent> <leader>E :Files<CR>
+nmap <silent> <leader>r :History<CR>
 nmap <silent> <leader>b :Buffers<CR>
 nmap <silent> <Leader>l :Locate<space>
-nmap <leader>s :RFZFAg<space>
-nmap <leader>S :FZFAg<space>
-
-command! -nargs=* RFZFE
-            \ | execute ':Rooter'
-            \ | execute ':FZFE'
-            \ | execute 'silent! lcd %:p:h'
-
-command! -nargs=* RFZFAg
-            \ | execute ':Rooter'
-            \ | execute ':FZFAg '.<q-args>
-            \ | execute 'silent! lcd %:p:h'
-
-" locate command integration
-command! -nargs=1 Locate call fzf#run(
-            \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
-
-function! s:ag_to_file(line)
-    let parts = split(a:line, ':')
-    return parts[0] . ":" . parts[1] . ":" . parts[2]
-endfunction
-
-function! s:ag_handler(lines)
-    let wd = system('pwd')
-    let list = map(a:lines, 's:ag_to_file(v:val)')
-    for l in a:lines
-        execute 'silent! lcd ' . wd
-        execute 'E ' . l
-    endfor
-endfunction
-
-command! -nargs=* FZFAg call fzf#run({
-            \ 'source':  printf('ag --nogroup --column --color "%s"',
-            \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
-            \ 'sink*':    function('<sid>ag_handler'),
-            \ 'options': '--ansi --multi '.
-            \            '--multi '
-            \ })
-
-command! FZFE call fzf#run(
-            \ {'sink': 'E', 'options': '-m'})
-
-" jump to tags
-function! s:tags_to_file(line)
-    let parts = split(a:line, '  ')
-    return parts[1]
-endfunction
-
-function! s:tags_handler(lines)
-    let list = map(a:lines, 's:tags_to_file(v:val)')
-    for l in list
-        execute 'tag ' . l
-    endfor
-endfunction
-
-command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
-            \   'source': 'cat ' . join(tagfiles()) . ' | grep language | sed "s/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/" | uniq | column -t',
-            \   'sink*':   function('<sid>tags_handler'),
-            \   'options': '--multi',
-            \ }) | else | echo 'No tags' | endif
-
-" jump to tags in current file
-command! FZFTagFile if !empty(tagfiles()) | call fzf#run({
-            \   'source': 'cat ' . join(tagfiles()) . ' | grep "' . expand('%:p') . '"' . ' | grep language | sed "s/^\(\S*\).*\(\w\)\s*language:\(\w*\)\s*\(\S*\).*$/[\2] \1 |\3 \4/" | uniq | column -t',
-            \   'sink*':   function('<sid>tags_handler'),
-            \   'options': '--multi',
-            \ }) | else | echo 'No tags' | endif
-
-" mru files
-command! FZFMru call fzf#run({
-            \'source': v:oldfiles,
-            \'sink' : 'E',
-            \'options' : '-m',
-            \})
-
-" " NeoComplete
-
-" " Disable AutoComplPop.
-" let g:acp_enableAtStartup = 0
-
-" " Use smartcase.
-" let g:neocomplete#enable_smart_case = 1
-
-" " Use neocomplete.
-" let g:neocomplete#enable_insert_char_pre = 1
-" let g:neocomplete#enable_at_startup = 0
-" autocmd VimEnter * NeoCompleteEnable    " Workaround to make multiple-cursors fast
-
-" " Make multiple cursors fast with neocomplete
-" function! Multiple_cursors_before()
-"     exe 'NeoCompleteDisable'
-" endfunction
-" function! Multiple_cursors_after()
-"     exe 'NeoCompleteEnable'
-" endfunction
-
-" " Set minimum syntax keyword length.
-" let g:neocomplete#sources#syntax#min_keyword_length = 2
-" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" let g:neocomplete#auto_completion_start_length = 2
-" let g:neocomplete#manual_completion_start_length = 2
-
-" " neocomplete should not do anything with ctags
-" " just read the tagfiles...
-" let g:neocomplete#ctags_command = ""
-
-" " For snippet_complete marker.
-" " if has('conceal')
-" "     set conceallevel=2 concealcursor=vin
-" " endif
-
-" " heavy: refresh always
-" let g:neocomplete#skip_auto_completion_time = '0.1'
-" let g:neocomplete#enable_refresh_always = 0
-" let g:neocomplete#enable_prefetch = 1
-
-" " Define dictionary.
-" let g:neocomplete#sources#dictionary#dictionaries = {
-"     \ 'default' : '',
-"     \ 'zsh' : $HOME.'/.zsh_history',
-"     \ 'sh' : $HOME.'/.zsh_history',
-"     \ 'ruby' : $HOME.'/.pry_history',
-"     \ 'scala' : $HOME.'/.scala_history',
-"         \ }
-
-" " Define keyword.
-" if !exists('g:neocomplete#keyword_patterns')
-"     let g:neocomplete#keyword_patterns = {}
-" endif
-" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" " Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplete#undo_completion()
-" inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" " <TAB>/<S-TAB>: completion next/prev
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" imap <expr><S-Tab>  pumvisible() ? "\<C-p>" :"\<S-TAB>"
-
-" " ctrl+shift+tab: force tab, even if completion menu visible
-" "imap <expr><C-@>  neocomplete#close_popup() . "<TAB>"
-
-" " trigger normal completion with ctrl+tab
-" "inoremap <expr><ESC>{  neocomplete#start_manual_complete() . "<c-p>"
-
-" " trigger omnicompletion with ctrl+space
-" inoremap <C-Space> <c-x><c-o><c-p>
-" imap <C-@> <C-Space>
-
-" " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplete#close_popup()."<C-h>"
-" inoremap <expr><BS> neocomplete#close_popup()."<C-h>"
-" inoremap <expr><C-q>  neocomplete#cancel_popup()
-
-" " For cursor moving in insert mode
-" inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-" inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-" inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-" inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-
-" " Enable heavy omni completion.
-" if !exists('g:neocomplete#sources#omni#input_patterns')
-"   let g:neocomplete#sources#omni#input_patterns = {}
-" endif
-" if !exists('g:neocomplete#force_omni_input_patterns')
-"  let g:neocomplete#force_omni_input_patterns = {}
-" endif
-
-" let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-" let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-" let g:neocomplete#force_omni_input_patterns.tex = '\cite\a\?{[^}]|\ref{[^}]'
-" let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t/]\.\w*\|\h\w*::'
-" let g:neocomplete#force_omni_input_patterns.java = '[^. \t/]\.\w*'
-" let g:neocomplete#force_omni_input_patterns.scala = '[^. \t/]\.\w*'
-" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t/]\.\w*'
-" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" let g:neocomplete#sources = {
-"             \ '_' : ['file', 'member', 'omni', 'buffer', 'syntax', 'dictionary']
-"   \ }
+nmap <leader>s :Rooter<CR>:Ag<space>
+nmap <leader>S :Ag<space>
 
 " youcompleteme: auto show completion menu as-you-type
 let g:ycm_use_ultisnips_completer = 0

@@ -31,7 +31,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --racer-completer --clang-c
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
-" Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'
@@ -58,8 +58,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " automatic tag generation for edited files (slow, but very handy)
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc'
 
 " Latex
 Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -76,7 +76,8 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim'
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+let ensime_server_v2=1
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
@@ -164,9 +165,6 @@ Plug 'zhaocai/GoldenView.Vim'
 
 " handle vim swap files, delete older and identical swap files
 Plug 'zirrostig/vim-smart-swap'
-
-" zen coding with emmet
-Plug 'mattn/emmet-vim'
 
 " syntax highlighting for qml
 Plug 'peterhoeg/vim-qml'

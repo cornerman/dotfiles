@@ -257,38 +257,21 @@ endfunction
 command! Qtoggle call QFixToggle(0)
 command! Ltoggle call QFixToggle(1)
 function! QFixToggle(loc)
-    if a:loc
-        cclose
-    else
-        lclose
-    endif
-
     for i in range(1, winnr('$'))
         let bnum = winbufnr(i)
         if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
             lclose
+            cclose
             return
         endif
     endfor
 
     if a:loc
-        lwindow
+        lopen
     else
-        cwindow
+        copen
     endif
 endfunction
-
-command! Bgtoggle call BackgroundToggle()
-" toggle background color
-function! BackgroundToggle()
-    let current = &background
-    if current == 'dark'
-        set background=light
-    elseif current == 'light'
-        set background=dark
-    endif
-endfunctio:n
 
 " toggle side effects on yank register when deleting/modifying text
 function! ToggleSideEffects()
@@ -345,55 +328,6 @@ autocmd vimrc BufReadPost *
 \    endif |
 \ endif
 
-function! CurrentSelection(visualMode)
-  if a:visualMode
-    let [lnum1, col1] = getpos("'<")[1:2]
-    let [lnum2, col2] = getpos("'>")[1:2]
-    let lines = getline(lnum1, lnum2)
-    let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-    let lines[0] = lines[0][col1 - 1:]
-    return join(lines, " ")
-  else
-    return expand("<cword>")
-  endif
-endfunction
-
-" online doc
-function! OnlineDoc(visualMode)
-    let s:browser = "x-www-browser"
-    let s:word = CurrentSelection(a:visualMode)
-    if &ft == "cpp" || &ft == "c" || &ft == "ruby" || &ft == "scala" || &ft == "javascript"
-        let s:url = "http://www.google.com/search?q=".s:word."+lang:".&ft
-    elseif &ft == "vim"
-        let s:url = "http://www.google.com/search?q=".s:word."+vim"
-    else
-        let s:url = "http://www.google.com/search?q=".s:word
-    endif
-    let s:cmd = "silent! !" . s:browser . " \"" . s:url . "\" > /dev/null 2>&1 &"
-    exec s:cmd
-    redraw!
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OpenChangedFiles COMMAND
-" Open a split for each dirty file in git
-"
-" Shamelessly stolen from Gary Bernhardt: https://github.com/garybernhardt/dotfiles
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
-  let filenames = split(status, "\n")
-  if len(filenames) > 0
-    exec "edit " . filenames[0]
-    for filename in filenames[1:]
-      exec "sp " . filename
-    endfor
-  end
-endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
-
 " ========keybindings
 
 " MapFastKeycode: helper for fast keycode mappings
@@ -437,25 +371,6 @@ nnoremap - _
 nnoremap + @m
 nnoremap _ qm
 
-" online doc search
-nnoremap <leader>t :call OnlineDoc(0)<CR>
-vnoremap <leader>t <ESC>:call OnlineDoc(1)<CR>
-
-" felix
-nnoremap ö :update<CR>
-vnoremap ö <esc>:update<CR>gv
-nnoremap Ö :SudoWrite<CR>
-vnoremap Ö <esc>:SudoWrite<CR>gv
-nnoremap <Leader>ö :update<CR>:call SyntasticAndStatusUpdate()<CR>
-nnoremap ä :q<CR>
-vnoremap ä <esc>:q<CR>
-nnoremap Ä :q!<CR>
-vnoremap Ä <esc>:q!<CR>
-nnoremap ü :bd<CR>
-vnoremap ü <esc>:bd<CR>
-nnoremap <Leader>ü :BufOnly<CR>
-vnoremap <Leader>ü <esc>:BufOnly<CR>gv
-
 "w!! writes file with root rights
 cnoremap w!! w !sudo tee % >/dev/null
 
@@ -466,8 +381,6 @@ inoremap <C-U> <C-G>u<C-U>
 " switch buffers/tabs
 nnoremap <Backspace> :bprevious<CR>
 nnoremap <Enter> :bnext<CR>
-nnoremap <leader>a :bprevious<CR>
-nnoremap <leader>s :bnext<CR>
 nnoremap <C-q> <C-^>
 nnoremap Q :bdelete<CR>
 nnoremap gqq <S-v>gq
