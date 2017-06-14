@@ -1,7 +1,5 @@
 /.ensime*
 /tags
-/assets/tags
-/app/tags
 .ycm_extra_conf.pyc
 .ycm_extra_conf.py
 __pycache__/
