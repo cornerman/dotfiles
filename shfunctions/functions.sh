@@ -42,28 +42,6 @@ watch_proj_ctags () {
     watchdo "ctags --fields=+l --c-kinds=+p --c++-kinds=+p -f $dir/tags -R $dir" $dir/**.scala &
 }
 
-cflags() {
-    pkg-config --libs --cflags $1
-}
-
-myip() {
-    curl -s ip.appspot.com
-}
-
-whichpkg() {
-    dpkg -S $(which $1)
-}
-
-debchange() {
-    zless /usr/share/doc/$1/changelog.Debian.gz
-}
-
-lastvim() {
-    num=${1:-"1"}
-    files=$(find . -maxdepth 1 | tail -n "$num" | tr "\n" " ")
-    [ -n "$files" ] && eval "${EDITOR:-vim} $files"
-}
-
 nvim_command() {
     # usage: nvim_command <socket> <command>
     # requires: https://github.com/jakm/msgpack-cli

@@ -17,11 +17,6 @@ fd() {
   cd "$dir"
 }
 
-# fh - repeat history
-fh() {
-  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
-}
-
 # fkill - kill process
 fk() {
   ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
@@ -57,19 +52,6 @@ fco() {
     (echo "$tags"; echo "$branches") |
     fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
-}
-
-# fshow - git commit browser
-fshow() {
-  local out sha q
-  while out=$(
-      git log --decorate=short --graph --oneline --color=always |
-      fzf --ansi --multi --no-sort --reverse --query="$q" --print-query); do
-    q=$(head -1 <<< "$out")
-    while read sha; do
-      [ -n "$sha" ] && git show --color=always $sha | less -R
-    done < <(sed '1d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-  done
 }
 
 # fcs - get git commit sha
