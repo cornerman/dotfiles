@@ -6,12 +6,13 @@ if ! zgen saved; then
     echo "Creating a zgen save"
 
     # plugins
-    zgen load zsh-users/zsh-syntax-highlighting
+    # zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
     zgen load b4b4r07/zsh-vimode-visual
     zgen load Tarrasch/zsh-bd
     zgen load dottr/dottr
     zgen load rupa/z
+    zgen load oh-my-zsh plugins/scala
     # zgen load mafredri/zsh-async # for pure-prompt
     # zgen load sindresorhus/pure # prompt
 
@@ -33,10 +34,10 @@ fry search-select-edit
 fry smart-cd
 fry wait-for-silence
 fry extract-archive
-NEO4J_QUERY_JSON_FORMATTER=json_pp
-fry neo4j-query
+NEO4J_QUERY_JSON_FORMATTER=json_pp fry neo4j-query
 fry git-onstage
 fry github-clone
+fry bell-on-precmd
 # fry print-expanded-alias
 
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available

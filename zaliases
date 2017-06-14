@@ -16,6 +16,7 @@ alias grep='grep --color=auto'
 alias gr=grep
 
 alias g=git
+alias gut=git
 alias gf='git f'
 alias gp='git p'
 alias gu='git u'
@@ -81,7 +82,7 @@ sbt() { (
 }
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
-alias vim="vim --servername vim-$$"
+# alias vim="vim --servername vim-$$"
 alias va="vim ~/.zaliases"
 alias vv="vim ~/.vimrc"
 alias vvl="vim ~/.vimrc.local"
@@ -89,12 +90,14 @@ alias vvp="vim ~/.vimrc.plugin"
 alias vz="vim ~/.zshrc"
 alias vzl="vim ~/.zshrc.local"
 # alias v="vim -c FZFE"
-alias vr="vim -c FZFMru"
-alias vt="vim -c FZFTags"
+alias vr="vim -c History"
+alias vt="vim -c Tags"
 
 alias d=docker
 alias dc=docker-compose
 alias dm=docker-machine
+
+alias start="cdg || cd ~/projects/wust2; ./start"
 
 alias P='parallel-moreutils -i'
 
