@@ -1,45 +1,8 @@
 #!/bin/bash
 
-#Options:
-#  --encoding=<encoding>                Set the encoding, e.g. UTF-8. If not set, defaults to the platform default encoding (currently UTF-8).
-#  --fileList=<path>, -l=<path>         Read the list of input file(s) from a text file (one per line)
-#  --forceOutput, -f                    If using --stdout, print the source unchanged if it cannot be parsed correctly.
-#  --help, -h                           Show help
-#  --preferenceFile=<path>, -p=<path>   Read preferences from a properties file
-#  --quiet, -q                          Work quietly
-#  --recurse, -r                        If any given file is a directory, recurse beneath it and collect all .scala files for processing
-#  --scalaVersion=<v>, -s=<v>           Assume the source is written against the given version of Scala (e.g. 2.9.2). Default is runtime version (currently 2.9.2).
-#  --stdin                              Read Scala source from standard input
-#  --stdout                             Write the formatted output to standard output
-#  --test, -t                           Check the input(s) to see if they are correctly formatted, return a non-zero error code if not.
-#  --version                            Show Scalariform version
-# [+|-]alignArguments                                        Enable/disable Align method arguments on different lines in the same column
-# [+|-]alignParameters                                       Enable/disable Align parameters on different lines in the same column
-# [+|-]alignSingleLineCaseStatements                         Enable/disable Align the arrows of consecutive single-line case statements
-# [+|-]compactControlReadability                             Enable/disable Enable Compact Control Readability style
-# [+|-]compactStringConcatenation                            Enable/disable Omit spaces when formatting a '+' operator on String literals
-# [+|-]doubleIndentClassDeclaration                          Enable/disable Double indent either a class's parameters or its inheritance list
-# [+|-]doubleIndentMethodDeclaration                         Enable/disable Double indent a method's parameters, if they span multiple lines
-# [+|-]formatXml                                             Enable/disable Format XML literals
-# [+|-]indentLocalDefs                                       Enable/disable Indent local defs an extra level
-# [+|-]indentPackageBlocks                                   Enable/disable Indent package blocks
-# [+|-]indentWithTabs                                        Enable/disable Use a tab character for indentation
-# [+|-]multilineScaladocCommentsStartOnFirstLine             Enable/disable Start multiline Scaladoc comment body on same line as the opening '/**'
-# [+|-]newlineAtEndOfFile                                    Enable/disable Add a newline at the end of all files
-# [+|-]placeScaladocAsterisksBeneathSecondAsterisk           Enable/disable Place Scaladoc asterisks beneath the second asterisk in the opening '/**', as opposed to the first
-# [+|-]preserveDanglingCloseParenthesis                      Enable/disable Allow a newline before a ')' in an argument expression
-# [+|-]preserveSpaceBeforeArguments                          Enable/disable Preserve a space before a parenthesis argument
-# [+|-]rewriteArrowSymbols                                   Enable/disable Replace arrow tokens with unicode equivalents: => with ⇒, and <- with ←
-# [+|-]spaceBeforeColon                                      Enable/disable Add a space before colons
-# [+|-]spaceInsideBrackets                                   Enable/disable Require a space after '[' and before ']'
-# [+|-]spaceInsideParentheses                                Enable/disable Require a space after '(' and before ')'
-# [+|-]spacesAroundMultiImports                              Enable/disable Place spaces around multi imports (import a.{ b, c, d }
-# [+|-]spacesWithinPatternBinders                            Enable/disable Add a space around the @ token in pattern binders
-# -alignSingleLineCaseStatements.maxArrowIndent=[1-100]      Set Maximum number of spaces inserted before an arrow to align case statements
-# -indentSpaces=[1-10]                                       Set Number of spaces to use for indentation
-
 scalariform_path=~/sw/scalariform
-java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -f -q +compactControlReadability +alignParameters +alignSingleLineCaseStatements +doubleIndentClassDeclaration +preserveDanglingCloseParenthesis -rewriteArrowSymbols +preserveSpaceBeforeArguments --stdin --stdout
+java -jar $scalariform_path/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar -f -q +alignParameters +alignSingleLineCaseStatements +preserveSpaceBeforeArguments -danglingCloseParenthesis=Force --stdin --stdout
+
 
 # if [[ ! -d $scalariform_path ]]; then
 #     mkdir -p $scalariform_path
