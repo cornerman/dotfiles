@@ -204,7 +204,7 @@ let g:switch_custom_definitions =
 set omnifunc=syntaxcomplete#Complete
 
 " ensime
-autocmd BufWritePost *.scala silent :EnTypeCheck
+" autocmd BufWritePost *.scala silent :EnTypeCheck
 nnoremap <leader>gt :EnTypeCheck<CR>
 nnoremap <leader>gD :EnDocBrowse<CR>
 nnoremap <leader>gd :EnDeclaration<CR>
