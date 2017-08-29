@@ -31,7 +31,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --racer-completer --clang-c
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " show syntax/style errors
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'
@@ -76,8 +76,8 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
-let ensime_server_v2=1
+" Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+" let ensime_server_v2=1
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
