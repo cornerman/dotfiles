@@ -16,8 +16,10 @@
     prev = reset HEAD~1
     wip = "!git cama wip"
     stashu = stash save --include-untracked
-    f = pull
+    f = fetch
+    fa = fetch --all
     p = push
+    pforce = push --force-with-lease
     u = pull --autostash
     a = add
     s = status
@@ -31,9 +33,11 @@
     br = branch
     co = checkout
     cob = checkout -b
+    rb = rebase
     rbc = rebase --continue
     rba = rebase --abort
     rbs = rebase --skip
+    rbi = rebase -i
     mrc = merge --continue
     mra = merge --abort
     mrs = merge --skip
@@ -48,6 +52,7 @@
     l = log
     ld = log -p
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    la = log --graph --all --decorate --pretty=oneline --abbrev-commit
     ls = ls-files
     new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
     graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
@@ -63,6 +68,8 @@
 
 [merge]
     tool = meld
+    conflictstyle = diff3
+    ff = only
 
 [credential]
 	helper = cache --timeout=3600

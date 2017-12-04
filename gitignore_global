@@ -1,3 +1,5 @@
+*.gpg
+*.pem
 /.ensime*
 /tags
 .ycm_extra_conf.pyc
