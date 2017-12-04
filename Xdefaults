@@ -63,7 +63,7 @@ URxvt.keysym.C-Tab:                      \033{
 URxvt.intensityStyles: false
 
 ! rofi starter
-rofi.modi:                           combi,ssh
+rofi.modi:                           combi
 rofi.combi-modi:                     window,run
 rofi.width:                          100
 rofi.lines:                          20
