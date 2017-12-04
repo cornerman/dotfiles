@@ -35,7 +35,7 @@ set $font       xft:Ubuntu 10
 set $barfont    xft:Ubuntu,FontAwesome 9
 
 # background colors
-set $bgclr_focused      #6495ED
+set $bgclr_focused      #1f85ca
 set $bgclr_active       #00afaf
 set $bgclr_unfocused    #d2d2bd
 set $bgclr_urgent       #b64313
@@ -82,8 +82,8 @@ default_orientation auto
 workspace_layout tabbed
 
 # border style for new windows/floats
-new_window pixel 2
-new_float pixel 2
+new_window pixel 4
+new_float pixel 4
 
 # hide outer winder border
 hide_edge_borders none
@@ -134,7 +134,7 @@ workspace $ws12 output $screen2
 assign [class="(?i)thunderbird"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
-assign [class="chromium" title="Signal" window_role="app"] $ws12
+assign [class="Signal" instance="signal"] $ws12
 
 # definition of floating windows
 for_window [title="(?i)Password Required"] floating enable
@@ -170,6 +170,10 @@ bindsym $mod+Shift+d $nexec move_window_to_current
 # make screenshot (print)
 bindcode 107 $nexec screenshot root
 bindcode Shift+107 $nexec screenshot active
+
+# switch keyboard layouts
+bindcode 78 $nexec "setxkbmap us_de; xmodmap ~/.xmodmaprc"
+bindcode Shift+78 $nexec "setxkbmap de neo"
 
 # change focus
 bindsym $mod+h focus left
@@ -226,7 +230,7 @@ bindsym $mod+Shift+F fullscreen global
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+e layout toggle split tabbed splith splitv
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -241,7 +245,8 @@ bindsym $mod+a focus parent
 bindsym $mod+s focus child
 
 # scratchpad
-bindsym $mod+backslash $nexec select-scratchpad.rb -m "^scratched$" -n
+# bindsym $mod+backslash $nexec select-scratchpad.rb -m "^scratched$" -n
+bindsym $mod+backslash scratchpad show
 bindsym $mod+Shift+backslash move scratchpad
 bindsym $mod+BackSpace $nexec select-scratchpad.rb -m "^scratched$"
 bindsym $mod+Shift+BackSpace mark --add --toggle scratched; exec i3-msg -t get_marks | grep \"scratched\" && i3-msg move scratchpad || i3-msg floating disable
@@ -278,7 +283,7 @@ bindsym $mod+p $nexec fresh_workspace.rb
 bindsym $mod+Shift+p $nexec fresh_workspace.rb -r
 
 # switch to workspace
-bindsym $mod+grave workspace number $ws0
+bindcode $mod+49 workspace number $ws0
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -475,6 +480,6 @@ bar {
 ####exec
 
 $nexec nitrogen --restore
-$nexec_always window_back_forth.rb
-$nexec_always urgent_indicator.rb
+# $nexec_always window_back_forth.rb
+# $nexec_always urgent_indicator.rb
 # $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
