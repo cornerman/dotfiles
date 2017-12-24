@@ -77,7 +77,7 @@ sbt() { (
     if [ ! -f build.sbt ]; then
         cd-git-root
     fi
-    env sbt -Dscala.color $@
+    env sbt $@
     )
 }
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
