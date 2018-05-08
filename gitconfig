@@ -20,7 +20,7 @@
     fa = fetch --all
     p = push
     pforce = push --force-with-lease
-    u = pull --autostash
+    u = pull --rebase --autostash
     a = add
     s = status
     po = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
