@@ -13,6 +13,7 @@ if ! zgen saved; then
     zgen load dottr/dottr
     zgen load rupa/z
     zgen load oh-my-zsh plugins/scala
+    zgen load supercrabtree/k
     # zgen load mafredri/zsh-async # for pure-prompt
     # zgen load sindresorhus/pure # prompt
 
@@ -25,6 +26,7 @@ fry completion
 fry alias-usage-analysis
 fry cd-git-root
 fry git-dirty-files-command
+fry docker-host-status
 fry cd-tmp
 fry git-select-commit
 fry interactive-mv
