@@ -108,7 +108,7 @@ floating_modifier $mod
 
 # set floating size constraints
 floating_minimum_size 10 x 10
-floating_maximum_size 1280 x 1024
+# floating_maximum_size 1280 x 1024
 
 # show marks in title
 show_marks yes
@@ -135,6 +135,7 @@ assign [class="(?i)thunderbird"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
 assign [class="Signal" instance="signal"] $ws12
+assign [class="Keybase" instance="keybase"] $ws12
 
 # definition of floating windows
 for_window [title="(?i)Password Required"] floating enable
@@ -480,6 +481,7 @@ bar {
 ####exec
 
 $nexec nitrogen --restore
+$nexec alttab
 # $nexec_always window_back_forth.rb
 # $nexec_always urgent_indicator.rb
 # $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
