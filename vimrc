@@ -55,6 +55,9 @@ if !has('nvim')
     set ttyscroll=3
 endif
 
+" live substitution preview
+set inccommand=nosplit
+
 " set linenumbers
 set number
 
@@ -124,7 +127,7 @@ au BufWritePre * let &backupext = '@'.substitute(expand('%:p:h'), '/', '%', 'g')
 
 " Remember info about open buffers on close
 " set viminfo^=%
-
+"
 " tell vim where to put its backup files
 set backupdir=~/.vim/tmp
 
@@ -445,6 +448,8 @@ nmap K i<CR><ESC>
 " c+s corrects the last word
 inoremap <c-s> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <c-s> 1z=
+
+autocmd vimrc BufEnter * set noreadonly " no delay
 
 " local settings
 if !empty(glob("~/.vimrc.local"))

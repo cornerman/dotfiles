@@ -27,14 +27,19 @@ Plug 'mbbill/undotree'
 
 " as-you-type completion system
 " Plug 'shougo/neocomplete.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --racer-completer --clang-completer --system-libclang'}
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --racer-completer --clang-completer --system-libclang'}
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" let g:deoplete#enable_at_startup = 1
 
 " show syntax/style errors
 " Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
 Plug 'Chiel92/vim-autoformat'
+
+" highlight yanked region
+Plug 'machakann/vim-highlightedyank'
 
 " open files at line with filename:32
 Plug 'kopischke/vim-fetch'
@@ -76,8 +81,7 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-" Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
-" let ensime_server_v2=1
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 " ruby
 Plug 'vim-ruby/vim-ruby'
@@ -137,6 +141,9 @@ Plug 'vim-airline/vim-airline-themes'
 " colorscheme
 Plug 'altercation/vim-colors-solarized'
 
+" suda
+Plug 'lambdalisue/suda.vim'
+
 " spelling error in quickfix window
 Plug 'vim-scripts/SpellCheck'
 Plug 'vim-scripts/ingo-library'
@@ -157,7 +164,7 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'yssl/QFEnter'
 
 " fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' } ", 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 
 " autoresize the current window to be larger
