@@ -365,7 +365,9 @@ function preexec {
 
 # prompt settings
 autoload promptinit && promptinit
-prompt hjem 8bit vimode
+source ~/projects/prompt-hjem/prompt_hjem_setup
+# prompt hjem 8bit vimode
+prompt_hjem_setup 8bit vimode
 
 # include function
 include(){
@@ -375,25 +377,26 @@ include(){
 include_all(){
     if [[ -d $1 ]]; then
         for file in $1/*; do
-            . "$file"
+            include "$file"
         done
     fi
 }
 
 # "persistent history"
 # just write important commands you always need to ~/.important_commands
-if [[ -r ~/.important_commands ]] ; then
-    fc -R ~/.important_commands
-fi
+# if [[ -r ~/.important_commands ]] ; then
+#     fc -R ~/.important_commands
+# fi
 
 # custom zsh completion
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit
+#fpath=(~/.zsh/completion $fpath)
+# autoload -Uz compinit && compinit
 #parameter completions for programms that understand --hrlp
-compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
+# compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
 
 # local settings
 include ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 include ~/.zaliases
+
