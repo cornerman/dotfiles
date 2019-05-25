@@ -1,5 +1,8 @@
 alias off = set offline := true
 alias opt = set scalacOptions ++= Seq("-Xdisable-assertions", "-optimize", "-Yinline")
+alias lean = clean
+alias cl = clean
+alias cn = console
 alias c = compile
 alias cc = ~compile
 alias l = nativeLink
@@ -9,10 +12,14 @@ alias r = run
 alias rr = ~run
 alias t = test
 alias tt = ~test
-alias pl = publish-local
-alias ppl = ~publish-local
+alias tc = test:compile
+alias tcc = ~test:compile
+alias pl = publishLocal
+alias ppl = ~publishLocal
 alias du = dependencyUpdates
 alias re = reload
+alias rec = reload; compile
+alias recc = reload; ~compile
 alias up = update
 alias err = set maxErrors := 
 alias ls = projects
