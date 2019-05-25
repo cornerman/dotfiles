@@ -11,6 +11,7 @@
     path = /home/cornerman/projects/dottr/yolk/git/gitconfig
 
 [alias]
+    cot = "!TEMP=$(mktemp -d); f() { git worktree prune && git worktree add $TEMP $1 && zsh -c \"cd $TEMP; zsh\";}; f" # checkout branch in temporary directory
     un = reset HEAD
     una = "!git reset HEAD $(git rev-parse --show-toplevel 2> /dev/null)"
     prev = reset HEAD~1
@@ -66,10 +67,36 @@
 [push]
     default = simple
 
+[pull]
+    ff = only
+    rebase = true
+
+[rebase]
+    autoStash = true
+    autoSquash = true # useful for `git commit --fixup <hash>` (https://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)
+
 [merge]
     tool = meld
     conflictstyle = diff3
     ff = only
+    ignore-space-change = true
+
+[rerere]
+    enabled = 1 # Reuse recorded resolution of conflicted merges: https://git-scm.com/docs/git-rerere
+
+[diff]
+    algorithm = histogram
+    indentHeuristic = true
+    wordRegex=[A-Z][a-z]*|[a-z]+|[^[:space:]] # see camel case as separate words
+
+[apply]
+    ignoreWhitespace = change # do not produce whitespace conflicts
+
+[commit]
+    verbose = true
+
+[fetch]
+    prune = true # remove old branches on fetch
 
 [credential]
 	helper = cache --timeout=3600
@@ -112,3 +139,9 @@
     stage = w !git fry word-based-diff %(file)
     stage = W !git fry word-based-diff --staged %(file)
     ; generic = C !git cherry-pick %(commit)
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
