@@ -132,6 +132,7 @@ workspace $ws12 output $screen2
 
 # program to workspace assignment
 assign [class="(?i)thunderbird"] $ws11
+assign [class="(?i)daily"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
 assign [class="Signal" instance="signal"] $ws12
@@ -142,6 +143,7 @@ for_window [title="(?i)Password Required"] floating enable
 for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="Starting MPLAB X IDE"] floating enable
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
+for_window [title="^Android Emulator - "] floating enable
 
 ####keybindings
 
