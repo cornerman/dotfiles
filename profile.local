@@ -1,6 +1,7 @@
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="$PATH:$HOME/.multirust/toolchains/nightly/cargo/bin"
+export PATH="$PATH:$HOME/.npm-packages/bin"
 export MPD_HOST="appendix"
 
 # fzf fuzzy file finder
