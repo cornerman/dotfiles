@@ -3,7 +3,7 @@
 set nocompatible
 
 " load plugins
-if !empty(glob("~/.vimrc.plugin"))
+if !empty(glob('~/.vimrc.plugin'))
     source ~/.vimrc.plugin
 endif
 

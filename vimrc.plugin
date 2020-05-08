@@ -1,8 +1,8 @@
 " init
 if empty(glob('~/.vim/autoload/plug.vim'))
-  !mkdir -p ~/.vim/autoload
-  !wget -O ~/.vim/autoload/plug.vim
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plug')
@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plug')
 " Plug 'jiangxincode/vim-kite'
 
 " rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 " Plug 'racer-rust/vim-racer'
 
 " grammar check
@@ -54,7 +54,7 @@ Plug 'tpope/vim-endwise'
 Plug 'vim-scripts/camelcasemotion'
 
 " switch between source and header file (.c / .h)
-Plug 'vim-scripts/a.vim'
+" Plug 'vim-scripts/a.vim'
 
 " git helper commands and branch info in status line
 Plug 'tpope/vim-fugitive'
