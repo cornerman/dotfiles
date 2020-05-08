@@ -40,6 +40,7 @@ NEO4J_QUERY_JSON_FORMATTER=json_pp fry neo4j-query
 fry git-onstage
 fry github-clone
 fry bell-on-precmd
+fry aws-profile-status
 # fry print-expanded-alias
 
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
