@@ -28,13 +28,13 @@ xset s off
 xset b off
 
 # trackpoint
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
-xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 8 1
-xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 8 2
-xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 8 6 7 4 5
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+# xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 8 1
+# xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 8 2
+# xinput set-int-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 8 6 7 4 5
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 
 # Set keyboard layout
 setxkbmap -layout us_de -variant basic
@@ -58,12 +58,15 @@ autocutsel -selection PRIMARY -fork
 
 # xss-lock -- slock &
 
+eval $(ssh-agent)
+
 # create i3 config
 i3config=~/.i3/create_i3_config
 [ -f $i3config ] && $i3config
 
 # start i3
- exec i3 -c ~/.i3/config 
+# exec i3 -c ~/.i3/config
+exec dbus-launch i3 -c ~/.i3/config
 
 # Enable core dumps in case something goes wrong
 # ulimit -c unlimited
