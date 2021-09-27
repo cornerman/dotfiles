@@ -200,8 +200,8 @@ else
 endif
 
 " " use background color of terminal
-hi Normal ctermbg=none
-hi NonText ctermbg=none
+" hi Normal ctermbg=none
+" hi NonText ctermbg=none
 
 " only enable cursorline in focused window
 set cul

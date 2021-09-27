@@ -1,18 +1,22 @@
 #!/bin/sh
 
-xsource="$1"
-vimsource="$2"
+xsource="$HOME/.Xresources.$1"
+vimsource="$HOME/.vimrc.$1"
 
 ln -fs "$xsource" ~/.Xresources.colors
 ln -fs "$vimsource" ~/.vimrc.colors
 xrdb -merge ~/.Xresources.colors
 
-for nvim in /tmp/nvim*/0; do
-    $nvim "source ~/.vimrc.colors"
-done
-# VIMS=`vim --serverlist`
-# for vim in $VIMS; do
-#     vim --servername $vim --remote-send '<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>'
-# done
+# nvim_all_command "<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>
+nvim_all_command "source ~/.vimrc.colors"
 
-xdotool search --class URxvt key --window %@ "F12"
+case "$1" in
+"light")
+    sed -i "s/^colors: \*dark$/colors: *light/" ~/.config/alacritty.yml
+    ;;
+"dark")
+    sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
+    ;;
+*)
+    ;;
+esac

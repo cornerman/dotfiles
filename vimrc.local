@@ -70,15 +70,10 @@ nmap <M-k>  <S-v><Plug>SchleppUp
 vmap <M-d>  <Plug>SchleppDup
 nmap <M-d>  <S-v><Plug>SchleppDup
 
-" colorscheme
-" let g:solarized_termcolors=256
-colorscheme solarized
-
 " airline statusline
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
 
 " disable backslash keybinding of indexed search
 let g:indexed_search_show_index_mappings=0

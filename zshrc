@@ -363,12 +363,6 @@ function preexec {
     printf "\033]0;%s:%s\a" "$term" "$1"
 }
 
-# prompt settings
-autoload promptinit && promptinit
-source ~/projects/prompt-hjem/prompt_hjem_setup
-# prompt hjem 8bit vimode
-prompt_hjem_setup 8bit vimode
-
 # include function
 include(){
     [ -f "$1" ] && . "$1"
