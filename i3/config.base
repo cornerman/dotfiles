@@ -7,7 +7,7 @@ set $mod    Mod4
 set $barmod Mod3
 
 # terminal definition
-set $term urxvt
+set $term alacritty
 
 # abbreviation for exec with no-startup-id
 set $exec exec
@@ -156,7 +156,7 @@ bindsym button9 move right
 
 # start a terminal
 bindsym $mod+Return $exec $term
-bindsym $mod+Shift+Return $exec $term -cd $(xcwd)
+bindsym $mod+Shift+Return $exec $term --working-directory $(xcwd)
 
 bindsym $mod+v $nexec radio
 bindsym $mod+Shift+v $nexec radio clear playlist
