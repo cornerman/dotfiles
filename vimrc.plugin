@@ -20,7 +20,7 @@ Plug 'vim-scripts/LanguageTool'
 Plug 'terryma/vim-multiple-cursors'
 
 " edit pgp file
-Plug 'jamessan/vim-gnupg'
+" Plug 'jamessan/vim-gnupg'
 
 " undotree
 Plug 'mbbill/undotree'
@@ -36,19 +36,19 @@ Plug 'mbbill/undotree'
 " Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
 
 " highlight yanked region
 Plug 'machakann/vim-highlightedyank'
 
 " open files at line with filename:32
-Plug 'kopischke/vim-fetch'
+" Plug 'kopischke/vim-fetch'
 
 " tool for (un-)commenting lines, detects current language
 Plug 'tpope/vim-commentary'
 
 " automatically insert 'end' after 'begin' whenhitting enter
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 
 " motion to the next uppercase letter or _
 Plug 'vim-scripts/camelcasemotion'
@@ -81,10 +81,11 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ruby
-Plug 'vim-ruby/vim-ruby'
+" Plug 'vim-ruby/vim-ruby'
+Plug 'hashivim/vim-terraform'
 
 " rails integration
 " Plug 'tpope/vim-rails'
@@ -126,7 +127,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 
 " drag visuals
-Plug 'zirrostig/vim-schlepp'
+" Plug 'zirrostig/vim-schlepp'
 
 " align text
 Plug 'junegunn/vim-easy-align'

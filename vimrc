@@ -89,8 +89,16 @@ set confirm
 set ignorecase
 set smartcase
 
-" set escape timeout
-set ttimeoutlen=0
+if ! has('gui_running')
+    " leave insert mode quickly
+    set ttimeoutlen=0
+    augroup FastEscape
+        autocmd!
+    augroup END
+
+    autocmd FastEscape InsertEnter * set timeoutlen=0
+    autocmd FastEscape InsertLeave * set timeoutlen=1000
+endif
 
 " keep lines before/beneath cursor
 set scrolloff=5
