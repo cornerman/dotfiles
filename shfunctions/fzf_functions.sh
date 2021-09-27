@@ -113,3 +113,21 @@ fa () {
 fvm() {
     vboxmanage list vms | awk '{ print $1 }' | tr -d '"' | fa vboxmanage startvm
 }
+
+# ftstate - show terraform state
+# example usage: ftstate
+ftstate() {
+  local states state
+  states=$(terraform state list) &&
+  state=$(echo "$states" | fzf --tac +s +m -e --ansi --reverse) &&
+  terraform state show "$state"
+}
+
+# fni - install nixpack
+# example usage: fni <pkg>
+fni() {
+  local packages package
+  packages=$(nix search $1 | tr -d '\n' | sed 's/  / /g' | sed s/*/\\n/g | sed 's/^ //g' | grep '\S') &&
+  package=$(echo "$packages" | fzf --tac +s +m -e --ansi --reverse | cut -F1) &&
+  nix-env -iA "$package"
+}
