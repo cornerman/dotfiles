@@ -26,13 +26,13 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 set $ws9 9
-set $ws10 "10: "
-set $ws11 "11: "
-set $ws12 "12: "
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
 
 # font
-set $font       xft:Ubuntu 10
-set $barfont    xft:Ubuntu,FontAwesome 9
+set $font       xft:Ubuntu 8
+set $barfont    xft:Ubuntu,FontAwesome 8
 
 # background colors
 set $bgclr_focused      #1f85ca
@@ -396,10 +396,9 @@ bindsym $mod+r mode $resize
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
 mode $pass_through {
-    bindsym Escape mode "default"
+    bindsym $mod+Shift+r mode "default"
 }
-
-# bindsym $mod+Shift+r mode $pass_through
+bindsym $mod+Shift+r mode $pass_through
 
 # i3 session control mode
 set $session_ctrl "(e)xit, (r)estart, (l)oad"
