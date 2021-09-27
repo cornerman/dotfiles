@@ -1,3 +1,5 @@
+alias ssh='TERM=xterm ssh'
+
 alias y='yaourt'
 alias yoghurt='yaourt'
 alias ys='yaourt -S' # install and mark as explicitly installed
@@ -23,7 +25,8 @@ alias gu='git u'
 alias gs='git s'
 alias gl='git l'
 alias gd='git dw --no-index'
-alias slop=scite
+
+alias tm=terraform
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -72,14 +75,14 @@ alias nall=neo4j-all
 
 alias s=amm
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
-sbt() { (
-    # TODO: search tree upwards for build.sbt
-    if [ ! -f build.sbt ]; then
-        cd-git-root
-    fi
-    env sbt $@
-    )
-}
+# sbt() { (
+#     # TODO: search tree upwards for build.sbt
+#     if [ ! -f build.sbt ]; then
+#         cd-git-root
+#     fi
+#     env sbt $@
+#     )
+# }
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
 # alias vim="vim --servername vim-$$"
@@ -121,6 +124,19 @@ x() {
     $@ &
     disown
     exit
+}
+
+note() {
+    vim "$(date +"notes/%Y-%m-%d-$1.md")"
+}
+
+
+notes() {
+    (
+        cd "$HOME/notes" || exit
+        file="$(fzf --query="$(echo $@ | tr ' ' '\ ' )")"
+        [[ -n $file ]] && nvim "$file"
+    )
 }
 
 # vim: ft=sh

@@ -97,7 +97,7 @@ setopt complete_in_word
 setopt auto_list
 
 # only show the rprompt on the current prompt
-setopt transient_rprompt
+# setopt transient_rprompt
 
 # perform implicit tees or cats when multiple redirections are attempted
 setopt multios
@@ -112,11 +112,11 @@ stty -ixon
 # set some important variables
 export EDITOR=vim
 export PAGER=less
-export BROWSER=x-www-browser
+export BROWSER=firefox
 export HIST_PATH=~/
 export TEMP_PATH=~/
 export MAIL=${MAIL:-/var/mail/$USER}
-export SHELL='/bin/zsh'
+export SHELL='/run/current-system/sw/bin/zsh'
 
 # persistent dirstack
 DIRSTACKSIZE=20
@@ -282,8 +282,8 @@ function bind2maps () {
 }
 
 # vi mode
-export KEYTIMEOUT=1
-bindkey -v
+# export KEYTIMEOUT=1
+# bindkey -v
 
 # enable menuselect map
 zmodload -i zsh/complist
@@ -393,4 +393,3 @@ include ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 include ~/.zaliases
-

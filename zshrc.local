@@ -8,13 +8,14 @@ if ! zgen saved; then
     # plugins
     # zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
-    zgen load b4b4r07/zsh-vimode-visual
     zgen load Tarrasch/zsh-bd
     zgen load dottr/dottr
     zgen load rupa/z
     zgen load oh-my-zsh plugins/scala
     zgen load supercrabtree/k
     zgen load romkatv/powerlevel10k powerlevel10k
+    # zgen load b4b4r07/zsh-vimode-visual
+    zgen load jeffreytse/zsh-vi-mode
     # zgen load mafredri/zsh-async # for pure-prompt
     # zgen load sindresorhus/pure # prompt
 
@@ -43,7 +44,14 @@ fry git-select-commit
 fry interactive-mv
 fry mkdir-cd
 fry ncserve
-fry search-select-edit
+# fry search-select-edit
+search-select-edit () {
+	results=$(ag --filename --noheading --numbers --column --nobreak --color --hidden -S $@) 
+	selected=$(echo -E $results | fzf --ansi --multi --no-sort --tac) 
+	[[ -z "$selected" ]] && return 0
+	uniquefileswithlines=$(echo -E $selected | tac | sed '$!N; /^\([^:]*\):.*\n\1:.*$/!P; D' | tac | cut -d: -f1-3 | sed s/:.*//g)
+	eval "vim $(echo -E $uniquefileswithlines | xargs echo -E -n )"
+}
 fry smart-cd
 fry wait-for-silence
 fry extract-archive
@@ -65,7 +73,10 @@ bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down
 autoload bashcompinit && bashcompinit
 include_all ~/.zsh/bash_completion
 include ~/projects/wust2/.zsh_completion
+include "$(which aws_bash_completer)"
 
 # include functions and aliases
 include_all ~/.shfunctions/
 include ~/.zaliases.local
+
+include ~/projects/ubunix/ubunix.sh
