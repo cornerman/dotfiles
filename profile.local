@@ -2,7 +2,7 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="$PATH:$HOME/.multirust/toolchains/nightly/cargo/bin"
 export PATH="$PATH:$HOME/.npm-packages/bin"
-export MPD_HOST="appendix"
+export PATH="$PATH:$HOME/go/bin"
 
 # fzf fuzzy file finder
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
@@ -11,3 +11,6 @@ touch $HOME/.fzf_history
 
 # start x if on first tty
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+
+export JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
