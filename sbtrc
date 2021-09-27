@@ -1,5 +1,7 @@
 alias off = set offline := true
 alias opt = set scalacOptions ++= Seq("-Xdisable-assertions", "-optimize", "-Yinline")
+alias warn = set scalacOptions ++= Seq("-Xfatal-warnings")
+alias nowarn = set scalacOptions --= Seq("-Xfatal-warnings")
 alias lean = clean
 alias cl = clean
 alias cn = console
