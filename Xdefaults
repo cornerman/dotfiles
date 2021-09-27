@@ -1,3 +1,4 @@
+
 ! plugins
 URxvt.perl-ext-common:      default,matcher,url-select,resize-font,keyboard-select,urxvt-colors
 URxvt.keysym.M-plus:        perl:resize-font:bigger
@@ -13,7 +14,7 @@ URxvt.keysym.F12:           perl:urxvt-colors:
 URxvt.matcher.button:      1
 
 ! url select browser
-URxvt.url-select.launcher: x-www-browser
+URxvt.url-select.launcher: firefox
 
 ! URxvt scrolling options and cursor style:
 URxvt.saveLines: 200000
@@ -31,7 +32,9 @@ URxvt.internalBorder:     0
 URxvt.borderLess:         false
 
 URxvt.utf8: 1
-URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=16:antialias=true
+URxvt.font: xft:DejaVu Sans Mono for Powerline:pixelsize=20:antialias=true
+! URxvt.font: xft:DejaVu Sans Mono:pixelsize=16:antialias=true
+! urxvt.font:             xft:terminus:antialias=false:pixelsize=12
 
 ! first disable Keycap Picture insert mode
 URxvt.iso14755:         false
@@ -89,3 +92,6 @@ rofi.color-window:                   #ffffff,#6495ed
 ! Separator style (none, dash, solid)
 rofi.separator-style:                dash
 rofi.run-command:                    i3-msg exec {cmd}
+
+! mouse cursor
+Xcursor.size: 256
