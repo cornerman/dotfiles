@@ -2,9 +2,12 @@
 	name = johannes karoff
 	email = johannes@karoff.net
 
+[includeIf "gitdir:~/projects/hivemind/"]
+    path = ~/projects/hivemind/.gitconfig
+
 [core]
     whitespace = blank-at-eof,blank-at-eol,tab-in-indent,space-before-tab
-    excludesfile = /home/cornerman/.gitignore_global
+    excludesfile = ~/.gitignore_global
     pager = less
 
 [include]
@@ -42,6 +45,7 @@
     mrc = merge --continue
     mra = merge --abort
     mrs = merge --skip
+    cpp = cherry-pick
     cpc = cherry-pick --continue
     cpa = cherry-pick --abort
     cps = cherry-pick --skip
@@ -65,11 +69,11 @@
     diff=auto
 
 [push]
-    default = simple
+    default = current
 
 [pull]
     ff = only
-    rebase = true
+	rebase = true
 
 [rebase]
     autoStash = true
@@ -97,12 +101,8 @@
 
 [fetch]
     prune = true # remove old branches on fetch
-
-[credential]
-	helper = cache --timeout=3600
-
 [branch]
-    autosetuprebase = always
+	autosetuprebase = always
 
 [tig]
     vertical-split = true
@@ -113,7 +113,7 @@
     editor-line-number = true
     mouse-scroll = true
     show-changes = true
-    status-untracked-dirs = false
+    status-show-untracked-dirs = false
 
 [tig "bind"]
     ;NEO
@@ -145,3 +145,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[credential]
+	helper = store

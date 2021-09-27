@@ -1,3 +1,10 @@
+.bloop
+.bsp/
+project/metals.sbt
+metals.sbt
+/project/.bloop
+/.bloop
+/.metals
 *.gpg
 *.pem
 /.ensime*
