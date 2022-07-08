@@ -93,5 +93,11 @@ rofi.color-window:                   #ffffff,#6495ed
 rofi.separator-style:                dash
 rofi.run-command:                    i3-msg exec {cmd}
 
+rofi.font: ubuntu 14
+
 ! mouse cursor
 Xcursor.size: 256
+
+Xft.dpi:   128
+/* Xft.dpi:   172 */
+/* Xft.dpi:   331 */
