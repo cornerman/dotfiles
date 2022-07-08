@@ -84,6 +84,8 @@ workspace_layout tabbed
 # border style for new windows/floats
 new_window pixel 4
 new_float pixel 4
+# not sure why, but this is needed, otherwise not borders?
+for_window [title=".*"] border pixel 4
 
 # hide outer winder border
 hide_edge_borders none
@@ -131,12 +133,20 @@ workspace $ws11 output $screen2
 workspace $ws12 output $screen2
 
 # program to workspace assignment
-assign [class="(?i)thunderbird"] $ws11
-assign [class="(?i)daily"] $ws11
 assign [class="(?i)gmpc"] $ws10
 assign [instance="(?i)ncmpcpp"] $ws10
+assign [instance="(?i)ncmpcpp"] $ws10
+assign [class="(?i)thunderbird"] $ws11
+assign [class="(?i)daily"] $ws11
 assign [class="Signal" instance="signal"] $ws12
+assign [class="Whatsapp-for-linux" instance="whatsapp-for-linux"] $ws12
+assign [class="Slack" instance="slack"] $ws12
 assign [class="Keybase" instance="keybase"] $ws12
+# spotify changes class/instance on startup...
+for_window [class="Spotify" instance="spotify"] move workspace number $ws10
+
+# stupid windows
+for_window [class=".zoom " instance=".zoom " title=".zoom "] kill
 
 # definition of floating windows
 for_window [title="(?i)Password Required"] floating enable
@@ -144,6 +154,7 @@ for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="St
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 for_window [title="^Android Emulator - "] floating enable
+for_window [class="KeePassXC" instance="keepassxc" title="Passwords - KeePassXC"] floating enable
 
 ####keybindings
 
@@ -404,8 +415,8 @@ bindsym $mod+Shift+r mode $pass_through
 set $session_ctrl "(e)xit, (r)estart, (l)oad"
 mode $session_ctrl {
     bindsym e exit
-    bindsym r mode "default"; $nexec ~/.i3/create_i3_config; restart
-    bindsym l mode "default"; $nexec ~/.i3/create_i3_config; reload
+    bindsym r mode "default"; restart
+    bindsym l mode "default"; reload
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -486,3 +497,5 @@ $nexec alttab
 # $nexec_always window_back_forth.rb
 # $nexec_always urgent_indicator.rb
 # $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
+
+include ~/.i3/config.local
