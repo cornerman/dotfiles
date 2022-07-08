@@ -10,6 +10,6 @@ export LESS_TERMCAP_us=$(printf "\33[01;35m")   # begin underline
 [ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"
 
 # export SBT_OPTS="-Xmx3000M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Duser.timezone=GMT -Xss16M"
-export SBT_OPTS="-Xmx512M -Xss16M"
-export JAVA_OPTS="-Xmx521M -Xss16M"
-export SBT_NATIVE_CLIENT="true"
+export SBT_OPTS="-Xmx4G -Xss16M"
+export JAVA_OPTS="-Xmx512M -Xss16M"
+# export SBT_NATIVE_CLIENT="true"

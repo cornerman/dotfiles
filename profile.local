@@ -2,7 +2,9 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="$PATH:$HOME/.multirust/toolchains/nightly/cargo/bin"
 export PATH="$PATH:$HOME/.npm-packages/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.local/share/coursier/bin"
 
 # fzf fuzzy file finder
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
