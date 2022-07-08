@@ -60,10 +60,6 @@ autocutsel -selection PRIMARY -fork
 
 eval $(ssh-agent)
 
-# create i3 config
-i3config=~/.i3/create_i3_config
-[ -f $i3config ] && $i3config
-
 # start i3
 # exec i3 -c ~/.i3/config
 exec dbus-launch i3 -c ~/.i3/config
