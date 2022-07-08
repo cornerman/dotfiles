@@ -135,7 +135,10 @@ au BufWritePre * let &backupext = '@'.substitute(expand('%:p:h'), '/', '%', 'g')
 
 " Remember info about open buffers on close
 " set viminfo^=%
-"
+
+" adjust vim file history https://vi.stackexchange.com/a/26037
+set viminfo='1000,<50,s10,h
+
 " tell vim where to put its backup files
 set backupdir=~/.vim/tmp
 
@@ -285,25 +288,33 @@ function! QFixToggle(loc)
 endfunction
 
 " toggle side effects on yank register when deleting/modifying text
+function! DisableSideEffects()
+    noremap dd "_dd
+    noremap D "_D
+    noremap d "_d
+    noremap X "_X
+    noremap x "_x
+    " vnoremap p "_dP
+endfunction
+function! EnableSideEffects()
+    unmap dd
+    unmap D
+    unmap d
+    unmap X
+    unmap x
+    " vunmap p
+endfunction
 function! ToggleSideEffects()
     if mapcheck("dd", "n") == ""
-        noremap dd "_dd
-        noremap D "_D
-        noremap d "_d
-        noremap X "_X
-        noremap x "_x
-        " xnoremap <expr> p 'pgv"'.v:register.'y'
+        call DisableSideEffects()
         echo 'side effects off'
     else
-        unmap dd
-        unmap D
-        unmap d
-        unmap X
-        unmap x
-        " xunmap p
+        call EnableSideEffects()
         echo 'side effects on'
     endif
 endfunction
+" call DisableSideEffects()
+vnoremap p "_dP
 
 " open commands for file lists
 command! -complete=file -nargs=* Etabe call s:ETW('tabnew', <f-args>)
@@ -451,11 +462,21 @@ nmap <silent> <Leader>< <Plug>ToggleEndChar;
 nmap <silent> <Leader>, <Plug>ToggleEndChar,
 
 " kind of reverse of J
-nmap K i<CR><ESC>
+" nmap K i<CR><ESC>
+
+" fast macros
+nnoremap <leader>m @q
 
 " c+s corrects the last word
 inoremap <c-s> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <c-s> 1z=
+
+" Smart Home:
+" https://vi.stackexchange.com/a/23206
+noremap  <expr> <Home> col('.') == match(getline('.'), '\S') + 1 ? "\<Home>" : "^"
+inoremap <expr> <Home> col('.') == match(getline('.'), '\S') + 1 ? "\<Home>" : "\<C-O>^"
+noremap  <expr> 0 col('.') == match(getline('.'), '\S') + 1 ? "\<Home>" : "^"
+" inoremap <expr> 0 col('.') == match(getline('.'), '\S') + 1 ? "\<Home>" : "\<C-O>^"
 
 autocmd vimrc BufEnter * set noreadonly " no delay
 

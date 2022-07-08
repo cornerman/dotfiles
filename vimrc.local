@@ -71,6 +71,9 @@ vmap <M-d>  <Plug>SchleppDup
 nmap <M-d>  <S-v><Plug>SchleppDup
 
 " airline statusline
+" let g:airline_stl_path_style = 'short'
+" let g:airline_section_c_only_filename = 1
+let g:airline_section_c = '%<%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%{airline#util#wrap(airline#extensions#coc#get_status(),0)}%#__restore__#%#__accent_bold#%#__restore__#'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -190,8 +193,8 @@ let g:switch_custom_definitions =
             \   ['val', 'def'],
             \   {'"\([^"]*\)"': '''\1''', '''\([^'']*\)''': '"\1"'},
             \   {
-            \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
-            \     '\<\(\l\+\)\(_\l\+\)\+\>': "\\=substitute(submatch(0), '_\\(\\l\\)', '\\u\\1', 'g')",
+            \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1-\\2', 'g'))",
+            \     '\<\(\l\+\)\(_\l\+\)\+\>': "\\=substitute(submatch(0), '-\\(\\l\\)', '\\u\\1', 'g')",
             \   }
             \ ]
 
@@ -247,7 +250,7 @@ autocmd vimrc FileType tex setlocal spell spelllang=en_us
 " fzf:
 nmap <silent> <leader>o :Tags<CR>
 nmap <silent> <leader>i :BTags<CR>
-nmap <silent> <leader>e :GitFiles<CR>
+nmap <silent> <leader>e :ProjectFiles<CR>
 " nmap <silent> <leader>e :Rooter<CR>:Files<CR>
 nmap <silent> <leader>E :Files<CR>
 " nmap <silent> <leader>E :Files<CR>
@@ -257,6 +260,13 @@ nmap <silent> <leader>b :Buffers<CR>
 nmap <silent> <Leader>l :Locate<space>
 nmap <leader>s :Rooter<CR>:Ag<space>
 nmap <leader>S :Ag<space>
+let g:fzf_layout = {} " default to full screen
+
+" https://github.com/junegunn/fzf.vim/issues/47#issuecomment-160237795
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 " youcompleteme: auto show completion menu as-you-type
 let g:ycm_use_ultisnips_completer = 0
