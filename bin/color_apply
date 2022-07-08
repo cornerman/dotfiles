@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env zsh
+
+source ~/.shfunctions/functions.sh
 
 xsource="$HOME/.Xresources.$1"
 vimsource="$HOME/.vimrc.$1"
@@ -6,9 +8,6 @@ vimsource="$HOME/.vimrc.$1"
 ln -fs "$xsource" ~/.Xresources.colors
 ln -fs "$vimsource" ~/.vimrc.colors
 xrdb -merge ~/.Xresources.colors
-
-# nvim_all_command "<ESC>:source ~/.vimrc.colors<CR>:echo ""<CR>
-nvim_all_command "source ~/.vimrc.colors"
 
 case "$1" in
 "light")
@@ -20,3 +19,5 @@ case "$1" in
 *)
     ;;
 esac
+
+nvim_all_command "source ~/.vimrc.colors"
