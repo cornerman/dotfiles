@@ -11,7 +11,7 @@ if ! zgen saved; then
     zgen load Tarrasch/zsh-bd
     zgen load dottr/dottr
     zgen load rupa/z
-    zgen load oh-my-zsh plugins/scala
+    # zgen load oh-my-zsh plugins/scala
     zgen load supercrabtree/k
     zgen load romkatv/powerlevel10k powerlevel10k
     # zgen load b4b4r07/zsh-vimode-visual
@@ -32,6 +32,8 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# eval "$(direnv hook zsh)" # load environment vars depending on directory https://direnv.net/docs/hook.html#zsh
 
 # use dottr
 fry completion
@@ -62,6 +64,13 @@ fry bell-on-precmd
 fry aws-profile-status
 # fry print-expanded-alias
 
+# vim plugin always start with insert mode
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+# init fzf with keybindings only after init - otherwise keybindings of fzf overwritten
+function zvm_after_init() {
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+}
+
 # fzf now maps ctrl+r for history search, map it to alt+r, so it stays available
 bind2maps emacs viins vicmd -- -s '^[r' history-incremental-pattern-search-backward
 
@@ -77,6 +86,7 @@ include "$(which aws_bash_completer)"
 
 # include functions and aliases
 include_all ~/.shfunctions/
-include ~/.zaliases.local
 
 include ~/projects/ubunix/ubunix.sh
+
+eval $(thefuck --alias)

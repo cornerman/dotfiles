@@ -27,6 +27,7 @@ alias gl='git l'
 alias gd='git dw --no-index'
 
 alias tm=terraform
+alias tg=terragrunt
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -73,16 +74,31 @@ alias nquery=neo4j-query
 alias nclear=neo4j-clear
 alias nall=neo4j-all
 
+dnif () {
+    local file=$1
+    local DIR=$(pwd)
+
+    while [ ! -z "$DIR" ] && [ ! -f "$DIR/$file" ]; do
+        DIR="${DIR%\/*}"
+    done
+
+    if [ -z "$DIR" ]; then
+        pwd
+    else
+        echo $DIR
+    fi
+}
+
+cdnif () {
+    cd $(dnif $1)
+}
+
 alias s=amm
 alias scala="scala -Dscala.color -deprecation -unchecked -explaintypes -language:_"
-# sbt() { (
-#     # TODO: search tree upwards for build.sbt
-#     if [ ! -f build.sbt ]; then
-#         cd-git-root
-#     fi
-#     env sbt $@
-#     )
-# }
+sbt() {
+    cdnif build.sbt
+    env sbt $@
+}
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
 # alias vim="vim --servername vim-$$"
@@ -104,6 +120,7 @@ alias start="cdg || cd ~/projects/wust2; ./start"
 
 alias P='parallel-moreutils -i'
 
+alias -g F="| fzf"
 alias -g G="| grep"
 alias -g H="| head"
 alias -g T="| tail"

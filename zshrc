@@ -1,3 +1,60 @@
+# include function
+include(){
+    [ -f "$1" ] && . "$1"
+}
+
+include_all(){
+    if [[ -d $1 ]]; then
+        for file in $1/*; do
+            include "$file"
+        done
+    fi
+}
+
+# key setup
+typeset -A key
+key=(
+Home     "${terminfo[khome]}"
+End      "${terminfo[kend]}"
+Insert   "${terminfo[kich1]}"
+Delete   "${terminfo[kdch1]}"
+Up       "${terminfo[kcuu1]}"
+Down     "${terminfo[kcud1]}"
+Left     "${terminfo[kcub1]}"
+Right    "${terminfo[kcuf1]}"
+PageUp   "${terminfo[kpp]}"
+PageDown "${terminfo[knp]}"
+BackTab  "${terminfo[kcbt]}"
+)
+
+function bind2maps () {
+    local i sequence widget
+    local -a maps
+
+    while [[ "$1" != "--" ]]; do
+        maps+=( "$1" )
+        shift
+    done
+    shift
+
+    if [[ "$1" == "-s" ]]; then
+        shift
+        sequence="$1"
+    else
+        sequence="${key[$1]}"
+    fi
+    widget="$2"
+
+    [[ -z "$sequence" ]] && return 1
+
+    for i in "${maps[@]}"; do
+        bindkey -M "$i" "$sequence" "$widget"
+    done
+}
+
+# local settings
+include ~/.zshrc.local
+
 # append history list to the history file; this is the default but we make sure
 # because it's required for share_history.
 setopt append_history
@@ -136,8 +193,8 @@ chpwd() {
 
 # history
 HISTFILE=~/.zsh_history
-HISTSIZE=15000
-SAVEHIST=15000
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 # report about cpu-/system-/user-time of command if running longer than
 # 5 seconds
@@ -229,9 +286,14 @@ zstyle ':completion:*:*:evince:*:*' file-patterns '*.pdf:pdfs:pdfs *(-/):directo
 zstyle ":completion:*:commands" rehash 1
 
 #history search
-autoload -U history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
+# autoload -U history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+zvm_bindkey viins '^[[A' history-beginning-search-backward
+zvm_bindkey viins '^[[B' history-beginning-search-forward
+zvm_bindkey vicmd '^[[A' history-beginning-search-backward
+zvm_bindkey vicmd '^[[B' history-beginning-search-forward
+
 
 #fix insert mode fuckup
 zle -A .backward-kill-word vi-backward-kill-word
@@ -239,47 +301,6 @@ zle -A .backward-delete-char vi-backward-delete-char
 
 #proper undo
 zle -A .undo vi-undo-change
-
-# key setup
-typeset -A key
-key=(
-Home     "${terminfo[khome]}"
-End      "${terminfo[kend]}"
-Insert   "${terminfo[kich1]}"
-Delete   "${terminfo[kdch1]}"
-Up       "${terminfo[kcuu1]}"
-Down     "${terminfo[kcud1]}"
-Left     "${terminfo[kcub1]}"
-Right    "${terminfo[kcuf1]}"
-PageUp   "${terminfo[kpp]}"
-PageDown "${terminfo[knp]}"
-BackTab  "${terminfo[kcbt]}"
-)
-
-function bind2maps () {
-    local i sequence widget
-    local -a maps
-
-    while [[ "$1" != "--" ]]; do
-        maps+=( "$1" )
-        shift
-    done
-    shift
-
-    if [[ "$1" == "-s" ]]; then
-        shift
-        sequence="$1"
-    else
-        sequence="${key[$1]}"
-    fi
-    widget="$2"
-
-    [[ -z "$sequence" ]] && return 1
-
-    for i in "${maps[@]}"; do
-        bindkey -M "$i" "$sequence" "$widget"
-    done
-}
 
 # vi mode
 # export KEYTIMEOUT=1
@@ -363,19 +384,6 @@ function preexec {
     printf "\033]0;%s:%s\a" "$term" "$1"
 }
 
-# include function
-include(){
-    [ -f "$1" ] && . "$1"
-}
-
-include_all(){
-    if [[ -d $1 ]]; then
-        for file in $1/*; do
-            include "$file"
-        done
-    fi
-}
-
 # "persistent history"
 # just write important commands you always need to ~/.important_commands
 # if [[ -r ~/.important_commands ]] ; then
@@ -388,8 +396,8 @@ include_all(){
 #parameter completions for programms that understand --hrlp
 # compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
 
-# local settings
-include ~/.zshrc.local
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 include ~/.zaliases
+include ~/.zaliases.local
+
+
+export PATH="$PATH:$HOME/.local/share/coursier/poop"
