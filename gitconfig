@@ -14,6 +14,7 @@
     path = /home/cornerman/projects/dottr/yolk/git/gitconfig
 
 [alias]
+    head = rev-parse --short HEAD
     cot = "!TEMP=$(mktemp -d); f() { git worktree prune && git worktree add $TEMP $1 && zsh -c \"cd $TEMP; zsh\";}; f" # checkout branch in temporary directory
     un = reset HEAD
     una = "!git reset HEAD $(git rev-parse --show-toplevel 2> /dev/null)"
@@ -23,6 +24,8 @@
     f = fetch
     fa = fetch --all
     p = push
+    pt = push --tags
+    pta = "!git push origin \"$(git rev-parse --abbrev-ref HEAD)\" --tags"
     pforce = push --force-with-lease
     u = pull --rebase --autostash
     a = add
@@ -75,13 +78,22 @@
     ff = only
 	rebase = true
 
+[cherry-pick]
+    ignore-space-change = true
+
 [rebase]
     autoStash = true
     autoSquash = true # useful for `git commit --fixup <hash>` (https://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)
+    ignore-space-change = true
+
+[diff]
+    ignore-space-change = true
+
+[blame]
+    ignore-space-change = true
 
 [merge]
-    tool = meld
-    conflictstyle = diff3
+    conflictstyle = diff3 # zdiff3
     ff = only
     ignore-space-change = true
 
@@ -93,14 +105,15 @@
     indentHeuristic = true
     wordRegex=[A-Z][a-z]*|[a-z]+|[^[:space:]] # see camel case as separate words
 
-[apply]
-    ignoreWhitespace = change # do not produce whitespace conflicts
-
 [commit]
     verbose = true
 
+[apply]
+    ignoreWhitespace = change # do not produce whitespace conflicts
+
 [fetch]
     prune = true # remove old branches on fetch
+
 [branch]
 	autosetuprebase = always
 
@@ -145,5 +158,8 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+
 [credential]
 	helper = store
+[init]
+	defaultBranch = master
