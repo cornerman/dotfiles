@@ -117,17 +117,29 @@ fvm() {
 # ftstate - show terraform state
 # example usage: ftstate
 ftstate() {
-  local states state
-  states=$(terraform state list) &&
-  state=$(echo "$states" | fzf --tac +s +m -e --ansi --reverse) &&
-  terraform state show "$state"
+  local state
+  state=$(terraform state list | fzf --tac +s +m -e --ansi --reverse)
+  if [ -n "$state" ]; then
+    terraform state show "$state"
+  fi
 }
 
 # fni - install nixpack
 # example usage: fni <pkg>
 fni() {
-  local packages package
-  packages=$(nix search $1 | tr -d '\n' | sed 's/  / /g' | sed s/*/\\n/g | sed 's/^ //g' | grep '\S') &&
-  package=$(echo "$packages" | fzf --tac +s +m -e --ansi --reverse | cut -F1) &&
-  nix-env -iA "$package"
+  local package
+  package=$(nix search $1 | tr -d '\n' | sed 's/  / /g' | sed s/*/\\n/g | sed 's/^ //g' | grep '\S' | fzf --tac +s +m -e --ansi --reverse | cut -F1)
+  if [ -n "$package" ]; then
+    nix-env -iA "$package"
+  fi
+}
+
+# fawslogs - get aws log
+# example usage: fawslogs
+fawslogs() {
+  local group
+  group=$(awslogs groups | fzf)
+  if [ -n "$group" ]; then
+      awslogs get --watch $group
+  fi
 }

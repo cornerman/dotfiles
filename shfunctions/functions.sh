@@ -59,3 +59,18 @@ nvim_all_command() {
     done
 }
 
+function awsall {
+  export AWS_PAGER=""
+  while read -r region; do
+    echo "==="
+    echo $region
+    echo "==="
+    if [ `echo "$@"|grep -i '\-\-region'|wc -l` -eq 1 ]
+    then
+        echo "You cannot use --region flag while using awsall"
+        break
+    fi
+    aws $@ --region $region
+  done <<(aws ec2 describe-regions --query "Regions[].{Name:RegionName}" --output text|sort -r)
+  trap "break" INT TERM
+}
