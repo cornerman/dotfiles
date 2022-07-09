@@ -14,5 +14,6 @@ touch $HOME/.fzf_history
 # start x if on first tty
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
+export AWS_VAULT_FILE_PASSPHRASE=1848
 
 export JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
