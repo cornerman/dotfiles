@@ -7,3 +7,13 @@ keycode 94 = ISO_Level3_Shift
 
 ! disable menu key
 keysym Menu = Hyper_L
+
+! integrate german umlauts
+! use altgr as umlaut modifier
+keycode  108 = Mode_switch
+! umlauts on 3. (without shift) and 4. symbol (with shift)
+keycode  26 = e E EuroSign cent
+keycode  30 = u U udiaeresis Udiaeresis
+keycode  32 = o O odiaeresis Odiaeresis
+keycode  38 = a A adiaeresis Adiaeresis
+keycode  39 = s S ssharp
