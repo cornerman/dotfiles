@@ -1,5 +1,5 @@
 # plugins
-include_all ~/.zsh/plugins
+include ~/projects/zgen/zgen.zsh
 
 # check if there's no init script
 if ! zgen saved; then
@@ -23,13 +23,6 @@ if ! zgen saved; then
     zgen save
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -37,15 +30,15 @@ fi
 
 # use dottr
 fry completion
-fry alias-usage-analysis
+# fry alias-usage-analysis
 fry cd-git-root
 fry git-dirty-files-command
-fry docker-host-status
+# fry docker-host-status
 fry cd-tmp
 fry git-select-commit
 fry interactive-mv
 fry mkdir-cd
-fry ncserve
+# fry ncserve
 # fry search-select-edit
 search-select-edit () {
 	results=$(ag --filename --noheading --numbers --column --nobreak --color --hidden -S $@) 
@@ -57,16 +50,16 @@ search-select-edit () {
 fry smart-cd
 fry wait-for-silence
 fry extract-archive
-NEO4J_QUERY_JSON_FORMATTER=json_pp fry neo4j-query
+# NEO4J_QUERY_JSON_FORMATTER=json_pp fry neo4j-query
 fry git-onstage
 fry github-clone
 fry bell-on-precmd
-fry aws-profile-status
+# fry aws-profile-status
 # fry print-expanded-alias
 
 # vim plugin always start with insert mode
 ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-# init fzf with keybindings only after init - otherwise keybindings of fzf overwritten
+# # init fzf with keybindings only after init - otherwise keybindings of fzf overwritten
 function zvm_after_init() {
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
@@ -89,4 +82,4 @@ include_all ~/.shfunctions/
 
 include ~/projects/ubunix/ubunix.sh
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)

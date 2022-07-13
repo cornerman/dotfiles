@@ -2,22 +2,32 @@
 
 source ~/.shfunctions/functions.sh
 
-xsource="$HOME/.Xresources.$1"
-vimsource="$HOME/.vimrc.$1"
+ln -fs "$HOME/.Xresources.$1" ~/.Xresources.colors
+ln -fs "$HOME/.vimrc.$1" ~/.vimrc.colors
 
-ln -fs "$xsource" ~/.Xresources.colors
-ln -fs "$vimsource" ~/.vimrc.colors
 xrdb -merge ~/.Xresources.colors
 
 case "$1" in
 "light")
     sed -i "s/^colors: \*dark$/colors: *light/" ~/.config/alacritty.yml
+    sed -i "s/themes\/dark.rasi/themes\/light.rasi/" ~/.config/rofi/config.rasi
+    echo "Solarized Light" | nc localhost 16666 # intellij
+    echo 'Net/ThemeName "Numix Solarized Light"' > ~/.xsettingsd
     ;;
 "dark")
     sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
+    sed -i "s/themes\/light.rasi/themes\/dark.rasi/" ~/.config/rofi/config.rasi
+    echo "Solarized Dark" | nc localhost 16666 # intellij
+    echo 'Net/ThemeName "Numix Solarized"' > ~/.xsettingsd
     ;;
 *)
     ;;
 esac
+
+
+#https://github.com/derat/xsettingsd/wiki/Settings
+killall -HUP xsettingsd
+
+i3-msg reload
 
 nvim_all_command "source ~/.vimrc.colors"

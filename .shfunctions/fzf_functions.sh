@@ -124,13 +124,15 @@ ftstate() {
   fi
 }
 
-# fni - install nixpack
+# fni - install nix package
 # example usage: fni <pkg>
 fni() {
   local package
-  package=$(nix search $1 | tr -d '\n' | sed 's/  / /g' | sed s/*/\\n/g | sed 's/^ //g' | grep '\S' | fzf --tac +s +m -e --ansi --reverse | cut -F1)
+  local file
+  package=$(nix-env --meta --json -qa $1 | jq -r '[ keys[] as $k | [$k, .[$k].version, .[$k].meta.description] | @tsv ] | join("\n")' | column -ts $'\t' | fzf | cut -d' ' -f1)
+
   if [ -n "$package" ]; then
-    nix-env -iA "$package"
+     nix-env -iA "$package"
   fi
 }
 

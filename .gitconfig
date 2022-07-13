@@ -2,8 +2,8 @@
 	name = johannes karoff
 	email = johannes@karoff.net
 
-[includeIf "gitdir:~/projects/hivemind/"]
-    path = ~/projects/hivemind/.gitconfig
+[includeIf "gitdir:~/projects/priceloop/"]
+    path = ~/projects/priceloop/.gitconfig
 
 [core]
     whitespace = blank-at-eof,blank-at-eol,tab-in-indent,space-before-tab

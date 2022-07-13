@@ -14,6 +14,18 @@ touch $HOME/.fzf_history
 # start x if on first tty
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
-export AWS_VAULT_FILE_PASSPHRASE=1848
-
 export JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
+
+# firefox touch controls
+export MOZ_USE_XINPUT2=1
+
+# nix
+# export NIX_PATH="$HOME/.nix-defexpr/channels:$NIX_PATH"
+source /etc/profile
+
+# export SBT_OPTS="-Xmx3000M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Duser.timezone=GMT -Xss16M"
+export SBT_OPTS="-Xmx4G -Xss16M"
+export JAVA_OPTS="-Xmx512M -Xss16M"
+# export SBT_NATIVE_CLIENT="true"
+
+[ -f "$HOME/.profile.values" ] && . "$HOME/.profile.values"

@@ -1,3 +1,7 @@
+i3wm.fgclr: #2b2b2b
+i3wm.bgclr: #d2d2bd
+i3wm.bgclr_sep: #d2d2bd
+
 *background:            #FFFFFF
 *borderColor:           #fdf6e3
 *foreground:            #657b83

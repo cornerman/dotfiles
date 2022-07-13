@@ -40,8 +40,8 @@ xset b off
 setxkbmap -layout us_de -variant basic
 
 # load xmodmap settings
-usermodmap=~/.xmodmaprc
-[ -f $usermodmap ] && xmodmap $usermodmap
+#usermodmap=~/.xmodmaprc
+#[ -f $usermodmap ] && xmodmap $usermodmap
 
 #this will keep the clipboard in sync with the primary buffer
 autocutsel -selection CLIPBOARD -fork
@@ -59,6 +59,11 @@ autocutsel -selection PRIMARY -fork
 # xss-lock -- slock &
 
 eval $(ssh-agent)
+
+# map touchscreen only to own screen
+xinput map-to-output 19 eDP-1
+
+xsettingsd &
 
 # start i3
 # exec i3 -c ~/.i3/config

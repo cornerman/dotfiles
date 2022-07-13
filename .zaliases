@@ -1,17 +1,5 @@
 alias ssh='TERM=xterm ssh'
 
-alias y='yaourt'
-alias yoghurt='yaourt'
-alias ys='yaourt -S' # install and mark as explicitly installed
-alias yu='upgrade' # update
-alias yr='yaourt -Rs' # remove package
-alias ya='yaourt -Qdt' # autoremove unneeded packages
-alias yi='yaourt -Qi' # package info
-alias yb='yaourt -Sb' # build package
-alias yo='yaourt -Qo' # package for command
-alias yl='yaourt -Ql' # list files for package
-alias ye='yaourt -Qe --date' # list installed packages
-
 alias archive='tar -pczvf'
 
 alias grep='grep --color=auto'
@@ -25,6 +13,8 @@ alias gu='git u'
 alias gs='git s'
 alias gl='git l'
 alias gd='git dw --no-index'
+alias dot='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare git'
+alias dotig='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare tig'
 
 alias tm=terraform
 alias tg=terragrunt
@@ -42,8 +32,7 @@ alias mcp='noglob zmv -C -W'
 alias mln='noglob zmv -L -W'
 alias mmv='noglob zmv -W'
 
-alias ff='find . -name'
-alias f='find . -iname'
+alias f='find . -name'
 
 alias present_shell='urxvt -fn xft:monospace:pixelsize=30 -fade 0&'
 
@@ -52,9 +41,6 @@ alias spaste='curl -F "sprunge=<-" http://sprunge.us'
 alias t=tree
 
 alias watch='watch -d -c'
-
-alias swust='cd ~/projects/wust/; sbt ~run'
-alias bwust='x-www-browser localhost:9000 > /dev/null 2>&1 &'
 
 alias sys="systemctl"
 
@@ -70,9 +56,6 @@ alias extract=extract-archive
 alias gda='git-dirty-files-command git add'
 alias gdc='git-dirty-files-command'
 alias gdv='git-dirty-files-command vim'
-alias nquery=neo4j-query
-alias nclear=neo4j-clear
-alias nall=neo4j-all
 
 dnif () {
     local file=$1
@@ -102,6 +85,8 @@ sbt() {
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
 # alias vim="vim --servername vim-$$"
+alias vim=nvim
+alias vdot='vim "$HOME/$(dot ls-files | fzf)"'
 alias va="vim ~/.zaliases"
 alias vv="vim ~/.vimrc"
 alias vvl="vim ~/.vimrc.local"
@@ -114,13 +99,11 @@ alias vt="vim -c Tags"
 
 alias d=docker
 alias dc=docker-compose
-alias dm=docker-machine
-
-alias start="cdg || cd ~/projects/wust2; ./start"
 
 alias P='parallel-moreutils -i'
 
 alias -g F="| fzf"
+alias -g FA="| fa"
 alias -g G="| grep"
 alias -g H="| head"
 alias -g T="| tail"

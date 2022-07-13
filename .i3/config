@@ -1,6 +1,11 @@
 ####i3 config common
 
+include ~/.i3/config.local
+
 ####variables
+
+set $screen1 DP-2-1
+set $screen2 eDP-1
 
 # modifier key
 set $mod    Mod4
@@ -8,6 +13,9 @@ set $barmod Mod3
 
 # terminal definition
 set $term alacritty
+set $termCd alacritty --working-directory
+# set $term urxvt
+# set $termCd urxvt -cd
 
 # abbreviation for exec with no-startup-id
 set $exec exec
@@ -31,40 +39,46 @@ set $ws11 "11"
 set $ws12 "12"
 
 # font
-set $font       xft:Ubuntu 8
+set $font       xft:Ubuntu 9
 set $barfont    xft:Ubuntu,FontAwesome 8
-
-# background colors
-set $bgclr_focused      #1f85ca
-set $bgclr_active       #00afaf
-set $bgclr_unfocused    #d2d2bd
-set $bgclr_urgent       #b64313
-
-# foreground colors
-set $fgclr              #2b2b2b
-
-# border colors
-set $brclr              #2b2b2b
-
-# indicator color
-set $clr_indicator      #d2d2bd
-
-# client background color
-set $bgclr_client       #000000
-
-# background bar color
-set $bgclr_bar          #d2d2bd
-
-# foreground bar color
-set $fgclr_bar          #2b2b2b
-
-# separator bar color
-set $spclr_bar          #ffffff
 
 ####settings
 
 # font for window titles
 font $font
+
+# background colors
+set $bgclr_focused      #1f85ca
+set $bgclr_active       #00afaf
+set $bgclr_urgent       #b64313
+# set $bgclr_unfocused    #d2d2bd
+set_from_resource $bgclr_unfocused i3wm.bgclr_sep #d2d2bd
+
+# foreground colors
+# set $fgclr              #2b2b2b
+set_from_resource $fgclr i3wm.fgclr #2b2b2b
+
+# border colors
+set $brclr              #000000
+# set_from_resource $brclr i3wm.fgclr #2b2b2b
+
+# indicator color
+# set $clr_indicator      #d2d2bd
+set_from_resource $clr_indicator i3wm.bgclr #d2d2bd
+
+# client background color
+set $bgclr_client       #000000
+
+# background bar color
+# set $bgclr_bar          #d2d2bd
+set_from_resource $bgclr_bar i3wm.bgclr #d2d2bd
+
+# foreground bar color
+# set $fgclr_bar          #2b2b2b
+set_from_resource $fgclr_bar i3wm.fgclr #2b2b2b
+
+# separator bar color
+set $spclr_bar          #ffffff
 
 # background color for window not filling the whole area
 client.background       $bgclr_client
@@ -82,10 +96,10 @@ default_orientation auto
 workspace_layout tabbed
 
 # border style for new windows/floats
-new_window pixel 4
-new_float pixel 4
+new_window pixel 3
+new_float pixel 3
 # not sure why, but this is needed, otherwise not borders?
-for_window [title=".*"] border pixel 4
+for_window [title=".*"] border pixel 3
 
 # hide outer winder border
 hide_edge_borders none
@@ -109,8 +123,8 @@ focus_on_window_activation urgent
 floating_modifier $mod
 
 # set floating size constraints
-floating_minimum_size 10 x 10
-# floating_maximum_size 1280 x 1024
+floating_minimum_size 25 x 15
+floating_maximum_size 2500 x 1500
 
 # show marks in title
 show_marks yes
@@ -124,7 +138,7 @@ workspace $ws2 output $screen1
 workspace $ws3 output $screen1
 workspace $ws4 output $screen1
 workspace $ws5 output $screen1
-workspace $ws6 output $screen2
+workspace $ws6 output $screen1
 workspace $ws7 output $screen2
 workspace $ws8 output $screen2
 workspace $ws9 output $screen2
@@ -155,6 +169,8 @@ for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floa
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 for_window [title="^Android Emulator - "] floating enable
 for_window [class="KeePassXC" instance="keepassxc" title="Passwords - KeePassXC"] floating enable
+# for_window [class="jetbrains-idea-ce" title="^ $"] floating enable
+# for_window [class="jetbrains-idea-ce" title="^Welcome"] floating disable
 
 ####keybindings
 
@@ -167,7 +183,7 @@ bindsym button9 move right
 
 # start a terminal
 bindsym $mod+Return $exec $term
-bindsym $mod+Shift+Return $exec $term --working-directory $(xcwd)
+bindsym $mod+Shift+Return $exec $termCd $(xcwd)
 
 bindsym $mod+v $nexec radio
 bindsym $mod+Shift+v $nexec radio clear playlist
@@ -493,9 +509,7 @@ bar {
 ####exec
 
 $nexec nitrogen --restore
-$nexec alttab
+$nexec compton
 # $nexec_always window_back_forth.rb
 # $nexec_always urgent_indicator.rb
 # $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
-
-include ~/.i3/config.local

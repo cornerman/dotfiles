@@ -1,0 +1,16 @@
+####keybindings
+
+bindsym XF86MonBrightnessDown $nexec xbacklight -dec 15
+bindsym XF86MonBrightnessUp $nexec xbacklight -inc 15
+
+bindsym XF86AudioMute $nexec vol_ctrl toggle
+bindsym XF86AudioLowerVolume $nexec vol_ctrl minus
+bindsym XF86AudioRaiseVolume $nexec vol_ctrl plus
+
+bindsym XF86AudioPlay $nexec playerctl play-pause
+bindsym XF86AudioPrev $nexec playerctl previous
+bindsym XF86AudioNext $nexec playerctl next
+
+####exec
+
+$nexec nm-applet

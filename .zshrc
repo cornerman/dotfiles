@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # include function
 include(){
     [ -f "$1" ] && . "$1"
@@ -164,10 +171,10 @@ setopt multios
 
 # we don't want no flow control, i.e. unfreeze/freeze
 unsetopt flow_control
-stty -ixon
+# stty -ixon
 
 # set some important variables
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER=less
 export BROWSER=firefox
 export HIST_PATH=~/
@@ -323,7 +330,7 @@ bindkey '^h' backward-delete-char
 # [Space] - do history expansion
 bindkey ' ' magic-space
 
-#vim style control in completion lists
+##vim style control in completion lists
 bind2maps menuselect -- 'h' vi-backward-char                # links
 bind2maps menuselect -- 'j' vi-down-line-or-history         # unten
 bind2maps menuselect -- 'k' vi-up-line-or-history           # oben
@@ -372,23 +379,23 @@ autoload edit-command-line
 zle -N edit-command-line
 bind2maps vicmd viins -- -s '^v' edit-command-line
 
-# zsh with pwd in window title
-function precmd {
-    term=$(echo $TERM | grep -Eo '^[^-]+')
-    print -Pn "\e]0;$term:zsh %~\a"
-}
+## zsh with pwd in window title
+#function precmd {
+#    term=$(echo $TERM | grep -Eo '^[^-]+')
+#    print -Pn "\e]0;$term:zsh %~\a"
+#}
 
-# current command with args in window title
-function preexec {
-    term=$(echo $TERM | grep -Eo '^[^-]+')
-    printf "\033]0;%s:%s\a" "$term" "$1"
-}
+## current command with args in window title
+#function preexec {
+#    term=$(echo $TERM | grep -Eo '^[^-]+')
+#    printf "\033]0;%s:%s\a" "$term" "$1"
+#}
 
-# "persistent history"
-# just write important commands you always need to ~/.important_commands
-# if [[ -r ~/.important_commands ]] ; then
-#     fc -R ~/.important_commands
-# fi
+## "persistent history"
+## just write important commands you always need to ~/.important_commands
+## if [[ -r ~/.important_commands ]] ; then
+##     fc -R ~/.important_commands
+## fi
 
 # custom zsh completion
 #fpath=(~/.zsh/completion $fpath)
@@ -398,6 +405,3 @@ function preexec {
 
 include ~/.zaliases
 include ~/.zaliases.local
-
-
-export PATH="$PATH:$HOME/.local/share/coursier/poop"

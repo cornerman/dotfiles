@@ -14,6 +14,9 @@
   # TERM: xterm-256color-italic
 
 window:
+  # Background opacity
+  window.opacity: 1.0
+
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels. If both are zero this
@@ -276,9 +279,6 @@ bell:
   animation: EaseOutExpo
   color: '0xffffff'
   duration: 0
-
-# Background opacity
-background_opacity: 1.0
 
 # Key bindings
 #

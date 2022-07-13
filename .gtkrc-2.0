@@ -10,6 +10,6 @@ gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
 
-gtk-theme-name = "Numix"
-gtk-icon-theme-name = "Tango"
+gtk-theme-name = "Yaru"
+gtk-icon-theme-name = "Yaru"
 gtk-font-name = "ubuntu 12"
