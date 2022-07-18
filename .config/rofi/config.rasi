@@ -1,0 +1,20 @@
+/* vim:ft=css */
+configuration {
+    modi: "combi";
+    show-icons: true;
+    terminal: "alacritty";
+    run-command: "i3-msg exec {cmd}";
+    run-list-command: "";
+    run-shell-command: "{terminal} -e {cmd}";
+    window-command: "xkill -id {window}";
+    window-match-fields: "all";
+    levenshtein-sort: false;
+    cycle: true;
+    combi-modi: "window,run";
+    matching: "fuzzy";
+    dpi: 210;
+    combi-hide-mode-prefix: true;
+    display-combi: "";
+}
+
+@theme "~/.config/rofi/themes/dark.rasi"
