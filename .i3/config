@@ -4,7 +4,7 @@ include ~/.i3/config.local
 
 ####variables
 
-set $screen1 DP-2-1
+set $screen1 DP-3-3
 set $screen2 eDP-1
 
 # modifier key
@@ -124,7 +124,7 @@ floating_modifier $mod
 
 # set floating size constraints
 floating_minimum_size 25 x 15
-floating_maximum_size 2500 x 1500
+floating_maximum_size 2500 x 2000
 
 # show marks in title
 show_marks yes
@@ -160,7 +160,7 @@ assign [class="Keybase" instance="keybase"] $ws12
 for_window [class="Spotify" instance="spotify"] move workspace number $ws10
 
 # stupid windows
-for_window [class=".zoom " instance=".zoom " title=".zoom "] kill
+# for_window [class="^join\?" title="^(?!Zoom)(?!Settings).*$"] kill
 
 # definition of floating windows
 for_window [title="(?i)Password Required"] floating enable
@@ -168,7 +168,8 @@ for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="St
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 for_window [title="^Android Emulator - "] floating enable
-for_window [class="KeePassXC" instance="keepassxc" title="Passwords - KeePassXC"] floating enable
+for_window [class="KeePassXC" ] move scratchpad
+for_window [class="1Password" instance="1password"] floating enable
 # for_window [class="jetbrains-idea-ce" title="^ $"] floating enable
 # for_window [class="jetbrains-idea-ce" title="^Welcome"] floating disable
 
@@ -182,8 +183,8 @@ bindsym button8 move left
 bindsym button9 move right
 
 # start a terminal
-bindsym $mod+Return $exec $term
-bindsym $mod+Shift+Return $exec $termCd $(xcwd)
+bindsym $mod+Return $nexec $term
+bindsym $mod+Shift+Return $nexec $termCd $(xcwd)
 
 bindsym $mod+v $nexec radio
 bindsym $mod+Shift+v $nexec radio clear playlist
@@ -202,7 +203,7 @@ bindcode 107 $nexec screenshot root
 bindcode Shift+107 $nexec screenshot active
 
 # switch keyboard layouts
-bindcode 78 $nexec "setxkbmap us_de; xmodmap ~/.xmodmaprc"
+bindcode 78 $nexec "setxkbmap us"
 bindcode Shift+78 $nexec "setxkbmap de neo"
 
 # change focus
@@ -273,6 +274,9 @@ bindsym $mod+a focus parent
 
 # focus the child container
 bindsym $mod+s focus child
+
+# programs
+bindsym $mod+i exec firefox
 
 # scratchpad
 # bindsym $mod+backslash $nexec select-scratchpad.rb -m "^scratched$" -n
@@ -418,7 +422,6 @@ mode $resize {
 }
 
 bindsym $mod+r mode $resize
-# bindsym $mod+Shift+r resize set 
 
 # pass-through, no key except escape is handled by i3
 set $pass_through "pass-through"
@@ -458,28 +461,28 @@ mode $system_ctrl {
 bindsym $mod+Shift+e mode $system_ctrl
 
 # sound and music control
-set $sound_ctrl "(h) previous, (l) next, (p) pause, (j) down, (k) up, (m) mute, (i) in, (o) out"
-mode $sound_ctrl {
-    bindsym m $nexec vol_ctrl toggle
-    bindsym j $nexec vol_ctrl minus
-    bindsym k $nexec vol_ctrl plus
+# set $sound_ctrl "(h) previous, (l) next, (p) pause, (j) down, (k) up, (m) mute, (i) in, (o) out"
+# mode $sound_ctrl {
+#     bindsym m $nexec vol_ctrl toggle
+#     bindsym j $nexec vol_ctrl minus
+#     bindsym k $nexec vol_ctrl plus
 
-    bindsym Shift+m $nexec PULSE_SERVER=appendix vol_ctrl toggle
-    bindsym Shift+j $nexec PULSE_SERVER=appendix vol_ctrl minus
-    bindsym Shift+k $nexec PULSE_SERVER=appendix vol_ctrl plus
-    bindsym h $nexec mpc prev
-    bindsym l $nexec mpc next
-    bindsym p $nexec mpc toggle
+#     bindsym Shift+m $nexec PULSE_SERVER=appendix vol_ctrl toggle
+#     bindsym Shift+j $nexec PULSE_SERVER=appendix vol_ctrl minus
+#     bindsym Shift+k $nexec PULSE_SERVER=appendix vol_ctrl plus
+#     bindsym h $nexec mpc prev
+#     bindsym l $nexec mpc next
+#     bindsym p $nexec mpc toggle
 
-    bindsym i $nexec pa_sink 0
-    bindsym o $nexec pa_sink 1
+#     bindsym i $nexec pa_sink 0
+#     bindsym o $nexec pa_sink 1
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+#     # back to normal: Enter or Escape
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
 
-bindsym $mod+t mode $sound_ctrl
+# bindsym $mod+t mode $sound_ctrl
 
 ####bar config
 
@@ -510,6 +513,7 @@ bar {
 
 $nexec nitrogen --restore
 $nexec compton
+$nexec keepassxc
 # $nexec_always window_back_forth.rb
 # $nexec_always urgent_indicator.rb
 # $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
