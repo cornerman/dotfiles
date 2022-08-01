@@ -71,7 +71,7 @@ font:
   # Style can be specified to pick a specific face.
   normal:
     family: DejaVu Sans Mono for Powerline
-    style: Light
+    # style: Light
     # family: "Fira Code"
     # family: "Source Code Pro"
     # style: Retina
@@ -79,14 +79,14 @@ font:
   # The bold font face
   bold:
     family: DejaVu Sans Mono for Powerline
-    style: Medium
+    # style: Medium
     # family: "Fira Code"
     # family: "Source Code Pro"
 
   # The italic font face
   italic:
     family: DejaVu Sans Mono for Powerline
-    style: "Light Italic"
+    # style: "Light Italic"
     # style: "Light Oblique"
     # family: "Fira Code"
     # family: "Source Code Pro"
