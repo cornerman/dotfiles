@@ -105,8 +105,8 @@ zz() {
 }
 
 # fa - execute any command on selection
-fa () {
-    fzf | while read -r line; do $@ "$line"; done
+fa() {
+  fzf | while read -r line; do $@ "$line"; done
 }
 
 # start vms
@@ -129,6 +129,7 @@ ftstate() {
 fni() {
   local package
   local file
+  #TODO https://github.com/NixOS/nix/issues/5642
   package=$(nix-env --meta --json -qa $1 | jq -r '[ keys[] as $k | [$k, .[$k].version, .[$k].meta.description] | @tsv ] | join("\n")' | column -ts $'\t' | fzf | cut -d' ' -f1)
 
   if [ -n "$package" ]; then
@@ -142,6 +143,14 @@ fawslogs() {
   local group
   group=$(awslogs groups | fzf)
   if [ -n "$group" ]; then
-      awslogs get --watch $group
+      awslogs get --watch $group --no-group --no-stream 
+  fi
+}
+
+fassh() {
+  local instance
+  instance=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].{InstanceId:InstanceId,Name:Tags[?Key=='Name']|[0].Value,Environment:Tags[?Key=='environment']|[0].Value,Status:State.Name}" | jq -r '[ flatten[] | select(.Status=="running") ] | map([.InstanceId,.Name,.Environment] | @csv)[]' | sed 's/,,/,"",/g' | sed s/,/\\t/g | column -t | tr -d '"' | fzf | cut -d' ' -f1)
+  if [ -n "$instance" ]; then
+      ssh $instance
   fi
 }
