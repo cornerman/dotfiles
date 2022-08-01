@@ -12,13 +12,13 @@ case "$1" in
     sed -i "s/^colors: \*dark$/colors: *light/" ~/.config/alacritty.yml
     sed -i "s/themes\/dark.rasi/themes\/light.rasi/" ~/.config/rofi/config.rasi
     echo "Solarized Light" | nc localhost 16666 # intellij
-    echo 'Net/ThemeName "Numix Solarized Light"' > ~/.xsettingsd
+    echo 'Net/ThemeName "NumixSolarizedLightCyan"' > ~/.xsettingsd
     ;;
 "dark")
     sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
     sed -i "s/themes\/light.rasi/themes\/dark.rasi/" ~/.config/rofi/config.rasi
     echo "Solarized Dark" | nc localhost 16666 # intellij
-    echo 'Net/ThemeName "Numix Solarized"' > ~/.xsettingsd
+    echo 'Net/ThemeName "NumixSolarizedDarkCyan"' > ~/.xsettingsd
     ;;
 *)
     ;;
