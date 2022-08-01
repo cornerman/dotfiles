@@ -1,0 +1,7 @@
+#!/run/current-system/sw/bin/zsh -i
+
+set -e
+
+upgrade_nix_system
+upgrade_nix_pkgs upgrade
+upgrade_tools

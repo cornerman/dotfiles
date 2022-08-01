@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+set -e
+
+xdg-settings set default-url-scheme-handler zoommtg Zoom.desktop
+
+if [[ -d "$HOME/.fzf" ]]; then
+    cd "$HOME/.fzf";
+    git pull;
+    cd -;
+else
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
+
+if [[ -d "$HOME/projects/zgen" ]]; then
+    cd "$HOME/projects/zgen";
+    git pull;
+    cd -;
+else
+    git clone --depth 1 https://github.com/tarjoilija/zgen.git ~/projects/zgen
+fi
+
+if [[ ! -d "$HOME/.local/share/themes" ]]; then
+    cd "$HOME/.local/share"
+    wget "https://github.com/Ferdi265/numix-solarized-gtk-theme/releases/download/20210831/NumixSolarized-20210831.tar.gz"
+    tar xzf NumixSolarized-20210831.tar.gz
+    rm NumixSolarized-20210831.tar.gz
+    mv NumixSolarized themes
+    cd -
+fi
+
+echo "updating go modules..."
+go install github.com/jakm/msgpack-cli@latest
+
+echo "updating zgen plugins..."
+source "$HOME/projects/zgenom/zgenom.zsh"
+zgenom update
+zgenom selfupdate
+
+echo "updating vim plugins..."
+vim +PlugUpgrade +PlugInstall +PlugUpdate +PlugClean! +qall

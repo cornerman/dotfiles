@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# taken from: https://gist.github.com/siddharthkrish/32072e6f97d7743b1a7c47d76d2cb06c
+
+regex="^v([0-9]+)\.([0-9]+)\.([0-9]+)$"
+version="$(git log --tags --simplify-by-decoration --pretty='format:%ai %d' | sort | grep -o 'tag: [^)]*' | cut -f2 -d' ' | tail -n 1)"
+version_raw="$(echo $version | sed s/^.//)"
+
+current_tag="$(git describe --exact-match --tags $(git log -n1 --pretty='%h') 2> /dev/null | grep $version || true)"
+
+if [[ -n "$current_tag" ]]; then
+  echo "Current commit is already latest version"
+  exit 1
+fi
+
+echo "Current version: $version"
+
+if [[ $version =~ $regex ]]; then
+  major="${BASH_REMATCH[1]}"
+  minor="${BASH_REMATCH[2]}"
+  patch="${BASH_REMATCH[3]}"
+else
+  echo "Cannot find version in git tags"
+  exit 1
+fi
+
+version_part=${1-patch}
+
+case "$version_part" in
+  "major")
+    major=$((major+1))
+    minor=0
+    patch=0
+    ;;
+
+  "minor")
+    minor=$((minor+1))
+    patch=0
+    ;;
+
+  "patch" | "")
+    patch=$((patch+1))
+    ;;
+
+  *)
+    echo "Usage bump [<patch|minor|major>]"
+    ;;
+esac
+
+new_version_raw="${major}.${minor}.${patch}"
+new_version="v$new_version_raw"
+
+# sed "s/$version_raw/$new_version_raw/g" README.md -i > /dev/null 2>&1 || true
+# git commit --all --message "$new_version_raw" > /dev/null 2>&1
+
+git tag "$new_version"
+
+echo "New version: $new_version"

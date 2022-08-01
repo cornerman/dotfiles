@@ -1,0 +1,54 @@
+#!/run/current-system/sw/bin/zsh -i
+
+update-channel() { 
+    echo "updating system channels"
+    sudo nix-channel --update
+}
+
+# dry-run() {
+#     sudo nixos-rebuild dry-build
+#     if [ $? -ne 0 ]; then 
+#         exit 1;
+#     fi
+# }
+
+#create-backup() {
+#    if [ $(hostname) = "jupiter" ]; then
+#        echo "Backup boot"
+#        sudo mount /dev/disk/by-uuid/9959-75AB /media/data/backup/boot
+#        #sudo cp -r /boot/ "/media/data/backup/boot/$(date -I)"
+#        sudo cp -r /boot/ "/media/data/backup/boot/"
+#        sudo umount /media/data/backup/boot
+#    fi
+#}
+
+# commit-configuration() {
+#     echo "Commiting nixos configuration"
+#     zsh -c "                                                                                                                \
+#         cp /etc/nixos/configuration.nix $HOME/projects/nixos/configuration.$(hostname).nix;                                 \
+#         cp /etc/nixos/hardware-configuration.nix $HOME/projects/nixos/hardware-configuration.$(hostname).nix;               \
+#         cp $HOME/.config/nixpkgs/config.nix $HOME/projects/nixos/config.$(hostname).nix;                                    \
+#         cd $HOME;                                                                                                           \
+#         $DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles add $HOME/projects/nixos/configuration.$(hostname).nix $HOME/projects/nixos/hardware-configuration.$(hostname).nix $HOME/projects/nixos/config.$(hostname).nix;    \
+#         $DOTFILES_GIT git -c core.excludesfile=~/.gitignore-dotfiles commit -m 'Update nixos config of $(hostname)';        \
+#         exit 0;
+#             "
+# }
+
+do-upgrade() {
+    # System related
+    echo "upgrading installed system packages"
+    sudo nixos-rebuild --upgrade switch #|& while read -r line; do echo -n "\r\033[2K$line"; done; printf '\n'
+}
+
+self() {
+    update-channel
+    # dry-run
+    # create-backup
+    # commit-configuration
+    do-upgrade
+}
+
+self $@
+
+exit 0

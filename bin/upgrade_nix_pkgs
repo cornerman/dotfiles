@@ -1,0 +1,65 @@
+#!/run/current-system/sw/bin/zsh -i
+
+echo "updating userspace channels"
+nix-channel --update
+
+typeset -A pkg_nixpkgs_prio
+typeset -A pkg_unstable_prio
+pkg_unstable_prio[common-packages]=6
+pkg_unstable_prio[desktop-packages]=8
+pkg_unstable_prio[browser-packages]=10
+pkg_unstable_prio[media-packages]=12
+pkg_unstable_prio[apps-packages]=14
+pkg_unstable_prio[office-packages]=16
+pkg_unstable_prio[laptop-packages]=18
+pkg_unstable_prio[dev-packages]=20
+pkg_unstable_prio[gaming-packages]=22
+
+update-pckg () {
+    echo "upgrading ${1} with prio ${pkg_unstable_prio[${1}]} on channel <nixos-stable>"
+    nix-env --set-flag priority "${pkg_unstable_prio[${1}]}" "$1"
+    nix-env -iA "${1}" -f "<nixos-stable>" #|& while read -r line; do if [[ "$line" == *"--show-trace"* ]]; then echo "ERROR: $line"; else echo -n "\r\033[2K$line"; fi; done
+    nix-env --set-flag priority "${pkg_unstable_prio[${1}]}" "$1"
+    echo "Finished upgrading ${1}"
+}
+
+self () {
+    case "${1:-upgrade}" in
+        install)
+            echo "Installing ${@:2}"
+            for install_pckg in "${@:2}"
+            do
+                update-pckg "${install_pckg}-packages"
+            done
+        ;;
+        upgrade)
+            echo "Upgrading everything"
+            nix-env --upgrade
+            ;;
+        # full)
+        #     # Local packages
+        #     LOC_INSTALLED=(${(f)"$(nix-env -q)"})
+        #     echo "Updating installed packages";
+        #     # nix-env --upgrade '*'
+        #     nix-env --upgrade '*' |& while read -r line; do echo -n "\r\033[2K$line"; done; printf '\n'
+
+        #     for loc_pkg in "${LOC_INSTALLED[@]}"
+        #     do
+        #         if test "${pkg_unstable_prio[${loc_pkg}]+isset}"; then
+        #             update-pckg "${loc_pkg}"
+        #         elif test "${pkg_nixpkgs_prio[${loc_pkg}]+isset}"; then
+        #             echo "upgrading ${loc_pkg} with prio ${pkg_nixpkgs_prio[${loc_pkg}]} on channel <nixpkgs>"
+        #             nix-env --set-flag priority "${pkg_nixpkgs_prio[${loc_pkg}]}" "${loc_pkg}"
+        #             nix-env -iA "${loc_pkg}" -f "<nixpkgs>" #|& while read -r line; do echo -n "\r\033[2K$line"; done; printf '\n'
+        #             nix-env --set-flag priority "${pkg_nixpkgs_prio[${loc_pkg}]}" "${loc_pkg}"
+        #         fi
+        #     done
+        #     ;;
+        *)
+            update-pckg "${1}-packages"
+    esac
+}
+
+self "$@"
+
+exit 0

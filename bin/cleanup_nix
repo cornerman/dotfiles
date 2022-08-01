@@ -1,0 +1,19 @@
+#!/run/current-system/sw/bin/zsh -i
+
+self() {
+    # Cleanup and optimize
+    echo "delete previous generations"
+    nix-env --delete-generations 4d
+    sudo nix-env --delete-generations 4d
+
+    echo "cleanup nix garbage"
+    nix-collect-garbage --delete-older-than 4d
+    sudo nix-collect-garbage --delete-older-than 4d
+
+    echo "optimize nix-store"
+    nix-store --optimize
+}
+
+self "$@" #|& while read -r line; do echo -n "\r\033[2K$line"; done; printf '\n'
+
+exit 0
