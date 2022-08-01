@@ -10,12 +10,6 @@
 
 source ~/.profile
 
-# load xdefaults
-xdefaults=~/.Xdefaults
-[ -f $xdefaults ] && xrdb $xdefaults
-xresources=~/.Xresources.colors
-[ -f $xresources ] && xrdb -merge $xresources
-
 # set mouse cursor
 xsetroot -cursor_name left_ptr
 
@@ -27,6 +21,12 @@ xset s off
 # Disable bell
 xset b off
 
+# load xdefaults
+xdefaults=~/.Xdefaults
+[ -f $xdefaults ] && xrdb $xdefaults
+xresources=~/.Xresources.colors
+[ -f $xresources ] && xrdb -merge $xresources
+
 # trackpoint
 # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
 # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
@@ -37,7 +37,7 @@ xset b off
 # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 
 # Set keyboard layout
-setxkbmap -layout us_de -variant basic
+# setxkbmap -layout us_de -variant basic
 
 # load xmodmap settings
 #usermodmap=~/.xmodmaprc
