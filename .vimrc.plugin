@@ -13,6 +13,8 @@ call plug#begin('~/.vim/plug')
 " Plug 'rust-lang/rust.vim'
 " Plug 'racer-rust/vim-racer'
 
+Plug 'vimwiki/vimwiki'
+
 " grammar check
 Plug 'vim-scripts/LanguageTool'
 
