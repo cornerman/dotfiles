@@ -379,23 +379,23 @@ autoload edit-command-line
 zle -N edit-command-line
 bind2maps vicmd viins -- -s '^v' edit-command-line
 
-## zsh with pwd in window title
-#function precmd {
-#    term=$(echo $TERM | grep -Eo '^[^-]+')
-#    print -Pn "\e]0;$term:zsh %~\a"
-#}
+# zsh with pwd in window title
+function precmd {
+    term=$(echo $TERM | grep -Eo '^[^-]+')
+    print -Pn "\e]0;$term - zsh %~\a"
+}
 
-## current command with args in window title
-#function preexec {
-#    term=$(echo $TERM | grep -Eo '^[^-]+')
-#    printf "\033]0;%s:%s\a" "$term" "$1"
-#}
+# current command with args in window title
+function preexec {
+    term=$(echo $TERM | grep -Eo '^[^-]+')
+    printf "\033]0;%s - %s\a" "$term" "$1"
+}
 
-## "persistent history"
-## just write important commands you always need to ~/.important_commands
-## if [[ -r ~/.important_commands ]] ; then
-##     fc -R ~/.important_commands
-## fi
+# "persistent history"
+# just write important commands you always need to ~/.important_commands
+# if [[ -r ~/.important_commands ]] ; then
+#     fc -R ~/.important_commands
+# fi
 
 # custom zsh completion
 #fpath=(~/.zsh/completion $fpath)

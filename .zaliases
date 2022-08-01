@@ -1,4 +1,5 @@
 alias ssh='TERM=xterm ssh'
+alias fassh='TERM=xterm fassh'
 
 alias archive='tar -pczvf'
 
@@ -87,6 +88,7 @@ alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 # alias vim="vim --servername vim-$$"
 alias vim=nvim
 alias vdot='vim "$HOME/$(dot ls-files | fzf)"'
+alias vn='vim "/etc/nixos/$(ls -1 /etc/nixos/ | fzf)"'
 alias va="vim ~/.zaliases"
 alias vv="vim ~/.vimrc"
 alias vvl="vim ~/.vimrc.local"
