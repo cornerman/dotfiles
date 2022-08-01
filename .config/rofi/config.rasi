@@ -1,6 +1,6 @@
 /* vim:ft=css */
 configuration {
-    modi: "combi";
+    modi: "window,drun,combi";
     show-icons: true;
     terminal: "alacritty";
     run-command: "i3-msg exec {cmd}";
@@ -10,11 +10,11 @@ configuration {
     window-match-fields: "all";
     levenshtein-sort: false;
     cycle: true;
-    combi-modi: "window,run";
+    combi-modi: "window,drun";
     matching: "fuzzy";
     dpi: 210;
     combi-hide-mode-prefix: true;
     display-combi: "";
 }
 
-@theme "~/.config/rofi/themes/dark.rasi"
+@theme "~/.config/rofi/themes/light.rasi"

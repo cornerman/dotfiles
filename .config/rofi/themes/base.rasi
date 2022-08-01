@@ -27,7 +27,7 @@ inputbar {
     font:       "ubuntu mono 18";
     padding:    20px;
     spacing:    12px;
-    children:   [ icon-search, entry ];
+    children:   [ icon-search, prompt, entry ];
 }
 
 icon-search {
@@ -40,11 +40,13 @@ icon-search, entry, element-icon, element-text {
     vertical-align: 0.5;
 }
 
-entry {
-    font:   inherit;
+prompt {
+  padding: 16px;
+  border: 0 1px 0 0;
+  color   : @fg2;
+}
 
-    placeholder         : "run";
-    placeholder-color   : @fg2;
+entry {
 }
 
 message {

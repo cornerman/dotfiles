@@ -8,17 +8,17 @@ fi
 
 case "$1" in
 "mark")
-    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p 'mark'`;
-    /usr/bin/i3-msg "mark $name"
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | rofi -dmenu -p 'mark'`;
+    i3-msg "mark $name"
     ;;
 "goto")
-    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p 'goto'`;
-    /usr/bin/i3-msg "[con_mark=$name]" focus
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | rofi -dmenu -p 'goto'`;
+    i3-msg "[con_mark=$name]" focus
     ;;
 "unmark")
-    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | dmenu -p "unmark"`;
+    name=`i3-msg -t get_marks | tr -d '[],' | sed -e 's/""/\n/g' | tr -d '"' | rofi -dmenu -p "unmark"`;
     if [[ -n $name ]]; then
-        /usr/bin/i3-msg unmark $name
+        i3-msg unmark $name
     fi
     ;;
 *)
