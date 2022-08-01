@@ -159,12 +159,21 @@ assign [class="Keybase" instance="keybase"] $ws12
 # spotify changes class/instance on startup...
 for_window [class="Spotify" instance="spotify"] move workspace number $ws10
 
-# stupid windows
-# for_window [class="^join\?" title="^(?!Zoom)(?!Settings).*$"] kill
+# no stupid popups
+# zoom
+for_window [class="^\.zoom " title="^\.zoom $"] floating enable, kill
+# zoom opened via slack link
+for_window [class="^join\?" title="^join\?"] floating enable, kill
+# blueman, confirm automatically enable bluetooth
+for_window [ class=".blueman-manager-wrapped" title="^$"] kill
 
 # definition of floating windows
+for_window [class=".blueman-manager-wrapped" instance=".blueman-manager-wrapped"] floating enable, resize set 1000px 1000px, move position center
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [title="(?i)Password Required"] floating enable
-for_window [class="java-lang-Thread" instance="sun-awt-X11-XFramePeer" title="Starting MPLAB X IDE"] floating enable
+for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^ $"] floating enable
+for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^Welcome to IntelliJ IDEA$"] floating enable
+for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^[^ ]*$"] floating disable
 for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
 for_window [class="Qalculate" instance="qalculate" title="Qalculate!"] floating enable
 for_window [title="^Android Emulator - "] floating enable
@@ -172,6 +181,7 @@ for_window [class="KeePassXC" ] move scratchpad
 for_window [class="1Password" instance="1password"] floating enable
 # for_window [class="jetbrains-idea-ce" title="^ $"] floating enable
 # for_window [class="jetbrains-idea-ce" title="^Welcome"] floating disable
+for_window [floating] move position center
 
 ####keybindings
 
@@ -277,6 +287,9 @@ bindsym $mod+s focus child
 
 # programs
 bindsym $mod+i exec firefox
+bindsym $mod+o exec idea-community
+bindsym $mod+p exec $term -e htop
+bindsym $mod+u exec pavucontrol
 
 # scratchpad
 # bindsym $mod+backslash $nexec select-scratchpad.rb -m "^scratched$" -n
@@ -313,8 +326,8 @@ bindsym $mod+Shift+bracketright move workspace next_on_output
 bindsym $mod+Shift+bracketleft move workspace prev_on_output
 
 # get fresh worspace
-bindsym $mod+p $nexec fresh_workspace.rb
-bindsym $mod+Shift+p $nexec fresh_workspace.rb -r
+# bindsym $mod+p $nexec fresh_workspace.rb
+# bindsym $mod+Shift+p $nexec fresh_workspace.rb -r
 
 # switch to workspace
 bindcode $mod+49 workspace number $ws0
@@ -509,11 +522,3 @@ bar {
     }
 }
 
-####exec
-
-$nexec nitrogen --restore
-$nexec compton
-$nexec keepassxc
-# $nexec_always window_back_forth.rb
-# $nexec_always urgent_indicator.rb
-# $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"

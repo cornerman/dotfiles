@@ -13,4 +13,14 @@ bindsym XF86AudioNext $nexec playerctl next
 
 ####exec
 
+$nexec nitrogen --restore
+$nexec compton
+$nexec keepassxc
+$nexec signal
+$nexec thunderbird
 $nexec nm-applet
+$nexec blueman-applet
+
+# $nexec_always window_back_forth.rb
+# $nexec_always urgent_indicator.rb
+# $nexec_always run_on_ws.rb -s "$ws10::$term -name ncmpcpp -e ncmpcpp" -s "$ws11::thunderbird" -s "$ws12::$term"
