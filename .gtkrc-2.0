@@ -11,6 +11,10 @@ gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
 
-gtk-theme-name = "Yaru"
-gtk-icon-theme-name = "Yaru"
+gtk-theme-name = "Numix"
+gtk-icon-theme-name = "Numix"
 gtk-font-name = "ubuntu 12"
+
+#TODO: why needed for gtk-2.0 themes that are defined in .local/share/themes and not globally installed
+# https://bbs.archlinux.org/viewtopic.php?id=191602
+include "/home/cornerman/.local/share/themes/current-theme/gtk-2.0/gtkrc"
