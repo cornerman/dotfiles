@@ -28,8 +28,8 @@ export JAVA_OPTS="-Xmx512M -Xss16M"
 [ -f "$HOME/.profile.values" ] && . "$HOME/.profile.values"
 
 # let qt apps use gtk 2 themes
-#export QT_STYLE_OVERRIDE=gtk2
-#export QT_QPA_PLATFORMTHEME=gtk2
+export QT_STYLE_OVERRIDE=gtk2
+export QT_QPA_PLATFORMTHEME=gtk2
 
 # start x if on first tty
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
