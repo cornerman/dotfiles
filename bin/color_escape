@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# for switching colors in urxvt
+
 cat ~/.Xresources.colors | tr -d ' \t' | sed -n '
 s/.*background:/\x1b]11;/p
 s/.*foreground:/\x1b]10;/p

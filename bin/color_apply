@@ -13,21 +13,26 @@ case "$1" in
     sed -i "s/themes\/dark.rasi/themes\/light.rasi/" ~/.config/rofi/config.rasi
     echo "Solarized Light" | nc localhost 16666 # intellij
     echo 'Net/ThemeName "NumixSolarizedLightCyan"' > ~/.xsettingsd
+    rm ~/.local/share/themes/current-theme
+    ln -s ~/.local/share/themes/NumixSolarizedLightCyan ~/.local/share/themes/current-theme
+    (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/australia.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/australia.jpg --save) &
     ;;
 "dark")
     sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
     sed -i "s/themes\/light.rasi/themes\/dark.rasi/" ~/.config/rofi/config.rasi
     echo "Solarized Dark" | nc localhost 16666 # intellij
     echo 'Net/ThemeName "NumixSolarizedDarkCyan"' > ~/.xsettingsd
+    rm ~/.local/share/themes/current-theme
+    ln -fs ~/.local/share/themes/NumixSolarizedDarkCyan ~/.local/share/themes/current-theme
+    (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/pier.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/pier.jpg --save) &
     ;;
 *)
     ;;
 esac
 
-
 #https://github.com/derat/xsettingsd/wiki/Settings
 killall -HUP xsettingsd
 
-i3-msg reload
+nvim_all_command "source ~/.vimrc.colors" &
 
-nvim_all_command "source ~/.vimrc.colors"
+i3-msg reload
