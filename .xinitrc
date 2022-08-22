@@ -65,6 +65,9 @@ xinput map-to-output 19 eDP-1
 
 xsettingsd &
 
+# fix powertop usb powersaving
+sudo fix_usb_power
+
 # start i3
 # exec i3 -c ~/.i3/config
 exec dbus-launch i3 -c ~/.i3/config
