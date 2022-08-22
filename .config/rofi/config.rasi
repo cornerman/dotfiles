@@ -1,6 +1,6 @@
 /* vim:ft=css */
 configuration {
-    modi: "window,drun,combi";
+    modi: "combi";
     show-icons: true;
     terminal: "alacritty";
     run-command: "i3-msg exec {cmd}";
@@ -10,7 +10,7 @@ configuration {
     window-match-fields: "all";
     levenshtein-sort: false;
     cycle: true;
-    combi-modi: "window,drun";
+    combi-modi: "window,run";
     matching: "fuzzy";
     dpi: 210;
     combi-hide-mode-prefix: true;
