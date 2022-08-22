@@ -4,7 +4,7 @@ include ~/.i3/config.local
 
 ####variables
 
-set $screen1 DP-3-3
+set $screen1 DP-2-2
 set $screen2 eDP-1
 
 # modifier key
@@ -165,7 +165,7 @@ for_window [class="^\.zoom " title="^\.zoom $"] floating enable, kill
 # zoom opened via slack link
 for_window [class="^join\?" title="^join\?"] floating enable, kill
 # blueman, confirm automatically enable bluetooth
-for_window [ class=".blueman-manager-wrapped" title="^$"] kill
+# for_window [ class=".blueman-manager-wrapped" title="^$"] kill
 
 # definition of floating windows
 for_window [class=".blueman-manager-wrapped" instance=".blueman-manager-wrapped"] floating enable, resize set 1000px 1000px, move position center
@@ -201,7 +201,7 @@ bindsym $mod+Shift+v $nexec radio clear playlist
 # focus with visual hints
 bindsym $mod+g $nexec i3-easyfocus -a
 bindsym $mod+Shift+g $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [ con_id = {} ] move workspace current, floating enable, floating disable"
-bindsym Shift+Ctrl+g $nexec i3-easyfocus -c
+bindsym $mod+Ctrl+g $nexec i3-easyfocus -c
 
 # start dmenu (a program launcher)
 bindsym $mod+d $nexec rofi -show "combi"
@@ -285,7 +285,9 @@ bindsym $mod+a focus parent
 bindsym $mod+s focus child
 
 # programs
+bindsym --release $mod+x exec slock
 bindsym $mod+i exec firefox
+bindsym $mod+Shift+i exec brave
 bindsym $mod+o exec idea-community
 bindsym $mod+p exec $term -e htop
 bindsym $mod+u exec pavucontrol

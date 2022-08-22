@@ -16,7 +16,7 @@ bindsym XF86AudioNext $nexec playerctl next
 $nexec nitrogen --restore
 $nexec compton
 $nexec keepassxc
-$nexec signal
+$nexec signal-desktop
 $nexec thunderbird
 $nexec nm-applet
 $nexec blueman-applet
