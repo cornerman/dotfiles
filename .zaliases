@@ -19,6 +19,7 @@ alias dotig='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare tig'
 
 alias tm=terraform
 alias tg=terragrunt
+alias tp=npx talpini
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -100,7 +101,7 @@ alias vr="vim -c History"
 alias vt="vim -c Tags"
 
 alias d=docker
-alias dc=docker-compose
+alias dc="docker compose"
 
 alias P='parallel-moreutils -i'
 

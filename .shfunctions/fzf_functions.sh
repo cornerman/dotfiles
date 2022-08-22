@@ -143,7 +143,7 @@ fawslogs() {
   local group
   group=$(awslogs groups | fzf)
   if [ -n "$group" ]; then
-      awslogs get --watch $group --no-group --no-stream 
+      awslogs get --watch $group --no-group --no-stream
   fi
 }
 
@@ -153,4 +153,8 @@ fassh() {
   if [ -n "$instance" ]; then
       ssh $instance
   fi
+}
+
+fpr() {
+    gh pr checkout $(gh pr list | fzf | awk '{print $1}') 
 }
