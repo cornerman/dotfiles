@@ -1,6 +1,7 @@
 #source "/etc/profile"
 
-export PAGER="less --RAW-CONTROL-CHARS" # less with colors
+export LESS="--use-color --RAW-CONTROL-CHARS --incsearch --ignore-case --redraw-on-quit --mouse --wheel-lines=3"
+export PAGER="less"
 
 # colorize less
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 6)
