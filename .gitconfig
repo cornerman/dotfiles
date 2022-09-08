@@ -40,6 +40,7 @@
     br = branch
     co = checkout
     cob = checkout -b
+    abort = "!f() { git rebase --abort || git merge --abort || git cherry-pick --abort }; f"
     rb = rebase
     rbc = rebase --continue
     rba = rebase --abort
@@ -64,6 +65,7 @@
     ls = ls-files
     new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
     graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+    ignore = "!cd -- ${GIT_PREFIX:-.}; f() { echo \"$1\" >> .gitignore; }; f" # add to .gitignore in current directory
 
 [color]
     status = auto
@@ -116,42 +118,6 @@
 
 [branch]
 	autosetuprebase = always
-
-[tig]
-    vertical-split = true
-    tab-size = 4
-    ignore-space = all
-    ignore-case = true ; search
-    ; wrap-lines = true ; conflicts with stage-update-line
-    editor-line-number = true
-    mouse-scroll = true
-    show-changes = true
-    status-show-untracked-dirs = false
-
-[tig "bind"]
-    ;NEO
-    generic = ä Quit
-    generic = ü view-close
-    generic = 8 move-up ; NEO right hand analog to arrow up
-    generic = 5 move-down ; NEO right hand analog to arrow down
-
-    generic = g move-first-line
-    generic = G move-last-line
-    main = G move-last-line ; overwrite default keybinding
-    generic = F !git fetch
-    generic = P !git push
-    status = A !git commit --amend
-    stage = u stage-update-line
-    stage = <Home> stage-update-line ; NEO AltGr+u
-    stage = U status-update
-    status = U status-update
-    stage = A !git commit --amend
-    stage = C !git commit
-    status = w !git fry word-based-diff
-    status = W !git fry word-based-diff --staged
-    stage = w !git fry word-based-diff %(file)
-    stage = W !git fry word-based-diff --staged %(file)
-    ; generic = C !git cherry-pick %(commit)
 
 [filter "lfs"]
 	required = true
