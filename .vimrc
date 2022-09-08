@@ -137,7 +137,7 @@ au BufWritePre * let &backupext = '@'.substitute(expand('%:p:h'), '/', '%', 'g')
 " set viminfo^=%
 
 " adjust vim file history https://vi.stackexchange.com/a/26037
-set viminfo='1000,<50,s10,h
+set viminfo='10000,<50,s10,h
 
 " tell vim where to put its backup files
 set backupdir=~/.vim/tmp
@@ -389,16 +389,16 @@ nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 " nnoremap ; :
 " nnoremap , ;
 nnoremap \ :update<CR>
+nnoremap <leader>\ :w suda://%<CR>:checktime<CR>
 nnoremap - _
 nnoremap + @m
 nnoremap _ qm
 
 "w!! writes file with root rights
-cnoremap w!! w !sudo tee % >/dev/null
+" cnoremap w!! w !sudo tee % >/dev/null
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
+" break undo in insert mode
+inoremap <C-U> <C-G>u
 
 " switch buffers/tabs
 nnoremap <Backspace> :bprevious<CR>
@@ -425,14 +425,6 @@ nnoremap <C-k>     <C-w>k
 nnoremap <C-h>     <C-w>h
 nnoremap <C-l>     <C-w>l
 
-" toggle quickfix window / location list
-nnoremap <leader>a     :Ltoggle<CR>
-nnoremap <leader>A     :Qtoggle<CR>
-
-" switch between tags
-nmap <leader>[ :tprev<CR>
-nmap <leader>] :tnext<CR>
-
 " keep selection when indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -454,8 +446,10 @@ nnoremap <leader>x <S-v>:<C-U>1,'<-1:delete<CR>:'>+1,$:delete<CR>
 nnoremap <Leader>vv :e ~/.vimrc<CR>
 nnoremap <Leader>vp :e ~/.vimrc.plugin<CR>
 nnoremap <Leader>vl :e ~/.vimrc.local<CR>
+nnoremap <Leader>vz :e ~/.zshrc<CR>
+nnoremap <Leader>vzl :e ~/.zshrc.local<CR>
+nnoremap <Leader>va :e ~/.zaliases<CR>
 nnoremap <Leader>vr :source ~/.vimrc<CR>
-nnoremap <leader>c :Bgtoggle<CR>
 
 " toggle chars at end of line
 nmap <silent> <Leader>< <Plug>ToggleEndChar;
@@ -463,9 +457,6 @@ nmap <silent> <Leader>, <Plug>ToggleEndChar,
 
 " kind of reverse of J
 " nmap K i<CR><ESC>
-
-" fast macros
-nnoremap <leader>m @q
 
 " c+s corrects the last word
 inoremap <c-s> <c-g>u<Esc>[s1z=`]a<c-g>u

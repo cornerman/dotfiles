@@ -45,7 +45,11 @@ nmap <leader>gN <Plug>GitGutterPrevHunk
 nmap <leader>ga <Plug>GitGutterStageHunk
 nmap <leader>gu <Plug>GitGutterStageHunk
 nmap <leader>gr <Plug>GitGutterRevertHunk
-nmap <leader>gs :silent !tig status<CR>:GitGutterAll<CR>:redraw!<CR>
+if has('nvim')
+    nmap <leader>gs :nohlsearch<CR>:term tig status<CR>i
+else
+    nmap <leader>gs :nohlsearch<CR>:silent !tig status<CR>:GitGutter(All)<CR>:redraw!<CR>
+endif
 nmap <leader>gp :!git push<CR>
 
 " goldenview window splitting
@@ -201,17 +205,6 @@ let g:switch_custom_definitions =
 " default omnifunc
 set omnifunc=syntaxcomplete#Complete
 
-" ensime
-" autocmd BufWritePost *.scala silent :EnTypeCheck
-nnoremap <leader>gt :EnTypeCheck<CR>
-nnoremap <leader>gD :EnDocBrowse<CR>
-nnoremap <leader>gd :EnDeclaration<CR>
-nnoremap <leader>gi :EnSuggestImport<CR>
-nnoremap <leader>gI :EnOrganizeImports<CR>
-nnoremap <leader>gp :EnShowPackage<CR>
-nnoremap <leader>gr :EnRename<CR>
-nnoremap <leader>gs :EnSearch<space>
-
 " filetype defs
 autocmd vimrc Filetype ruby setlocal omnifunc=rubycomplete#Complete
 autocmd vimrc Filetype ruby syn match Error "binding.pry"
@@ -247,6 +240,18 @@ autocmd vimrc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd vimrc Filetype tex setlocal omnifunc=LatexBox_Complete
 autocmd vimrc FileType tex setlocal spell spelllang=en_us
 
+" advanced rg
+" https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " fzf:
 nmap <silent> <leader>o :Tags<CR>
 nmap <silent> <leader>i :BTags<CR>
@@ -258,8 +263,9 @@ nmap <silent> <leader>m :GitFiles?<CR>
 nmap <silent> <leader>r :History<CR>
 nmap <silent> <leader>b :Buffers<CR>
 nmap <silent> <Leader>l :Locate<space>
-nmap <leader>s :Rooter<CR>:Ag<space>
-nmap <leader>S :Ag<space>
+nmap <leader>s :Rooter<CR>:RG<CR>
+nmap <leader>S :RG<CR>
+nmap <silent> <leader>vd :call fzf#run({'source': 'GIT_DIR=$HOME/projects/dotfiles_bare GIT_WORK_TREE=$HOME git -c status.showUntrackedFiles=no ls-tree --full-tree --name-only -r HEAD', 'sink': 'e', 'dir': '$HOME'})<CR>
 let g:fzf_layout = {} " default to full screen
 
 " https://github.com/junegunn/fzf.vim/issues/47#issuecomment-160237795
