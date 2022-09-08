@@ -156,5 +156,41 @@ fassh() {
 }
 
 fpr() {
-    gh pr checkout $(gh pr list | fzf | awk '{print $1}') 
+    gh pr checkout $(GH_FORCE_TTY='50%' gh pr list | fzf --ansi --header-lines 3 --preview 'GH_FORCE_TTY=$FZF_PREVIEW_COLUMNS gh pr view {1}; GH_FORCE_TTY=$FZF_PREVIEW_COLUMNS gh pr checks {1}' | awk '{print $1}')
 }
+
+insertFileFromCurrentDir () {
+  export DIR=$(mktemp)
+  echo "." > "$DIR"
+
+  files="$(\
+  \ls -tr --color=always "$(cat "$DIR")" |
+  fzf --tac --height 90% --reverse \
+    --preview 'cat "$DIR" && echo "" && pistol "$(cat "$DIR")"/{} $FZF_PREVIEW_COLUMNS $FZF_PREVIEW_LINES' \
+    --bind 'ctrl-d:preview-page-down' \
+    --bind 'ctrl-a:select-all' \
+    --bind 'ctrl-r:reload(\ls -tr --color=always "$(cat "$DIR")")'\
+    --bind 'ctrl-g:execute(realpath "$(cat "$DIR")"/.. > "$DIR")+reload(\ls -tr --color=always "$(cat "$DIR")")+clear-query+deselect-all+first'\
+    --bind 'ctrl-n:execute(realpath "$(cat "$DIR")"/{} > "$DIR")+reload(\ls -tr --color=always "$(cat "$DIR")")+clear-query+deselect-all+first' |
+  awk '{system("realpath --relative-to=. \"$(cat \"'$DIR'\")/"$0"\"")}' |
+  sed -e 's/\(.*\)/"\1"/' |
+  tr '\n' ' ')"
+
+  [[ -z "$files" ]] && return 0
+  LBUFFER+="$files"
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+zle -N insertFileFromCurrentDir
+
+insertCommitHash () {
+  gitlog=$(git log --color=always --pretty=format:'%Cred%h %C(reset)%C(dim)%ad%Creset %C(blue)%an%Creset %s%C(yellow)%d%C(reset) %Cgreen(%ar)%Creset' --abbrev-commit --date-order --date="format:%F %R")
+  commits="$(echo -E $gitlog | fzf --no-sort --ansi --height 90% --reverse --preview "git show --color-words \$(echo {} | cut -d ' ' -f1)" | cut -d ' ' -f1 | tr '\n' ' ')"
+  [[ -z "$commits" ]] && return 0
+  LBUFFER+="$commits"
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+zle -N insertCommitHash

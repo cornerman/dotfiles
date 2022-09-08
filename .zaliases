@@ -14,8 +14,8 @@ alias gu='git u'
 alias gs='git s'
 alias gl='git l'
 alias gd='git dw --no-index'
-alias dot='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare git'
-alias dotig='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare tig'
+alias gitd='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare git'
+alias tigd='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare tig'
 
 alias tm=terraform
 alias tg=terragrunt
@@ -86,9 +86,17 @@ sbt() {
 }
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
+alias dtls='gitd ls-tree --full-tree --name-only -r HEAD'
+
+vd () {
+	(
+		file="$(dtls | fzf)"
+		[[ -n $file ]] && $EDITOR "$HOME/$file"
+	)
+}
+
 # alias vim="vim --servername vim-$$"
 alias vim=nvim
-alias vdot='vim "$HOME/$(dot ls-files | fzf)"'
 alias vn='vim "/etc/nixos/$(ls -1 /etc/nixos/ | fzf)"'
 alias va="vim ~/.zaliases"
 alias vv="vim ~/.vimrc"

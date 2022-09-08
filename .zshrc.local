@@ -83,17 +83,6 @@ include_all ~/.shfunctions/
 include ~/projects/ubunix/ubunix.sh
 
 # eval $(thefuck --alias)
-insertCommitHash () {
-    gitlog=$(git log --color=always --pretty=format:'%Cred%h %C(reset)%C(dim)%ad%Creset %s%C(yellow)%d%C(reset) %C(blue)<%an> %Cgreen(%ar)%Creset' --abbrev-commit --date=iso --date-order --date="format:%F %R")
-    commits="$(echo -E $gitlog | fzf --no-sort --ansi --height 90% --reverse --preview "git show --color-words \$(echo {} | cut -d ' ' -f1)" | cut -d ' ' -f1 | tr '\n' ' ')"
-    [[ -z "$commits" ]] && return 0
-    LBUFFER+="$commits"
-    local ret=$?
-    zle reset-prompt
-    return $ret
-}
-zle -N insertCommitHash
-zvm_after_init_commands+=("bindkey '^g' insertCommitHash")
 
 insertAwsInstance () {
   instance=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].{InstanceId:InstanceId,Name:Tags[?Key=='Name']|[0].Value,Environment:Tags[?Key=='environment']|[0].Value,Status:State.Name}" | jq -r '[ flatten[] | select(.Status=="running") ] | map([.InstanceId,.Name,.Environment] | @csv)[]' | sed 's/,,/,"",/g' | sed s/,/\\t/g | column -t | tr -d '"' | fzf | cut -d' ' -f1)
@@ -105,3 +94,6 @@ insertAwsInstance () {
 }
 zle -N insertAwsInstance
 # zvm_after_init_commands+=("bindkey '^' insertAwsInstance")
+
+zvm_after_init_commands+=("bindkey '^f' insertFileFromCurrentDir")
+zvm_after_init_commands+=("bindkey '^g' insertCommitHash")
