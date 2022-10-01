@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+
+import json
+import subprocess
+import sys
+import getopt
+
+def get_output(cmd):
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    out = process.communicate()[0].decode()
+    process.stdout.close()
+    return out
+
+def get_tree():
+    cmd = ["i3-msg", "-t", "get_tree"]
+    return json.loads(get_output(cmd))
+
+def get_matching_class(clazz):
+    cmd = ["xdotool", "search", "--class", clazz]
+    return get_output(cmd).split('\n')
+
+windows = []
+def walk_tree(tree):
+    if tree['window']:
+        windows.append({'window': str(tree['window']),
+                        'focused': tree['focused']})
+    if len(tree['nodes']) > 0:
+        for node in tree['nodes']:
+            walk_tree(node)
+    if len(tree['floating_nodes']) > 0:
+        for node in tree['floating_nodes']:
+            walk_tree(node)
+
+def get_matches(clazz):
+    matches = []
+    tree = get_tree()
+    check = get_matching_class(clazz)
+    walk_tree(tree)
+    for window in windows:
+        for winid in check:
+            if window['window'] == winid:
+                matches.append(window)
+    return matches
+
+def main(clazz, program, move_here):
+    if move_here:
+        command = "move workspace current, focus"
+    else:
+        command = "focus"
+
+    matches = get_matches(clazz)
+    # Sort the list by window IDs
+    matches = [(match['window'], match) for match in matches]
+    matches.sort()
+    matches = [match for (key, match) in matches]
+    # Iterate over the matches to find the first focused one, then focus the
+    # next one.
+    for ind, match in enumerate(matches):
+        if match['focused'] == True:
+            subprocess.call(["i3-msg", "[id=%s] %s" % (matches[(ind+1)%len(matches)]['window'], command)])
+            return
+    # No focused match was found, so focus the first one
+    if len(matches) > 0:
+            subprocess.call(["i3-msg", "[id=%s] %s" % (matches[0]['window'], command)])
+            return
+    # No matches found, launch program
+    subprocess.call(["i3-msg", "exec " + program])
+
+if __name__ == '__main__':
+    help = 'run_or_focus [--move]'
+    arguments = []
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],"h",["move"])
+    except getopt.GetoptError:
+        print('Cannot parse arguments. %s' % help)
+        sys.exit(2)
+    move_here = False
+    for opt, arg in opts:
+        if opt == '-h':
+            print(help)
+            sys.exit()
+        elif opt == "--move":
+            move_here = True
+
+    main(args[0], args[1], move_here)
