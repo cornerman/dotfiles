@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export FZF_DEFAULT_OPTS="--reverse --ansi"
+default_sink=$(pactl info | grep "^Default Sink:" | grep -o "[^ ]*$")
+sink=$(pactl list sinks | grep -E '^\s*(Description)|(Name):' | sed 's/ *[^ ]*: //g' | tac | paste -s -d '\t\n' | sed 's/^/ /g' | sed "s/^ \(.*\)$default_sink/*\1$default_sink/" | column -t -s $'\t' | fzf | grep -oE '[^ ]*$')
+if [ -n "$sink" ]; then
+    pactl set-default-sink $sink
+    pactl list sink-inputs | grep '^Sink Input' | grep -o '[0-9]*$' | xargs -I{} pactl move-sink-input {} $sink
+fi

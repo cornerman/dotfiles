@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export FZF_DEFAULT_OPTS="--reverse --ansi"
+default_source=$(pactl info | grep "^Default Source:" | grep -o "[^ ]*$")
+source=$(pactl list sources | grep -E '^\s*(Description)|(Name):' | sed 's/ *[^ ]*: //g' | tac | paste -s -d '\t\n' | sed 's/^/ /g' | sed "s/^ \(.*\)$default_source/*\1$default_source/" | grep -v "Monitor of " | column -t -s $'\t' | fzf | grep -oE '[^ ]*$')
+if [ -n "$source" ]; then
+    pactl set-default-source $source
+    pactl list source-outputs | grep '^Source Output' | grep -o '[0-9]*$' | xargs -I{} pactl move-source-output {} $source
+fi

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+notification_id_file=/tmp/dunstify_id_mic_toggle
+notification_id=$(cat $notification_id_file || echo "")
+dunstify_cmd="dunstify -p -a mic_toggle"
+[[ -n "$notification_id" ]] && dunstify_cmd="$dunstify_cmd -r $notification_id"
+
+details=$(pactl list cards | grep -E '(^\s*Active Profile:)|(^\sName: )' | grep -A 1 Bose)
+profile=$(echo "$details" | grep -E "^\s*Active Profile:" | rev | cut -d' ' -f1 | rev)
+
+[[ -z "$profile" ]] && echo "profile not found" && exit 1
+
+if [[ -z "$(echo $profile | grep "input:")" ]]; then
+    mic_on
+    $dunstify_cmd "Headset Microphone On" > $notification_id_file
+else
+    mic_off
+    $dunstify_cmd "Headset Microphone Off" > $notification_id_file
+fi

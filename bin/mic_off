@@ -1,0 +1,9 @@
+#!/bin/sh
+
+details=$(pactl list cards | grep -E '(^\s*Active Profile:)|(^\sName: )' | grep -A 1 Bose)
+card=$(echo "$details" | grep -E "^\s*Name:" | rev | cut -d' ' -f1 | rev)
+
+[[ -z "$card" ]] && echo "card not found" && exit 1
+
+new_profile="output:analog-stereo"
+pactl set-card-profile "$card" "$new_profile"

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+notification_id_file=/tmp/dunstify_id_builtin_audio_toggle
+notification_id=$(cat $notification_id_file || echo "")
+dunstify_cmd="dunstify -p -a builtin_audio_toggle"
+[[ -n "$notification_id" ]] && dunstify_cmd="$dunstify_cmd -r $notification_id"
+
+details=$(pactl list cards | grep -E '(^\s*Active Profile:)|(^\sName: )' | grep -A 1 pci)
+profile=$(echo "$details" | grep -E "^\s*Active Profile:" | rev | cut -d' ' -f1 | rev)
+
+[[ -z "$profile" ]] && echo "profile not found" && exit 1
+
+if [[ "$profile" == "off" ]]; then
+    builtin_audio_on
+    $dunstify_cmd "Builtin Audio On" > $notification_id_file
+else
+    builtin_audio_off
+    $dunstify_cmd "Builtin Audio Off" > $notification_id_file
+fi
