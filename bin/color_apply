@@ -11,7 +11,7 @@ case "$1" in
 "light")
     sed -i "s/^colors: \*dark$/colors: *light/" ~/.config/alacritty.yml
     sed -i "s/themes\/dark.rasi/themes\/light.rasi/" ~/.config/rofi/config.rasi
-    echo "Solarized Light" | nc localhost 16666 # intellij
+    echo "light" | nc localhost 16666 # intellij
     echo 'Net/ThemeName "NumixSolarizedLightCyan"' > ~/.xsettingsd
     rm ~/.local/share/themes/current-theme
     ln -s ~/.local/share/themes/NumixSolarizedLightCyan ~/.local/share/themes/current-theme
@@ -20,7 +20,7 @@ case "$1" in
 "dark")
     sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
     sed -i "s/themes\/light.rasi/themes\/dark.rasi/" ~/.config/rofi/config.rasi
-    echo "Solarized Dark" | nc localhost 16666 # intellij
+    echo "dark" | nc localhost 16666 # intellij
     echo 'Net/ThemeName "NumixSolarizedDarkCyan"' > ~/.xsettingsd
     rm ~/.local/share/themes/current-theme
     ln -fs ~/.local/share/themes/NumixSolarizedDarkCyan ~/.local/share/themes/current-theme
