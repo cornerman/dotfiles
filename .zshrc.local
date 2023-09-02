@@ -2,31 +2,31 @@
 include ~/projects/zgenom/zgenom.zsh
 
 # check if there's no init script
-if ! zgen saved; then
-    echo "Creating a zgen save"
+if ! zgenom saved; then
+    echo "Creating a zgenom save"
 
     # plugins
-    # zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-history-substring-search
-    zgen load Tarrasch/zsh-bd
-    zgen load dottr/dottr
-    zgen load rupa/z
-    # zgen load oh-my-zsh plugins/scala
-    zgen load supercrabtree/k
-    zgen load romkatv/powerlevel10k powerlevel10k
-    # zgen load b4b4r07/zsh-vimode-visual
-    zgen load jeffreytse/zsh-vi-mode
-    # zgen load mafredri/zsh-async # for pure-prompt
-    # zgen load sindresorhus/pure # prompt
+    # zgenom load zsh-users/zsh-syntax-highlighting
+    zgenom load zsh-users/zsh-history-substring-search
+    zgenom load Tarrasch/zsh-bd
+    zgenom load dottr/dottr
+    zgenom load rupa/z
+    # zgenom load oh-my-zsh plugins/scala
+    zgenom load supercrabtree/k
+    zgenom load romkatv/powerlevel10k powerlevel10k
+    # zgenom load b4b4r07/zsh-vimode-visual
+    zgenom load jeffreytse/zsh-vi-mode
+    # zgenom load mafredri/zsh-async # for pure-prompt
+    # zgenom load sindresorhus/pure # prompt
 
     # save all to init script
-    zgen save
+    zgenom save
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# eval "$(direnv hook zsh)" # load environment vars depending on directory https://direnv.net/docs/hook.html#zsh
+eval "$(direnv hook zsh)" # load environment vars depending on directory https://direnv.net/docs/hook.html#zsh
 
 # use dottr
 fry completion
@@ -73,14 +73,15 @@ bind2maps emacs viins vicmd -- -s '^[[1;5B' history-substring-search-down
 
 # custom bash completion
 autoload bashcompinit && bashcompinit
+
+fpath=(/home/cornerman/.priceloop/zsh $fpath)
+autoload -Uz compinit && compinit
+
 include_all ~/.zsh/bash_completion
-include ~/projects/wust2/.zsh_completion
-include "$(which aws_bash_completer)"
 
-# include functions and aliases
-include_all ~/.shfunctions/
+include ~/projects/i3-completion/i3_completion.sh
 
-include ~/projects/ubunix/ubunix.sh
+source aws_bash_completer
 
 # eval $(thefuck --alias)
 

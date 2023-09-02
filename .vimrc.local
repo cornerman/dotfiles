@@ -112,8 +112,8 @@ let g:formatters_ruby = ["rbeautify"]
 let g:formatdef_rbeautify = '"-"'
 let g:formatters_javascript = ['jsbeautify']
 let g:formatdef_jsbeautify = '"-"'
-let g:formatters_scala = ['scalariform']
-let g:formatdef_scalariform = '"scalariform --stdin"'
+let g:formatters_scala = ['scalafmt']
+let g:formatdef_scalariform = '"scalafmt --stdin"'
 let g:autoformat_autoindent = 1
 let g:autoformat_retab = 1
 let g:autoformat_remove_trailing_spaces = 1
@@ -226,6 +226,9 @@ autocmd vimrc FileType typescriptreact setlocal shiftwidth=2
 autocmd vimrc FileType typescript setlocal tabstop=2
 autocmd vimrc FileType typescript setlocal shiftwidth=2
 
+autocmd vimrc FileType terraform setlocal tabstop=2
+autocmd vimrc FileType terraform setlocal shiftwidth=2
+
 autocmd vimrc FileType scala setlocal tabstop=2
 autocmd vimrc FileType scala setlocal shiftwidth=2
 autocmd vimrc FileType sbt.scala setlocal tabstop=2
@@ -297,11 +300,16 @@ let g:ycm_key_invoke_completion = '<C-Space>'
 let g:coc_fzf_preview = ''
 let g:coc_fzf_opts = []
 
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+      \ coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+      " \ CheckBackspace() ? "\<Tab>" :
+      " \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Used in the tab autocompletion for coc
 function! s:check_back_space() abort

@@ -1,7 +1,7 @@
 ####keybindings
 
-bindsym XF86MonBrightnessDown $nexec xbacklight -dec 15
-bindsym XF86MonBrightnessUp $nexec xbacklight -inc 15
+bindsym XF86MonBrightnessDown $nexec light -U 2
+bindsym XF86MonBrightnessUp $nexec light -A 2
 
 bindsym XF86AudioMute $nexec vol_ctrl toggle
 bindsym XF86AudioLowerVolume $nexec vol_ctrl minus
@@ -13,13 +13,15 @@ bindsym XF86AudioNext $nexec playerctl next
 
 ####exec
 
-$nexec nitrogen --restore
-$nexec compton
-$nexec keepassxc
-$nexec signal-desktop
-$nexec thunderbird
+# $nexec nitrogen --restore
+$nexec_always wallpaper
 $nexec nm-applet
 $nexec blueman-applet
+$nexec keepassxc
+$nexec thunderbird
+$nexec signal-desktop
+# $nexec spotify
+$nexec batsignal -n BAT0 -b
 
 # $nexec_always window_back_forth.rb
 # $nexec_always urgent_indicator.rb

@@ -185,11 +185,11 @@ export SHELL='/run/current-system/sw/bin/zsh'
 # persistent dirstack
 DIRSTACKSIZE=20
 DIRSTACKFILE=~/.zdirs
-if [[ -f ${DIRSTACKFILE} ]] && [[ ${#dirstack[*]} -eq 0 ]] ; then
-    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-    # "cd -" won't work after login by just setting $OLDPWD, so
-    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
+# if [[ -f ${DIRSTACKFILE} ]] && [[ ${#dirstack[*]} -eq 0 ]] ; then
+#     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+#     # "cd -" won't work after login by just setting $OLDPWD, so
+#     [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+# fi
 
 chpwd() {
     if (( $DIRSTACKSIZE <= 0 )) || [[ -z $DIRSTACKFILE ]]; then return; fi
@@ -364,16 +364,6 @@ _increase_number() {
 zle -N increase-number _increase_number
 bind2maps emacs viins vicmd -- -s '^x' increase-number
 
-# color in less
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-export LESS=-asrRix8
-
 # edit command in editor
 autoload edit-command-line
 zle -N edit-command-line
@@ -397,11 +387,17 @@ function preexec {
 #     fc -R ~/.important_commands
 # fi
 
-# custom zsh completion
-#fpath=(~/.zsh/completion $fpath)
+# fpath=(~/.zsh_completions $fpath)
 # autoload -Uz compinit && compinit
-#parameter completions for programms that understand --hrlp
-# compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
+# function _priceloop {
+#   eval "$(priceloop complete zsh-v1 $CURRENT $words[@])"
+# }
+# compdef _priceloop priceloop
 
+# custom zsh completion
+#parameter completions for programms that understand --hrlp
+compdef _gnu_generic df wc tar make date mv cp grep sed feh awk tail head watch unzip unrar ln ssh diff cdrecord nc strings objdump od
+
+include_all ~/.shfunctions/
 include ~/.zaliases
 include ~/.zaliases.local

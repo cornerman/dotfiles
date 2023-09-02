@@ -5,5 +5,6 @@ card=$(echo "$details" | grep -E "^\s*Name:" | rev | cut -d' ' -f1 | rev)
 
 [[ -z "$card" ]] && echo "card not found" && exit 1
 
+# new_profile="output:iec958-stereo+input:mono-fallback"
 new_profile="output:analog-stereo+input:mono-fallback"
 pactl set-card-profile "$card" "$new_profile"

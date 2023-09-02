@@ -39,7 +39,7 @@ Plug 'mbbill/undotree'
 " Plug 'scrooloose/syntastic'
 
 " autoformat code with gq
-" Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 " highlight yanked region
 Plug 'machakann/vim-highlightedyank'
@@ -70,7 +70,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'xolox/vim-misc'
 
 " Latex
-Plug 'LaTeX-Box-Team/LaTeX-Box'
+" Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " javascript
 " Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
@@ -86,7 +86,7 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'derekwyatt/vim-scala'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 " ruby
 " Plug 'vim-ruby/vim-ruby'
@@ -174,13 +174,13 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf' } ", 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 
 " autoresize the current window to be larger
-Plug 'zhaocai/GoldenView.Vim'
+" Plug 'zhaocai/GoldenView.Vim'
 
 " handle vim swap files, delete older and identical swap files
-Plug 'zirrostig/vim-smart-swap'
+" Plug 'zirrostig/vim-smart-swap'
 
 " syntax highlighting for qml
-Plug 'peterhoeg/vim-qml'
+" Plug 'peterhoeg/vim-qml'
 
 " finished
 call plug#end()

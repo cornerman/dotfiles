@@ -4,7 +4,8 @@ include ~/.i3/config.local
 
 ####variables
 
-set $screen1 DP-2-2
+set $screen1 DP-3-1
+# intel-card: set $screen1 DP2-1
 set $screen2 eDP-1
 
 # modifier key
@@ -46,6 +47,12 @@ set $barfont    xft:Ubuntu,FontAwesome 8
 
 # font for window titles
 font $font
+
+# enable window icons for all windows
+for_window [all] title_window_icon on
+
+# enable window icons for all windows with extra horizontal padding
+for_window [all] title_window_icon padding 3px
 
 # background colors
 set $bgclr_focused      #1f85ca
@@ -161,26 +168,32 @@ for_window [class="Spotify" instance="spotify"] move workspace number $ws10
 
 # no stupid popups
 # zoom
-for_window [class="^\.zoom " title="^\.zoom $"] floating enable, kill
+# for_window [class="^\.zoom " title="^\.zoom $"] floating enable
+# for_window [class="^\.zoom " title="^\.zoom $"] kill
 # zoom opened via slack link
-for_window [class="^join\?" title="^join\?"] floating enable, kill
+# for_window [class="^join\?" title="^join\?"] floating enable
+# for_window [class="^join\?" title="^join\?"] kill
+
 # blueman, confirm automatically enable bluetooth
 # for_window [ class=".blueman-manager-wrapped" title="^$"] kill
+# for_window [ class=".blueman-adapters-wrapped" title="^$"] kill
 
 # definition of floating windows
-for_window [class=".blueman-manager-wrapped" instance=".blueman-manager-wrapped"] floating enable, resize set 1000px 1000px, move position center
+# for_window [class=".blueman-manager-wrapped" instance=".blueman-manager-wrapped"] floating enable, resize set 1000px 1000px, move position center
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [title="(?i)Password Required"] floating enable
-for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^ $"] floating enable
-for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^Welcome to IntelliJ IDEA$"] floating enable
-for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^[^ ]*$"] floating disable
-for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
-for_window [title="^Android Emulator - "] floating enable
-for_window [class="KeePassXC" ] mark --replace scratched_keepassxc, move scratchpad
+# for_window [class="Eclipse" instance="Eclipse" title="^Eclipse Platform $"] floating enable
+# for_window [title="^Android Emulator - "] floating enable
+for_window [class="KeePassXC" title="\[Locked\] - KeePassXC"] mark --replace scratched_keepassxc, move scratchpad
 for_window [class="1Password" instance="1password"] mark --replace scratched_1password, move scratchpad, scratchpad show
+# for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^ $"] floating enable
+# for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^Welcome to IntelliJ IDEA$"] floating enable
+# for_window [class="jetbrains-idea-ce" instance="jetbrains-idea-ce" title="^[^ ]*$"] floating disable
 # for_window [class="jetbrains-idea-ce" title="^ $"] floating enable
 # for_window [class="jetbrains-idea-ce" title="^Welcome"] floating disable
-for_window [floating] move position center
+# for_window [floating] move position center
+
+for_window [title="alacritty-fzf-runner"] floating enable, resize set 1500 px 1500 px; move position center; $nexec xdotool search --title alacritty-fzf-runner behave %@ blur windowclose
 
 ####keybindings
 
@@ -195,8 +208,8 @@ bindsym button9 move right
 bindsym $mod+Return $nexec $term
 bindsym $mod+Shift+Return $nexec $termCd $(xcwd)
 
-bindsym $mod+v $nexec radio
-bindsym $mod+Shift+v $nexec radio clear playlist
+# bindsym $mod+v $nexec radio
+# bindsym $mod+Shift+v $nexec radio clear playlist
 
 # focus with visual hints
 bindsym $mod+g $nexec i3-easyfocus -a
@@ -204,16 +217,20 @@ bindsym $mod+Shift+g $nexec "i3-easyfocus -a -i | xargs -I{} i3-msg [ con_id = {
 bindsym $mod+Ctrl+g $nexec i3-easyfocus -c
 
 # start dmenu (a program launcher)
-bindsym $mod+d $nexec rofi -show "combi"
+# bindsym $mod+d $nexec rofi -show "combi"
+bindsym --release $mod+d fullscreen disable; $exec launcher fzf-run
+# bindsym $mod+d $nexec urxvt -e runner
 bindsym $mod+Shift+d $nexec move_window_to_current
 
 # make screenshot (print)
-bindcode 107 $nexec screenshot root
-bindcode Shift+107 $nexec screenshot active
+bindcode 78 $nexec screenshot root
+bindcode 107 $nexec screenshot focused
+bindcode --release Shift+107 $nexec screenshot select
+bindcode --release Shift+78 $nexec screenshot gui
 
 # switch keyboard layouts
-bindcode 78 $nexec "setxkbmap us"
-bindcode Shift+78 $nexec "setxkbmap de neo"
+#bindcode 78 $nexec "setxkbmap us"
+#nur bindcode Shift+78 $nexec "setxkbmap de neo
 
 # change focus
 bindsym $mod+h focus left
@@ -228,16 +245,16 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+H move left
-bindsym $mod+Shift+J move down
-bindsym $mod+Shift+K move up
-bindsym $mod+Shift+L move right
+bindsym $mod+Shift+H move left 50 px
+bindsym $mod+Shift+J move down 50 px
+bindsym $mod+Shift+K move up 50 px
+bindsym $mod+Shift+L move right 50 px
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left move left 50 px
+bindsym $mod+Shift+Down move down 50 px
+bindsym $mod+Shift+Up move up 50 px
+bindsym $mod+Shift+Right move right 50 px
 
 # Read identifier and mark the current window with this identifier
 bindsym $mod+m $nexec win_mark mark
@@ -263,6 +280,7 @@ bindsym $mod+Ctrl+q $nexec "i3-easyfocus -a -w | xargs xkill -id"
 bindsym --release $mod+c $nexec color_toggle
 
 # move to last split
+
 bindsym $mod+f fullscreen
 
 # global Fullscreen ($mod+Shift+f)
@@ -287,10 +305,16 @@ bindsym $mod+s focus child
 # programs
 bindsym --release $mod+x exec slock
 bindsym $mod+i exec firefox
-bindsym $mod+Shift+i exec brave
-bindsym $mod+o exec idea-community
+bindsym $mod+Shift+i $nexec run_or_focus firefox firefox
+bindsym $mod+o exec idea-ultimate
+bindsym $mod+Shift+o $nexec run_or_focus jetbrains-idea idea-ultimate
 bindsym $mod+p exec $term -e htop
-bindsym $mod+u exec pavucontrol
+bindsym $mod+u $nexec run_or_focus --move Pavucontrol pavucontrol
+bindsym --release $mod+y exec launcher audio_sink
+bindsym --release $mod+Shift+Y exec launcher audio_source
+bindsym $mod+t $nexec mic_toggle
+bindsym $mod+Shift+t $nexec builtin_audio_toggle
+bindsym $mod+ctrl+t $nexec speaker_toggle
 
 # scratchpad
 # bindsym $mod+backslash scratchpad show
@@ -399,6 +423,9 @@ bindsym $mod+Shift+b bar hidden_state toggle
 
 ####modes
 
+# bindsym --release Mod1+b          resize grow width 40 px or 2 ppt, resize grow height 40 px or 2 ppt, [floating con_id=__focused__] move left 20 px, move up 20 px
+# bindsym --release Mod1+Mod5+minus         resize shrink width 40 px or 2 ppt, resize shrink height 40 px or 2 ppt, [floating con_id=__focused__] move right 20 px, move down 20 px
+
 # resize window (you can also use the mouse for that)
 set $resize "resize"
 mode $resize {
@@ -406,30 +433,30 @@ mode $resize {
     # They resize the border in the direction you pressed, e.g.
     # when pressing left, the window is resized so that it has
     # more space on its left
-    bindsym h               resize grow left 10 px or 10 ppt
-    bindsym Shift+h         resize shrink   left 10 px or 10 ppt
-
     bindsym j               resize grow down 10 px or 10 ppt
-    bindsym Shift+j         resize shrink   down 10 px or 10 ppt
+    bindsym Shift+j         resize shrink down 10 px or 10 ppt
+
+    bindsym h               resize grow left 10 px or 10 ppt
+    bindsym Shift+h         resize shrink left 10 px or 10 ppt
 
     bindsym k               resize grow up 10 px or 10 ppt
-    bindsym Shift+k         resize shrink   up 10 px or 10 ppt
+    bindsym Shift+k         resize shrink up 10 px or 10 ppt
 
     bindsym l               resize grow right 10 px or 10 ppt
-    bindsym Shift+l         resize shrink   right 10 px or 10 ppt
+    bindsym Shift+l         resize shrink right 10 px or 10 ppt
 
     # same bindings, but for the arrow keys
     bindsym Left            resize grow left 10 px or 10 ppt
-    bindsym Shift+Left      resize shrink   left 10 px or 10 ppt
+    bindsym Shift+Left      resize shrink left 10 px or 10 ppt
 
     bindsym Down            resize grow down 10 px or 10 ppt
-    bindsym Shift+Down      resize shrink   down 10 px or 10 ppt
+    bindsym Shift+Down      resize shrink down 10 px or 10 ppt
 
     bindsym Up              resize grow up 10 px or 10 ppt
-    bindsym Shift+Up        resize shrink   up 10 px or 10 ppt
+    bindsym Shift+Up        resize shrink up 10 px or 10 ppt
 
     bindsym Right           resize grow right 10 px or 10 ppt
-    bindsym Shift+Right     resize shrink   right 10 px or 10 ppt
+    bindsym Shift+Right     resize shrink right 10 px or 10 ppt
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -522,4 +549,3 @@ bar {
         urgent_workspace    $brclr  $bgclr_urgent       $fgclr
     }
 }
-

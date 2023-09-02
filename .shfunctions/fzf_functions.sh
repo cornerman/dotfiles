@@ -137,22 +137,36 @@ fni() {
   fi
 }
 
-# fawslogs - get aws log
-# example usage: fawslogs
+# aws functions
+
 fawslogs() {
   local group
   group=$(awslogs groups | fzf)
   if [ -n "$group" ]; then
-      awslogs get --watch $group --no-group --no-stream
+      awslogs get $group --no-group --no-stream $@
   fi
 }
 
-fassh() {
+fawsinstance() {
   local instance
-  instance=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].{InstanceId:InstanceId,Name:Tags[?Key=='Name']|[0].Value,Environment:Tags[?Key=='environment']|[0].Value,Status:State.Name}" | jq -r '[ flatten[] | select(.Status=="running") ] | map([.InstanceId,.Name,.Environment] | @csv)[]' | sed 's/,,/,"",/g' | sed s/,/\\t/g | column -t | tr -d '"' | fzf | cut -d' ' -f1)
+  aws ec2 describe-instances --query "Reservations[*].Instances[*].{InstanceId:InstanceId,Name:Tags[?Key=='Name']|[0].Value,Environment:Tags[?Key=='environment']|[0].Value,Status:State.Name}" | jq -r '[ flatten[] | select(.Status=="running") ] | map([.InstanceId,.Name,.Environment] | @csv)[]' | sed 's/,,/,"",/g' | sed s/,/\\t/g | column -t | tr -d '"' | fzf | cut -d' ' -f1
+}
+
+fawsssh() {
+  local instance
+  instance=$(fawsinstance)
   if [ -n "$instance" ]; then
       ssh $instance
   fi
+}
+
+fawssecrets() {
+    aws secretsmanager list-secrets | jq -r ".SecretList[] | [.Name,.Description] | @tsv" | fzf | cut -f 1 | xargs -I{} aws secretsmanager get-secret-value --secret-id {} --query "SecretString" | jq 'fromjson'
+}
+
+
+fawspassword() {
+    fawssecrets | jq -r ".password" | head -n 1 | xclip
 }
 
 fpr() {

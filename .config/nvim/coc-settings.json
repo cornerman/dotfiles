@@ -1,44 +1,44 @@
 {
     /* "metals.sbtScript": "/home/cornerman/bin/sbtc", */
     "languageserver": {
-        "tailwind-lsp": {
-            "command": "tailwindcss-language-server",
-            "args": ["--stdio"],
+        // "tailwind-lsp": {
+        //     "command": "tailwindcss-language-server",
+        //     "args": ["--stdio"],
 
-            "filetypes": [
-                "javascript",
-                "javascriptreact",
-                "typescript",
-                "typescriptreact",
-                "scala"
-            ],
+        //     "filetypes": [
+        //         "javascript",
+        //         "javascriptreact",
+        //         "typescript",
+        //         "typescriptreact",
+        //         "scala"
+        //     ],
 
-            "rootPatterns": [
-                "tailwind.config.js",
-                "tailwind.config.ts",
-                "postcss.config.js",
-                "postcss.config.ts",
-                "package.json",
-                "node_modules",
-                ".git"
-            ],
-            "settings": {
-                "tailwindCSS": {
-                    "validate": true,
-                    "lint": {
-                        "cssConflict": "warning",
-                        "invalidApply": "error",
-                        "invalidScreen": "error",
-                        "invalidVariant": "error",
-                        "invalidConfigPath": "error",
-                        "invalidTailwindDirective": "error",
-                        "recommendedVariantOrder": "warning"
-                    },
-                    "classAttributes": ["class", "cls", "className"],
-                    "experimental": {}
-                }
-            }
-        },
+        //     "rootPatterns": [
+        //         "tailwind.config.js",
+        //         "tailwind.config.ts",
+        //         "postcss.config.js",
+        //         "postcss.config.ts",
+        //         "package.json",
+        //         "node_modules",
+        //         ".git"
+        //     ],
+        //     "settings": {
+        //         "tailwindCSS": {
+        //             "validate": true,
+        //             "lint": {
+        //                 "cssConflict": "warning",
+        //                 "invalidApply": "error",
+        //                 "invalidScreen": "error",
+        //                 "invalidVariant": "error",
+        //                 "invalidConfigPath": "error",
+        //                 "invalidTailwindDirective": "error",
+        //                 "recommendedVariantOrder": "warning"
+        //             },
+        //             "classAttributes": ["class", "cls", "className"],
+        //             "experimental": {}
+        //         }
+        //     }
+        // },
         "terraform": {
             "command": "terraform-ls",
             "args": ["serve"],
@@ -48,19 +48,19 @@
             ],
             "initializationOptions": {},
             "settings": {}
-        },
-        "purescript": {
-            "command": "purescript-language-server",
-            "args": ["--stdio"],
-            "filetypes": ["purescript"],
-            "trace.server": "off",
-            "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"],
-            "settings": {
-                "purescript": {
-                    "addSpagoSources": true
-                }
-            }
         }
+        // "purescript": {
+        //     "command": "purescript-language-server",
+        //     "args": ["--stdio"],
+        //     "filetypes": ["purescript"],
+        //     "trace.server": "off",
+        //     "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"],
+        //     "settings": {
+        //         "purescript": {
+        //             "addSpagoSources": true
+        //         }
+        //     }
+        // }
     },
     /* "rust-client" : { */
     /*     "disableRustup" : true */
@@ -75,6 +75,7 @@
     /* "signature.target": "echo", */
     /* "coc.preferences.hoverTarget": "echo", */
     "suggest.floatEnable": false,
+    "suggest.noselect": true,
     "diagnostic.checkCurrentLine": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "html",

@@ -24,7 +24,7 @@ in {
   # nix-env -e common-packages
   packageOverrides = pkgs: rec {
 
-    inherit pkgs;
+    # inherit pkgs;
 
     vscode-liveshare = pkgs.vscode-with-extensions.override { vscodeExtensions = [ pkgs.vscode-extensions.ms-vsliveshare.vsliveshare ]; };
 
@@ -88,7 +88,7 @@ in {
         ncdu du-dust
         duf # du alternative
         sd # sed alternative
-        fzf fasd file silver-searcher
+        # fzf fasd file silver-searcher
         fuse-common
         autossh sshfs-fuse
         direnv
@@ -108,7 +108,7 @@ in {
         ripgrep
 
         neovim coursier # coursier needed for neovim plugins
-        python37Packages.pynvim
+        python310Packages.pynvim
       ];
 
     };

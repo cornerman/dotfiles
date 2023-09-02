@@ -33,10 +33,14 @@ fi
 echo "updating go modules..."
 go install github.com/jakm/msgpack-cli@latest
 
+echo "updating yarn global packages..."
+yarn global upgrade
+
 echo "updating zgen plugins..."
 source "$HOME/projects/zgenom/zgenom.zsh"
 zgenom update
 zgenom selfupdate
 
 echo "updating vim plugins..."
-vim +PlugUpgrade +PlugInstall +PlugUpdate +PlugClean! +qall
+vim +PlugUpgrade +PlugInstall +PlugUpdate +PlugClean! +CocUpdateSync +qall
+

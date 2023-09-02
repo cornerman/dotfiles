@@ -1,10 +1,20 @@
 alias ssh='TERM=xterm ssh'
-alias fassh='TERM=xterm fassh'
+alias fawsssh='TERM=xterm fawsssh'
+
+alias ns='nix-shell --run zsh'
 
 alias archive='tar -pczvf'
 
+# for mac script using gnu-sed
+alias gsed=sed
+
+alias gdiff=git diff --no-index
+
+
 alias grep='grep --color=auto'
 alias gr=grep
+
+alias ntop='sudo nethogs'
 
 alias g=git
 alias gut=git
@@ -17,7 +27,7 @@ alias gd='git dw --no-index'
 alias gitd='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare git'
 alias tigd='GIT_WORK_TREE=~ GIT_DIR=~/projects/dotfiles_bare tig'
 
-alias tm=terraform
+alias tf=terraform
 alias tg=terragrunt
 alias tp=npx talpini
 
@@ -86,14 +96,12 @@ sbt() {
 }
 alias on?='ping -c 1 8.8.8.8 && echo ":)" || echo ":("'
 
-alias dtls='gitd ls-tree --full-tree --name-only -r HEAD'
+alias cdp="cd $HOME/projects/\$(ls "$HOME/projects" -1 | fzf)"
 
-vd () {
-	(
-		file="$(dtls | fzf)"
-		[[ -n $file ]] && $EDITOR "$HOME/$file"
-	)
-}
+vd () (
+    file="$(gitd ls-tree --full-tree --name-only -r HEAD | fzf)"
+    [[ -n $file ]] && $EDITOR "$HOME/$file"
+)
 
 # alias vim="vim --servername vim-$$"
 alias vim=nvim
@@ -140,7 +148,6 @@ x() {
 note() {
     vim "$(date +"notes/%Y-%m-%d-$1.md")"
 }
-
 
 notes() {
     (

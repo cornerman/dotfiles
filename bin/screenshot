@@ -2,25 +2,25 @@
 
 SCREEN_DIR=~/shots/
 
-window='root'
-
-case $1 in
-    root)
-        window='root';;
-    active)
-        window=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | cut -d' ' -f5`;;
-esac
-
-if [ $window == "root" ];then
-    name='root'
-else
-    name=`xprop -id $window | sed -n '/WM_CLASS/s/.* = "\([^\"]*\)".*/\1\n/p'`
-    [ -z "$name" ] && name='window'
-fi
-
 mkdir -p $SCREEN_DIR
 filename="`date +%Y-%m-%d_%H-%M-%S`-$name.png"
 
-import -border -window $window "$SCREEN_DIR/$filename"
+case "$1" in
+    root)
+        scrot "$SCREEN_DIR/$filename"
+        ;;
+    focused)
+        scrot --focused "$SCREEN_DIR/$filename"
+        ;;
+    select)
+        scrot --select "$SCREEN_DIR/$filename"
+        ;;
+    gui)
+        flameshot gui -p "$SCREEN_DIR/$filename"
+        ;;
+    *)
+        echo "Nothing to do"
+        exit 1
+esac
 
 ln -sf "$filename" $SCREEN_DIR/last

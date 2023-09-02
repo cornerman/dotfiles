@@ -144,6 +144,8 @@ set backupdir=~/.vim/tmp
 
 " tell vim where to put swap files
 set directory=~/.vim/swp
+" disable swap files
+" set noswapfile
 
 " persistent undo history across sessions
 set undofile
@@ -287,6 +289,9 @@ function! QFixToggle(loc)
     endif
 endfunction
 
+" Y yanks till end of line
+nnoremap Y y$
+
 " toggle side effects on yank register when deleting/modifying text
 function! DisableSideEffects()
     noremap dd "_dd
@@ -294,7 +299,10 @@ function! DisableSideEffects()
     noremap d "_d
     noremap X "_X
     noremap x "_x
-    " vnoremap p "_dP
+    noremap x "_x
+    vnoremap p "_dP
+    unmap <leader>p
+    nnoremap <leader>p v$h"_dP
 endfunction
 function! EnableSideEffects()
     unmap dd
@@ -302,7 +310,9 @@ function! EnableSideEffects()
     unmap d
     unmap X
     unmap x
-    " vunmap p
+    vunmap p
+    unmap <leader>p
+    nnoremap <leader>p v$hp
 endfunction
 function! ToggleSideEffects()
     if mapcheck("dd", "n") == ""
@@ -313,8 +323,9 @@ function! ToggleSideEffects()
         echo 'side effects on'
     endif
 endfunction
-" call DisableSideEffects()
-vnoremap p "_dP
+
+" paste over rest of line
+nnoremap <leader>p v$hp
 
 " open commands for file lists
 command! -complete=file -nargs=* Etabe call s:ETW('tabnew', <f-args>)
@@ -386,13 +397,12 @@ nnoremap <leader><space> :call ToggleSideEffects()<CR>
 nnoremap <leader>/ :nohlsearch<CR>:echo<CR>
 
 " save some keystrokes
-" nnoremap ; :
+nnoremap ; :
 " nnoremap , ;
 nnoremap \ :update<CR>
 nnoremap <leader>\ :w suda://%<CR>:checktime<CR>
-nnoremap - _
-nnoremap + @m
-nnoremap _ qm
+nnoremap + qm
+nnoremap - @m
 
 "w!! writes file with root rights
 " cnoremap w!! w !sudo tee % >/dev/null
@@ -428,12 +438,6 @@ nnoremap <C-l>     <C-w>l
 " keep selection when indenting
 vnoremap < <gv
 vnoremap > >gv
-
-" Y yanks till end of line
-nnoremap Y y$
-
-" paste over rest of line
-nnoremap <leader>p v$hp
 
 " overwrite :e with :E
 cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
@@ -475,3 +479,4 @@ autocmd vimrc BufEnter * set noreadonly " no delay
 if !empty(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+

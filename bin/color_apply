@@ -15,7 +15,8 @@ case "$1" in
     echo 'Net/ThemeName "NumixSolarizedLightCyan"' > ~/.xsettingsd
     rm ~/.local/share/themes/current-theme
     ln -s ~/.local/share/themes/NumixSolarizedLightCyan ~/.local/share/themes/current-theme
-    (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/australia.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/australia.jpg --save) &
+    # (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/australia.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/australia.jpg --save) &
+    # TODO: feh switch
     ;;
 "dark")
     sed -i "s/^colors: \*light$/colors: *dark/" ~/.config/alacritty.yml
@@ -24,7 +25,8 @@ case "$1" in
     echo 'Net/ThemeName "NumixSolarizedDarkCyan"' > ~/.xsettingsd
     rm ~/.local/share/themes/current-theme
     ln -fs ~/.local/share/themes/NumixSolarizedDarkCyan ~/.local/share/themes/current-theme
-    (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/pier.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/pier.jpg --save) &
+    # (nitrogen --head=0 --set-zoom-fill ~/.wallpaper/pier.jpg --save && nitrogen --head=1 --set-zoom-fill ~/.wallpaper/pier.jpg --save) &
+    # TODO: feh switch
     ;;
 *)
     ;;
